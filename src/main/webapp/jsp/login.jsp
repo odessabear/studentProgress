@@ -1,20 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<center>
-    <div style="font-size:110%">
-	<pre><form action="/login" method="post">
-    <b style="font-size:120%">Вход</b> : <br>
+<div class="log-form-wrapper">
+    <form class="log-form" action="" method="get">
 
-	<b>Логин</b>     <input type="text" name="login"><br>
+        <div class="enter">
+            <strong style="font-size:120%">Вход</strong>
+        </div>
 
-       <b>Пароль</b>     <input type="text" name="password"><br>
+        <div class="login-input">
+            <label>Логин</label><input type="text" name="login">
+        </div>
 
-<b>Статуc</b>     <select name="role">
-					<option value="admin">Администратор</option>
-					<option value="student">Студент</option>
-		            </select><br>
+        <div class="password-input">
+            <label>Пароль</label><input type="text" name="password">
+        </div>
 
-  <input type="submit" value="Войти"><br></pre>
-        </form>
-    </div>
-</center>
+        <div class="status-input">
+            <label>Статуc</label><select>
+            <option>Администратор</option>
+            <option>Студент</option>
+        </select>
+        </div>
+
+        <div class="submit-input">
+            <input type="submit" value="Войти">
+        </div>
+
+    </form>
+</div>
