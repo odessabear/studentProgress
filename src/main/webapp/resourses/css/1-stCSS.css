@@ -245,7 +245,7 @@ table th, table td {
 .login-input,.password-input,.status-input,.submit-input{
 	margin-bottom:20px;
 }
-.enter{
+.title{
 	text-align:center;
 	margin-bottom:20px;
 }
@@ -257,19 +257,51 @@ table th, table td {
 	display:inline-block;	
 
 }
-.create-stud-form{
+.create-form{
 	width:350px;
 	margin:0 auto;
 }
-.create-stud-form  label{
+.create-form  label{
 	width:150px;
 	display:inline-block;
 	font-weight:bold;
 }
-.create-stud-form  input{
+.create-form  input{
 	width:150px;
 	display:inline-block;
 }
 .surname-input,.name-input,.group-input,.date-in-input{
 	margin-bottom:20px;
+}
+.warning{
+	text-align:center;
+	font-size:120%;
+}
+.discipline-input{
+	margin-bottom:20px;
+}
+.discipline-input label{
+	width:200px;
+	display:inline-block;
+	font-weight:bold;
+}
+.term-length-input,.term-discipline-input{
+	margin-bottom:20px;
+}
+.term-create-form label{
+	width:200px;
+	display:inline-block;
+	font-weight:bold;
+}
+.term-create-form input{
+	width:150px;
+	display:inline-block;
+}
+.term-create-form{
+	width:450px;
+	margin:0 auto;
+
+}
+.term-submit-input input{
+	margin-left:130px;
 }

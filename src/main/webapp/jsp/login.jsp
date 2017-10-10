@@ -3,7 +3,7 @@
 <div class="log-form-wrapper">
     <form class="log-form" action="" method="get">
 
-        <div class="enter">
+        <div class="title">
             <strong style="font-size:120%">Вход</strong>
         </div>
 

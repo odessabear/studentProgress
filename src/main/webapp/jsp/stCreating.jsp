@@ -11,7 +11,7 @@
 </div>
 
 <div class="log-form-wrapper">
-    <form class="create-stud-form" action="/action_page.php" method="get">
+    <form class="create-form" action="" method="post">
 
         <div class="surname-input">
             <label>Фамилия</label><input type="text" name="lname">
