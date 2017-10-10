@@ -1,7 +1,11 @@
 package database;
 
 
+import entity.Role;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBConection {
     private Connection conn = null;
@@ -16,14 +20,49 @@ public class DBConection {
         }
     }
 
-    public  boolean isAvailableUser(String login,String password){
+    public  int isAvailableUser(String login,String password){
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM student_progress.account where login = ? and password=?;");
             statement.setString(1,login);
             statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()){
-                return true;
+            while (resultSet.next()){
+                return resultSet.getInt("id_account");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public List<Role> getAllRoles(){
+        List<Role> roles = new ArrayList<Role>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM role");
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                Role role = new Role();
+                role.setId(result.getInt("id_role"));
+                role.setRole(result.getString("role"));
+                roles.add(role);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roles;
+    }
+
+
+    public boolean isCorrectRoleFromUser(int idAccount,int idRole){
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM student_progress.account_role WHERE id_account = ? and id_role = ?");
+            statement.setInt(1,idAccount);
+            statement.setInt(2,idRole);
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+               return true;
             }
 
         } catch (SQLException e) {

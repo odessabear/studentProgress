@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import entity.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +16,8 @@ import java.util.List;
 public class LogingControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<String> roles = new ArrayList<String>();
-        roles.add("student");
-        roles.add("administrator");
-        roles.add("teacher");
+        DBConection conection = new DBConection();
+        List<Role> roles = conection.getAllRoles();
 
         req.setAttribute("roles", roles);
 
@@ -33,11 +32,33 @@ public class LogingControler extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String role = req.getParameter("role");
+        int idRole = Integer.parseInt(role);
 
 
         DBConection conection = new DBConection();
-        if (conection.isAvailableUser(login,password)){
+        int idAccount=conection.isAvailableUser(login, password);
+        if (idAccount!=-1) {
+            if (conection.isCorrectRoleFromUser(idAccount,idRole)){
+                resp.sendRedirect("/home");
+            }else {
+                DBConection con = new DBConection();
+                List<Role> roles = con.getAllRoles();
 
+                req.setAttribute("roles", roles);
+                req.setAttribute("errorMessage", 2);
+
+                req.setAttribute("currentPage", "login.jsp");
+                req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
+            }
+        }else{
+            DBConection con = new DBConection();
+            List<Role> roles = con.getAllRoles();
+
+            req.setAttribute("roles", roles);
+            req.setAttribute("errorMessage", 1);
+
+            req.setAttribute("currentPage", "login.jsp");
+            req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
         }
 
     }

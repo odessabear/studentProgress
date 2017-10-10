@@ -12,7 +12,7 @@
 
 <div class="sub-header-wrapper">
     <h2 class="sub-header"><em>Система управления студентами и их успеваемостью</em></h2>
-    <c:if test="${currentPage ne 'login.jsp'}"><a class="logout-link" href="#">Logout</a></c:if>
+    <c:if test="${currentPage ne 'login.jsp'}"><a class="logout-link" href="/logout">Logout</a></c:if>
 
 </div>
 <br>
@@ -24,5 +24,17 @@
 </c:if>
 
 <jsp:include page="${currentPage}"/>
+<c:choose>
+    <c:when test="${errorMessage=='1'}">
+        Логин или пароль введены неверно.
+        <br />
+    </c:when>
+    <c:when test="${errorMessage=='2'}">
+        Вы вошли не под своей ролью.
+        <br />
+    </c:when>
+    <c:otherwise>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>
