@@ -6,35 +6,30 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<center>
-    <div style="font-size:120%">
-        <p> Для модификации семестра отредактируйте данные и нажмите кнопку "Создать".</p>
-        <pre><form action="/action_page.php" method="get">
-     Длительность (в неделях)       <input type="text" name="lname"><br>
-
-  Дисциплины в семестре
-                                    <select name="select" size="8" multiple>
-    <option selected value="s1">Информатика</option>
-    <option value="s2">Политология</option>
-    <option value="s3">Социология</option>
-    <option value="s4">Высшая Математика</option>
-	<option value="s4">Теория Алгоритмизации</option>
-	<option value="s4">Теория Игр</option>
-	<option value="s4">Булева Алгебра</option>
-	<option value="s4">Системный анализ</option>
-   </select><br>
-
-
-  <input type="submit" value="Применить"><br></pre>
-
-        </form><br>
-
-    </div>
-</center>
-</body>
-</html>
+<div class="title" style="font-size:120%">
+    <p> Для модификации семестра отредактируйте данные и нажмите кнопку "Создать".</p>
+</div>
+<div class="log-form-wrapper">
+    <form class="term-create-form" action="/action_page.php" method="get">
+        <div class="term-length-input">
+            <label>Длительность(в неделях)</label><input type="text" name="lname">
+        </div>
+        <div>
+            <div class="term-discipline-input">
+                <label>Дисциплины в семестре</label>
+                <select name="select" size="8" multiple>
+                    <option selected value="s1">Информатика</option>
+                    <option value="s2">Политология</option>
+                    <option value="s3">Социология</option>
+                    <option value="s4">Высшая Математика</option>
+                    <option value="s4">Теория Алгоритмизации</option>
+                    <option value="s4">Теория Игр</option>
+                    <option value="s4">Булева Алгебра</option>
+                    <option value="s4">Системный анализ</option>
+                </select>
+            </div>
+            <div class="term-submit-input">
+                <input type="submit" value="Применить">
+            </div>
+    </form>
+</div>

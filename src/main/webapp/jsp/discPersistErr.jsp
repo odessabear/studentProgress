@@ -19,3 +19,6 @@
         </div>
     </form>
 </div>
+<div class="warning">
+    <strong style="color:#ff0000">Поля не должны быть пустыми !!!</strong>
+</div>
