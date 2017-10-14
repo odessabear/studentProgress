@@ -5,12 +5,14 @@
   Time: 18:34
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="termslist-content-wrapper">
 
     <div class="admin-panel2">
         <a class="button" href="discCreating.html">Просмотреть выбранных студентов</a>
-        <a class="button" href="discModifying.html">Создать студента</a>
+        <a class="button" href="/student-create">Создать студента</a>
         <a class="button" href="discCreating.html">Модифицировать выбранного студента</a>
         <a class="button" href="discCreating.html">Удалить выбранного студента</a>
     </div><br>
@@ -30,41 +32,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Петров</td>
-                <td>Петр</td>
-                <td>КТ-21</td>
-                <td>1/09/2011</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Сидоров</td>
-                <td>Сидор</td>
-                <td>КТ-21</td>
-                <td>1/09/2011</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Иванов</td>
-                <td>Иван</td>
-                <td>КТ-21</td>
-                <td>1/09/2011</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Макаревич</td>
-                <td>Андрей</td>
-                <td>КТ-21</td>
-                <td>1/09/2011</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Бельгиец</td>
-                <td>Василий</td>
-                <td>КТ-21</td>
-                <td>1/09/2011</td>
-            </tr>
+            <c:forEach items="${students}" var="st">
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>${st.surname}</td>
+                    <td>${st.name}</td>
+                    <td>${st.group}</td>
+                    <td><fmt:formatDate pattern = "dd/MM/yyyy"
+                                        value = "${st.inDate}" /></td>
+                </tr>
+            </c:forEach>
+
+
             </tbody>
         </table><br>
         <br>

@@ -4,11 +4,24 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>disciplineList</title>
+    <c:choose>
+        <c:when test="${currentPage=='login.jsp'}">
+            <title>Вход в систему управления студентами</title>
+        </c:when>
+        <c:when test="${currentPage=='title.jsp'}">
+            <title>Система управления студентами</title>
+        </c:when>
+        <c:when test="${currentPage=='stCreating.jsp'}">
+            <title>Создание нового студента</title>
+        </c:when>
+
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
+
     <link rel="stylesheet" href="/resourses/css/1-stCSS.css">
 </head>
 <body>
-<h1>Disciplines List</h1>
 
 <div class="sub-header-wrapper">
     <h2 class="sub-header"><em>Система управления студентами и их успеваемостью</em></h2>
@@ -18,8 +31,10 @@
 <br>
 <c:if test="${currentPage ne 'login.jsp' && currentPage ne 'title.jsp'}">
     <div class="navigation-links">
-        <a href="back.html">Назад</a>
-        <a href="title.html">На главную</a>
+        <c:if test="${currentPage ne 'studentsList.jsp'}">
+            <a href="back.html">Назад</a>
+        </c:if>
+        <a href="/home">На главную</a>
     </div>
 </c:if>
 
@@ -27,11 +42,11 @@
 <c:choose>
     <c:when test="${errorMessage=='1'}">
         Логин или пароль введены неверно.
-        <br />
+        <br/>
     </c:when>
     <c:when test="${errorMessage=='2'}">
         Вы вошли не под своей ролью.
-        <br />
+        <br/>
     </c:when>
     <c:otherwise>
     </c:otherwise>
