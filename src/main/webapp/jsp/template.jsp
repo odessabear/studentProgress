@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="ru">
+<html >
 <head>
     <meta charset="utf-8">
     <c:choose>
@@ -24,6 +24,8 @@
     </c:choose>
 
     <link rel="stylesheet" href="/resourses/css/1-stCSS.css">
+    <script src="/resourses/js/jsFunction.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 
@@ -35,7 +37,7 @@
 <br>
 <c:if test="${currentPage ne 'login.jsp' && currentPage ne 'title.jsp'}">
     <div class="navigation-links">
-        <c:if test="${currentPage ne 'studentsList.jsp'}">
+        <c:if test="${currentPage ne 'studentsList.jsp' && currentPage ne 'discList.jsp' && currentPage ne 'termsList.jsp'}">
             <a href="back.html">Назад</a>
         </c:if>
         <a href="/home">На главную</a>
@@ -50,6 +52,10 @@
     </c:when>
     <c:when test="${errorMessage=='2'}">
         Вы вошли не под своей ролью.
+        <br/>
+    </c:when>
+    <c:when test="${errorMessage=='3'}">
+       Поле должно быть заполнено!
         <br/>
     </c:when>
     <c:otherwise>

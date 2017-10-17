@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: alexander.mikhailov
-  Date: 06.10.2017
-  Time: 18:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -26,7 +19,7 @@
             <c:forEach items="${disciplines}" var="discip">
                 <tr>
                     <td>
-                        <input type="checkbox">
+                        <input type="checkbox" name="idDisc" value="${discip.id}">
                     </td>
                     <td>
                             ${discip.name}
@@ -38,9 +31,10 @@
         </table>
     </div>
     <div class="admin-panel">
-        <a class="button" href="discCreating.html">Создать дисциплину</a>
+        <a class="button" href="/discipline-create.php">Создать дисциплину</a>
         <a class="button" href="discModifying.html">Модифицировать выбранную дисциплину</a>
-        <a class="button" href="discCreating.html">Удалить выбранную дисциплину</a>
+        <a class="button" onclick="deleteDiscipline()">Удалить выбранные дисциплины</a>
     </div>
+    <div id="formDeleteDiv"></div>
 </div>
 

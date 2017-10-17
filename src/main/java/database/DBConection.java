@@ -118,7 +118,7 @@ public class DBConection {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM term");
             ResultSet result = statement.executeQuery();
-            while (result.next()){
+            while (result.next()) {
                 Term term = new Term();
                 term.setId(result.getInt("id_term"));
                 term.setName(result.getString("terms_name"));
@@ -129,5 +129,17 @@ public class DBConection {
             e.printStackTrace();
         }
         return termsList;
+    }
+
+    public boolean insertDiscipline(String discipline) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO `discipline` (`discipline`) VALUES (?);");
+            statement.setString(1,discipline);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
