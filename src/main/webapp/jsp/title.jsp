@@ -2,7 +2,7 @@
 
 <div class = "links">
     <div><a href="/students-list">Студенты</a></div>
-    <div><a href="main.html">Дисциплины</a></div>
-    <div><a href="main.html">Семестры</a></div>
+    <div><a href="/discipline-list">Дисциплины</a></div>
+    <div><a href="/terms-list">Семестры</a></div>
 </div>
 

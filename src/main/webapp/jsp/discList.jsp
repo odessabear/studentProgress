@@ -5,12 +5,9 @@
   Time: 18:50
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+
 <div class="termslist-content-wrapper">
 
     <h3>Список дисциплин</h3>
@@ -26,47 +23,17 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    Высшая математика
-                </td>
-            </tr>
+            <c:forEach items="${disciplines}" var="discip">
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>
+                            ${discip.name}
+                    </td>
+                </tr>
+            </c:forEach>
 
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    Политология
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    История Науки и Техники
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    Информатика
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox">
-                </td>
-                <td>
-                    Теория Алгоритмизации
-                </td>
-            </tr>
             </tbody>
         </table>
     </div>
@@ -76,5 +43,4 @@
         <a class="button" href="discCreating.html">Удалить выбранную дисциплину</a>
     </div>
 </div>
-</body>
-</html>
+

@@ -1,8 +1,10 @@
 package database;
 
 
+import entity.Discipline;
 import entity.Role;
 import entity.Student;
+import entity.Term;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class DBConection {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM student where status=1");
             ResultSet result = statement.executeQuery();
-            while (result.next()){
+            while (result.next()) {
                 Student student = new Student();
                 student.setId(result.getInt("id_student"));
                 student.setName(result.getString("name"));
@@ -92,5 +94,40 @@ public class DBConection {
         }
 
         return studentList;
+    }
+
+    public List<Discipline> getAllDisciplines() {
+        List<Discipline> disciplineList = new ArrayList<Discipline>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM discipline");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Discipline discipline = new Discipline();
+                discipline.setId(result.getInt("id_discipline"));
+                discipline.setName(result.getString("discipline"));
+                disciplineList.add(discipline);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return disciplineList;
+    }
+
+    public List<Term> getTermsList() {
+        List<Term> termsList = new ArrayList<Term>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM term");
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                Term term = new Term();
+                term.setId(result.getInt("id_term"));
+                term.setName(result.getString("terms_name"));
+                term.setDuration(result.getInt("duration"));
+                termsList.add(term);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return termsList;
     }
 }

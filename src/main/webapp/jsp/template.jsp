@@ -11,8 +11,12 @@
         <c:when test="${currentPage=='title.jsp'}">
             <title>Система управления студентами</title>
         </c:when>
-        <c:when test="${currentPage=='stCreating.jsp'}">
-            <title>Создание нового студента</title>
+
+        <c:when test="${currentPage=='discList.jsp'}">
+            <title>Список дисциплин</title>
+        </c:when>
+        <c:when test="${currentPage=='termsList.jsp'}">
+            <title>Список Семестров</title>
         </c:when>
 
         <c:otherwise>
