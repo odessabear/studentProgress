@@ -99,7 +99,7 @@ public class DBConection {
     public List<Discipline> getAllDisciplines() {
         List<Discipline> disciplineList = new ArrayList<Discipline>();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM discipline");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM discipline WHERE status=1");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Discipline discipline = new Discipline();
@@ -134,12 +134,40 @@ public class DBConection {
     public boolean insertDiscipline(String discipline) {
         try {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO `discipline` (`discipline`) VALUES (?);");
-            statement.setString(1,discipline);
+            statement.setString(1, discipline);
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+
+    }
+
+    public void deleteDiscipline(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE `discipline` SET `status`='0' WHERE `id_discipline`=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Discipline getDisciplineById(int id) {
+        Discipline discipline = new Discipline();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM 'discipline' WHERE id_discipline=?");
+            statement.setInt(1,id);
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                discipline.setId(id);
+                discipline.setName(result.getString("discipline"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return discipline;
+
     }
 }

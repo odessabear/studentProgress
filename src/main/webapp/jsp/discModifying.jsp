@@ -12,7 +12,7 @@
 <div class="log-form-wrapper">
     <form class="create-form" action="" method="get">
         <div class="discipline-input">
-            <label>Название дисциплины</label><input type="text" name="lname">
+            <label>Название дисциплины</label><input type="text" name="lname" value="${discipline.name}">
         </div>
         <div class="submit-input">
             <input type="submit" value="Применить">

@@ -30,8 +30,11 @@ public class DisciplineCreateControler extends HttpServlet {
         boolean result = conection.insertDiscipline(discipline);
         if (result) {
             resp.sendRedirect("/discipline-list");
-        } else {
 
+        } else {
+            req.setAttribute("errorMessage",4);
+            req.setAttribute("currentPage", "discCreating.jsp");
+            req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
         }
     }
 }

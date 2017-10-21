@@ -32,9 +32,15 @@
     </div>
     <div class="admin-panel">
         <a class="button" href="/discipline-create.php">Создать дисциплину</a>
-        <a class="button" href="discModifying.html">Модифицировать выбранную дисциплину</a>
+        <a class="button" onclick="modifyDiscipline()">Модифицировать выбранную дисциплину</a>
         <a class="button" onclick="deleteDiscipline()">Удалить выбранные дисциплины</a>
     </div>
     <div id="formDeleteDiv"></div>
+    <div id="formModifyDiv">
+        <form id="formModify" action="/discipline-modify" method="post">
+            <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
+        </form>
+    </div>
+
 </div>
 

@@ -1,6 +1,7 @@
 function deleteDiscipline() {
     var checkboxes = document.getElementsByName("idDisc");
     var checkboxesChecked ='';
+
     // loop over them all
     for (var i=0; i<checkboxes.length; i++) {
         // And stick the checked ones onto an array...
@@ -14,7 +15,27 @@ function deleteDiscipline() {
         return;
     }
 
-    var data='<form id="formdelete" class="create-form" action="/discipline-delete" method="post"><input type="hidden" name="checkboxes"value="'+checkboxesChecked+'"/></form>'
+
+
+    var data='<form id="formdelete" action="/discipline-delete" method="post"><input type="hidden" name="checkboxes"value="'+checkboxesChecked+'"/></form>'
     document.getElementById('formDeleteDiv').innerHTML = data;
     document.getElementById("formdelete").submit();
+}
+
+function modifyDiscipline() {
+    var checkedboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    var count=checkedboxes.length;
+
+    if(count==0){
+        alert("Ни один из элементов не выбран");
+        return;
+    }
+
+    if(count>1){
+        alert("Вы можете выбрать только одну дсциплину");
+        return;
+    }
+
+    document.getElementById("checkboxesModify").value = checkedboxes[0].value;
+    document.getElementById("formModify").submit();
 }

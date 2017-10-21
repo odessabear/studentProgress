@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="utf-8">
     <c:choose>
@@ -56,6 +56,10 @@
     </c:when>
     <c:when test="${errorMessage=='3'}">
        Поле должно быть заполнено!
+        <br/>
+    </c:when>
+    <c:when test="${errorMessage=='4'}">
+        Что-то пощло не так.Попробуйте позже.
         <br/>
     </c:when>
     <c:otherwise>
