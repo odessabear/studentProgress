@@ -157,7 +157,7 @@ public class DBConection {
     public Discipline getDisciplineById(int id) {
         Discipline discipline = new Discipline();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM 'discipline' WHERE id_discipline=?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM `discipline` WHERE id_discipline=?");
             statement.setInt(1,id);
             ResultSet result = statement.executeQuery();
             while (result.next()){
@@ -169,5 +169,16 @@ public class DBConection {
         }
         return discipline;
 
+    }
+
+    public void modifyingDisciplineById(int idDisipline, String disciplineName) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE `student_progress`.`discipline` SET `discipline`=? WHERE `id_discipline`= ?");
+            statement.setString(1,disciplineName);
+            statement.setInt(2,idDisipline);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
