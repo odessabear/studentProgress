@@ -1,9 +1,14 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Term {
     private int id;
     private String name;
     private int duration;
+    private List<Discipline> disciplines = new ArrayList<>();
 
     public Term() {
     }
@@ -38,32 +43,28 @@ public class Term {
         this.duration = duration;
     }
 
+    public List<Discipline> getDisciplines() {
+        return disciplines;
+    }
+
+    public void setDisciplines(List<Discipline> disciplines) {
+        this.disciplines = disciplines;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Term term = (Term) o;
-
-        if (id != term.id) return false;
-        if (duration != term.duration) return false;
-        return name != null ? name.equals(term.name) : term.name == null;
+        return id == term.id &&
+                duration == term.duration &&
+                Objects.equals(name, term.name) &&
+                Objects.equals(disciplines, term.disciplines);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + duration;
-        return result;
-    }
 
-    @Override
-    public String toString() {
-        return "Term{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", duration=" + duration +
-                '}';
+        return Objects.hash(id, name, duration, disciplines);
     }
 }

@@ -4,7 +4,7 @@
 </div>
 
 <div class="log-form-wrapper">
-    <form class="create-form" action="" method="get">
+    <form class="create-form" action="/students-modifying" method="post">
 
         <div class="surname-input">
             <label>Фамилия</label><input type="text" name="lname">

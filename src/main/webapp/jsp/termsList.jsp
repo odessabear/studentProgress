@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: alexander.mikhailov
-  Date: 06.10.2017
-  Time: 18:55
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,6 +9,7 @@
     <form action="select1.php" method="post">
         <label>Выбрать семестр</label>
         <select>
+
             <option>Семестр 1</option>
             <option>Семестр 2</option>
             <option>Семестр 3</option>
