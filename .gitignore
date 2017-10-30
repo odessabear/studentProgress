@@ -7,5 +7,9 @@ out/
 .idea/dictionaries
 
 # idea files
-.ipr
-.iml
+*.ipr
+*.iml
+
+.idea/**
+.idea/*.*
+
