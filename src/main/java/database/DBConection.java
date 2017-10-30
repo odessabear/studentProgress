@@ -116,7 +116,15 @@ public class DBConection {
     public List<Term> getTermsList() {
         List<Term> termsList = new ArrayList<Term>();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM term");
+            PreparedStatement statement = conn.prepareStatement("SELECT \n" +
+                    "t.id_term as id,\n" +
+                    "t.terms_name as name,\n" +
+                    "t.duration,\n" +
+                    "d.id_discipline,\n" +
+                    "d.discipline\n" +
+                    "FROM term_disciplin as td\n" +
+                    "left join term as t on td.id_term=t.id_term\n" +
+                    "left join discipline as d on td.id_discipline=d.id_discipline where status = 1");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Term term = new Term();
@@ -158,9 +166,9 @@ public class DBConection {
         Discipline discipline = new Discipline();
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM `discipline` WHERE id_discipline=?");
-            statement.setInt(1,id);
+            statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
-            while (result.next()){
+            while (result.next()) {
                 discipline.setId(id);
                 discipline.setName(result.getString("discipline"));
             }
@@ -174,11 +182,31 @@ public class DBConection {
     public void modifyingDisciplineById(int idDisipline, String disciplineName) {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE `student_progress`.`discipline` SET `discipline`=? WHERE `id_discipline`= ?");
-            statement.setString(1,disciplineName);
-            statement.setInt(2,idDisipline);
+            statement.setString(1, disciplineName);
+            statement.setInt(2, idDisipline);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public void insertNewStudent(String surname, String name, String group, Timestamp timestamp) {
+
+        try {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO `student` (`surname`, `name`, `groupe`, `entry_date`) VALUES (?,?,?,?)");
+
+            statement.setString(1, surname);
+            statement.setString(2, name);
+            statement.setString(3, group);
+            statement.setTimestamp(4,timestamp);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
+
+
+

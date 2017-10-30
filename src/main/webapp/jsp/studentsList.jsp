@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: alexander.mikhailov
-  Date: 06.10.2017
-  Time: 18:34
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +7,7 @@
     <div class="admin-panel2">
         <a class="button" href="discCreating.html">Просмотреть выбранных студентов</a>
         <a class="button" href="/student-create">Создать студента</a>
-        <a class="button" href="discCreating.html">Модифицировать выбранного студента</a>
+        <a class="button" href="/students-modifying">Модифицировать выбранного студента</a>
         <a class="button" href="discCreating.html">Удалить выбранного студента</a>
     </div><br>
     <br>
