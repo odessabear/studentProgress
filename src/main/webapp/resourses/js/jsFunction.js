@@ -39,3 +39,20 @@ function modifyDiscipline() {
     document.getElementById("checkboxesModify").value = checkedboxes[0].value;
     document.getElementById("formModify").submit();
 }
+function modifyStudent() {
+    var checkedboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    var count=checkedboxes.length;
+
+    if(count==0){
+        alert("Ни один из элементов не выбран");
+        return;
+    }
+
+    if(count>1){
+        alert("Вы можете выбрать только одного студента");
+        return;
+    }
+
+    document.getElementById("checkboxesModify").value = checkedboxes[0].value;
+    document.getElementById("formModify").submit();
+}

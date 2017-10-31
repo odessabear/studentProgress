@@ -7,9 +7,15 @@
     <div class="admin-panel2">
         <a class="button" href="discCreating.html">Просмотреть выбранных студентов</a>
         <a class="button" href="/student-create">Создать студента</a>
-        <a class="button" href="/students-modifying">Модифицировать выбранного студента</a>
+        <a class="button" onclick="modifyStudent()">Модифицировать выбранного студента</a>
         <a class="button" href="discCreating.html">Удалить выбранного студента</a>
     </div><br>
+    <div id="formDeleteDiv"></div>
+    <div id="formModifyDiv">
+        <form id="formModify" action="/students-modifying" method="post">
+            <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
+        </form>
+    </div>
     <br>
 
     <h3>Список студентов</h3>

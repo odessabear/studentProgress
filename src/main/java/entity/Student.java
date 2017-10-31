@@ -56,7 +56,7 @@ public class Student {
         return inDate;
     }
 
-    public void setInDate(Timestamp inDate) {
+    public void setInDate() {
         this.inDate = inDate;
     }
 

@@ -1,5 +1,8 @@
 package controlers;
 
+import database.DBConection;
+import entity.Student;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +12,17 @@ import java.io.IOException;
 
 @WebServlet(name = "StudentModifyControler", urlPatterns = {"/students-modifying"})
 public class StudentModifyControler extends HttpServlet{
+
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setAttribute("currentPage", "discModifying.jsp");
+        String idstr = req.getParameter("checkboxesModify");
+        int id = Integer.parseInt(idstr);
+        DBConection conection = new DBConection();
+        Student student= conection.getStudentById(id);
+        req.setAttribute("student",student);
+        req.setAttribute("currentPage", "stModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
+
     }
 }
