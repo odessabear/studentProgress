@@ -34,7 +34,7 @@
             <tbody>
             <c:forEach items="${students}" var="st">
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" value="${st.id}"></td>
                     <td>${st.surname}</td>
                     <td>${st.name}</td>
                     <td>${st.group}</td>
@@ -42,7 +42,6 @@
                                         value = "${st.inDate}" /></td>
                 </tr>
             </c:forEach>
-
 
             </tbody>
         </table><br>

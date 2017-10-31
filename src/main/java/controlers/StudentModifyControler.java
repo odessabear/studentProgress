@@ -19,6 +19,7 @@ public class StudentModifyControler extends HttpServlet{
         String idstr = req.getParameter("checkboxesModify");
         int id = Integer.parseInt(idstr);
         DBConection conection = new DBConection();
+
         Student student= conection.getStudentById(id);
         req.setAttribute("student",student);
         req.setAttribute("currentPage", "stModifying.jsp");

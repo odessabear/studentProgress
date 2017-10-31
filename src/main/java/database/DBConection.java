@@ -17,7 +17,7 @@ public class DBConection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/student_progress?user=root&password=root&characterEncoding=utf-8");
+                    .getConnection("jdbc:mysql://localhost:3306/student_progress?user=root&password=Faster1218&characterEncoding=utf-8");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class DBConection {
                 student.setName(result.getString("name"));
                 student.setSurname(result.getString("surname"));
                 student.setGroup(result.getString("groupe"));
-                student.setInDate();
+                student.setInDate(result.getTimestamp("entry_date"));
                 studentList.add(student);
 
             }
@@ -214,17 +214,32 @@ public class DBConection {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
 
-            while (result.next())
+            while (result.next()) {
                 student.setId(id);
                 student.setSurname(result.getString("surname"));
                 student.setName(result.getString("name"));
                 student.setGroup(result.getString("groupe"));
-                student.setInDate();
+                student.setInDate(result.getTimestamp("entry_date"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return student;
 
+    }
+
+    public void updateStudent(int id, String surname, String name, String group, Timestamp timestamp) {
+        try {
+            PreparedStatement statement=conn.prepareStatement("UPDATE `student` SET `surname`=?, `name`=?, `groupe`=?, `entry_date`=? WHERE `id_student`=?");
+            statement.setString(1,surname);
+            statement.setString(2,name);
+            statement.setString(3,group);
+            statement.setTimestamp(4,timestamp);
+            statement.setInt(5,id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

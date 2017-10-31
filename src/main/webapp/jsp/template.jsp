@@ -41,7 +41,20 @@
 <c:if test="${currentPage ne 'login.jsp' && currentPage ne 'title.jsp'}">
     <div class="navigation-links">
         <c:if test="${currentPage ne 'studentsList.jsp' && currentPage ne 'discList.jsp' && currentPage ne 'termsList.jsp'}">
-            <a href="back.html">Назад</a>
+            <c:choose>
+                <c:when test="${ currentPage =='discModifying.jsp' ||  currentPage =='discCreating.jsp'}">
+                    <a href="/discipline-list">Назад</a>
+                </c:when>
+                <c:when test="${ currentPage =='stModifying.jsp'}">
+                    <a href="/students-list">Назад</a>
+                </c:when>
+                <c:otherwise>
+                </c:otherwise>
+                <%--<c:when test="${errorMessage=='3'}">--%>
+                    <%--<a href="/terms-list">Назад</a>--%>
+                <%--</c:when>--%>
+            </c:choose>
+
         </c:if>
         <a href="/home">На главную</a>
     </div>
