@@ -1,10 +1,7 @@
 package database;
 
 
-import entity.Discipline;
-import entity.Role;
-import entity.Student;
-import entity.Term;
+import entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -240,17 +237,18 @@ public class DBConection {
 
     public void updateStudent(int id, String surname, String name, String group, Timestamp timestamp) {
         try {
-            PreparedStatement statement=conn.prepareStatement("UPDATE `student` SET `surname`=?, `name`=?, `groupe`=?, `entry_date`=? WHERE `id_student`=?");
-            statement.setString(1,surname);
-            statement.setString(2,name);
-            statement.setString(3,group);
-            statement.setTimestamp(4,timestamp);
-            statement.setInt(5,id);
+            PreparedStatement statement = conn.prepareStatement("UPDATE `student` SET `surname`=?, `name`=?, `groupe`=?, `entry_date`=? WHERE `id_student`=?");
+            statement.setString(1, surname);
+            statement.setString(2, name);
+            statement.setString(3, group);
+            statement.setTimestamp(4, timestamp);
+            statement.setInt(5, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     public void deleteStudent(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE `student` SET `status`='0' WHERE `id_student`=?;");
@@ -260,6 +258,27 @@ public class DBConection {
             e.printStackTrace();
         }
     }
+
+    public List<Mark> getStudentsMarks() {
+        List<Mark> marks = new ArrayList<>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM mark");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Mark mark = new Mark();
+                mark.setId(resultSet.getInt("id_mark"));
+                mark.setId(resultSet.getInt("id_student"));
+                mark.setId(resultSet.getInt("id_term_discipline"));
+                mark.setId(resultSet.getInt("mark"));
+                marks.add(mark);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return marks;
+    }
+
 }
 
 
