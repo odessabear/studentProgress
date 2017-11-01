@@ -12,33 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@WebServlet(name = "DeleteDisciplineControler", urlPatterns = {"/discipline-delete", "/discipline-delete/"})
-public class DeleteDisciplineControler extends HttpServlet{
-
-    private DBConection conection = new DBConection();
+@WebServlet(name = "DeleteStudentControler", urlPatterns = {"/students-deleting"})
+public class DeleteStudentControler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String checkboxes = req.getParameter("checkboxes");
-        StringTokenizer stringTokenizer = new StringTokenizer(checkboxes, "|");
-        List<String> ids = new ArrayList<String>();
+        StringTokenizer stringTokenizer = new StringTokenizer(checkboxes,"|");
+        List<String> ids = new ArrayList<>();
         while (stringTokenizer.hasMoreTokens()){
             ids.add(stringTokenizer.nextToken());
         }
 
-        for (String idstr:ids){
-            int id=Integer.parseInt(idstr);
-            conection.deleteDiscipline(id);
+        DBConection conection = new DBConection();
+        for (String idStr:ids){
+            int id=Integer.parseInt(idStr);
+            conection.deleteStudent(id);
         }
-        resp.sendRedirect("/discipline-list");
-    }
+        resp.sendRedirect("/students-list");
 
-    // MOVE THIS TO SPRING-CONTROLLED LIFECYCLE
-
-
-    @Override
-    public void destroy() {
-        conection.disconnect();
-        super.destroy();
     }
 }

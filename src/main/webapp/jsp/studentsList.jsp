@@ -5,10 +5,10 @@
 <div class="termslist-content-wrapper">
 
     <div class="admin-panel2">
-        <a class="button" href="discCreating.html">Просмотреть выбранных студентов</a>
+        <a class="button" href="/students-progress">Просмотреть выбранных студентов</a>
         <a class="button" href="/student-create">Создать студента</a>
         <a class="button" onclick="modifyStudent()">Модифицировать выбранного студента</a>
-        <a class="button" href="discCreating.html">Удалить выбранного студента</a>
+        <a class="button" onclick="deleteStudent()">Удалить выбранного студента</a>
     </div><br>
     <div id="formDeleteDiv"></div>
     <div id="formModifyDiv">
@@ -34,7 +34,7 @@
             <tbody>
             <c:forEach items="${students}" var="st">
                 <tr>
-                    <td><input type="checkbox" value="${st.id}"></td>
+                    <td><input type="checkbox" name="idStudent" value="${st.id}"></td>
                     <td>${st.surname}</td>
                     <td>${st.name}</td>
                     <td>${st.group}</td>

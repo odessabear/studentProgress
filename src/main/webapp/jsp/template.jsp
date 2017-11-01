@@ -45,14 +45,15 @@
                 <c:when test="${ currentPage =='discModifying.jsp' ||  currentPage =='discCreating.jsp'}">
                     <a href="/discipline-list">Назад</a>
                 </c:when>
-                <c:when test="${ currentPage =='stModifying.jsp'}">
+                <c:when test="${ currentPage =='stModifying.jsp' ||  currentPage =='stCreating.jsp'}">
                     <a href="/students-list">Назад</a>
+                </c:when>
+                <c:when test="${ currentPage =='termModifying.jsp' ||  currentPage =='termCreating.jsp'}">
+                    <a href="/terms-list">Назад</a>
                 </c:when>
                 <c:otherwise>
                 </c:otherwise>
-                <%--<c:when test="${errorMessage=='3'}">--%>
-                    <%--<a href="/terms-list">Назад</a>--%>
-                <%--</c:when>--%>
+
             </c:choose>
 
         </c:if>

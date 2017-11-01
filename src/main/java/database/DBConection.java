@@ -17,9 +17,19 @@ public class DBConection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/student_progress?user=root&password=Faster1218&characterEncoding=utf-8");
+                    .getConnection("jdbc:mysql://localhost:3306/student_progress?user=root&password=root&characterEncoding=utf-8");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void disconnect() {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -236,6 +246,15 @@ public class DBConection {
             statement.setString(3,group);
             statement.setTimestamp(4,timestamp);
             statement.setInt(5,id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteStudent(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE `student` SET `status`='0' WHERE `id_student`=?;");
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

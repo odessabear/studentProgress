@@ -45,7 +45,7 @@ public class StudentCreateControler extends HttpServlet {
 
         Timestamp timestamp = null;
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date parsedDate = dateFormat.parse(intDate);
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
         } catch (Exception e) {
