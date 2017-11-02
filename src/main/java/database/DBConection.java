@@ -3,6 +3,7 @@ package database;
 
 import entity.*;
 
+import java.net.InetAddress;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,23 @@ import java.util.List;
 public class DBConection {
     private Connection conn = null;
 
+    private static final String LAPTOP_PC_NAME = "X501A";
+
     public DBConection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/student_progress?user=root&password=root&characterEncoding=utf-8");
+
+            String computerName = System.getProperty("user.name");
+            String password = "root"; // default one
+
+            if (computerName.toLowerCase().equals(LAPTOP_PC_NAME.toLowerCase())) {
+                password = "Faster1218";
+            }
+
+            String connectionUrl = "jdbc:mysql://localhost:3306/student_progress?user=root&password="
+                    + password + "&characterEncoding=utf-8";
+
+            conn = DriverManager.getConnection(connectionUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
