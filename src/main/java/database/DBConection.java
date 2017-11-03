@@ -6,6 +6,8 @@ import entity.*;
 import java.net.InetAddress;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DBConection {
@@ -148,11 +150,14 @@ public class DBConection {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Term term = new Term();
-                term.setId(result.getInt("id_term"));
-                term.setName(result.getString("terms_name"));
+                term.setId(result.getInt("id"));
+                term.setName(result.getString("name"));
                 term.setDuration(result.getInt("duration"));
+                term.setDisciplines(Collections.singletonList(new Discipline(result.getInt("id_discipline"), result.getString("discipline"))));
                 termsList.add(term);
             }
+
+            System.out.println("terms: " + Arrays.deepToString(termsList.toArray()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

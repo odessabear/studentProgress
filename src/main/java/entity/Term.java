@@ -67,4 +67,14 @@ public class Term {
 
         return Objects.hash(id, name, duration, disciplines);
     }
+
+    @Override
+    public String toString() {
+        return "Term{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", duration=" + duration +
+                ", disciplines=" + disciplines +
+                '}';
+    }
 }
