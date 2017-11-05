@@ -5,10 +5,7 @@ import entity.*;
 
 import java.net.InetAddress;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DBConection {
     private Connection conn = null;
@@ -136,9 +133,9 @@ public class DBConection {
     }
 
     public List<Term> getTermsList() {
-        List<Term> termsList = new ArrayList<Term>();
+        List<Term> termsList = new LinkedList<>();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT \n" +
+            PreparedStatement statement = conn.prepareStatement("SELECT DISTINCT \n" +
                     "t.id_term as id,\n" +
                     "t.terms_name as name,\n" +
                     "t.duration,\n" +
@@ -146,18 +143,44 @@ public class DBConection {
                     "d.discipline\n" +
                     "FROM term_disciplin as td\n" +
                     "left join term as t on td.id_term=t.id_term\n" +
-                    "left join discipline as d on td.id_discipline=d.id_discipline where status = 1");
+                    "left join discipline as d on td.id_discipline=d.id_discipline where status = 1 order by id");
             ResultSet result = statement.executeQuery();
+            int lastIdTerm = -1;
             while (result.next()) {
-                Term term = new Term();
-                term.setId(result.getInt("id"));
-                term.setName(result.getString("name"));
-                term.setDuration(result.getInt("duration"));
-                term.setDisciplines(Collections.singletonList(new Discipline(result.getInt("id_discipline"), result.getString("discipline"))));
-                termsList.add(term);
+                if (lastIdTerm == -1) {
+                    Term term = new Term();
+                    term.setId(result.getInt("id"));
+                    term.setName(result.getString("name"));
+                    term.setDuration(result.getInt("duration"));
+                    lastIdTerm = term.getId();
+                    Discipline discipline = new Discipline();
+                    discipline.setId(result.getInt("id_discipline"));
+                    discipline.setName(result.getString("discipline"));
+                    term.addDiscipline(discipline);
+                    termsList.add(term);
+                } else {
+                    if (lastIdTerm == result.getInt("id")) {
+                        Discipline discipline = new Discipline();
+                        discipline.setId(result.getInt("id_discipline"));
+                        discipline.setName(result.getString("discipline"));
+                        Term term = termsList.remove(termsList.size() - 1);
+                        term.addDiscipline(discipline);
+                        termsList.add(term);
+                    } else {
+                        Term term = new Term();
+                        term.setId(result.getInt("id"));
+                        term.setName(result.getString("name"));
+                        term.setDuration(result.getInt("duration"));
+                        lastIdTerm = term.getId();
+                        Discipline discipline = new Discipline();
+                        discipline.setId(result.getInt("id_discipline"));
+                        discipline.setName(result.getString("discipline"));
+                        term.addDiscipline(discipline);
+                        termsList.add(term);
+                    }
+                }
             }
 
-            System.out.println("terms: " + Arrays.deepToString(termsList.toArray()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

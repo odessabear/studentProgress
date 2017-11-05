@@ -3,35 +3,45 @@
 <html>
 <head>
     <title>Title</title>
+
 </head>
 <body>
-<div class="termslist-content-wrapper">
-    <form action="select1.php" method="post">
-        <label>Выбрать семестр</label>
-        <select>
 
-            <option>Семестр 1</option>
-            <option>Семестр 2</option>
-            <option>Семестр 3</option>
+<div class="termslist-content-wrapper">
+    <form action="/terms-list" method="post" id="idForm">
+        <label>Выбрать семестр</label>
+        <select id="select-term">
+            <c:forEach items="${terms}" var="term">
+                <option value="${term.id}">${term.name}</option>
+            </c:forEach>
         </select>
     </form>
-    <h3>Длительность семестра: 24 недели</h3>
+    <h3>Длительность семестра: ${duration}</h3>
 
     <h4>Список дисциплин</h4>
 
     <ul class="discipline">
-        <li>Высшая Математика</li>
-        <li>Политология</li>
-        <li>История Науки и Техники</li>
-        <li>Информатика</li>
-        <li>Теория Алгоритмизации</li>
+        <c:forEach items="${disciplineList}" var="disc">
+            <li>${disc.name}</li>
+        </c:forEach>
     </ul>
+
 
     <div class="admin-panel">
         <a class="button" href="termCreating.html">Создать семестр</a>
         <a class="button" href="termModifying.html">Модифицировать ввыбранный семестр</a>
         <a class="button" href="termCreating.html">Удалить выбранный семестр</a>
     </div>
+    <script>
+        $( "#select-term" ).change(function() {
+          var idTerm = $( "select#select-term option:checked" ).val();
+            var input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "idTerm").val(idTerm);
+            $('#idForm').append($(input));
+          $( "#idForm" ).submit();
+        });
+    </script>
 </div>
 </body>
 </html>

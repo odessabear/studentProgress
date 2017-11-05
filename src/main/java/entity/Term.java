@@ -77,4 +77,8 @@ public class Term {
                 ", disciplines=" + disciplines +
                 '}';
     }
+
+    public void addDiscipline(Discipline discipline){
+        disciplines.add(discipline);
+    }
 }
