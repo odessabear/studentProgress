@@ -160,6 +160,7 @@ public class DBConection {
                     termsList.add(term);
                 } else {
                     if (lastIdTerm == result.getInt("id")) {
+
                         Discipline discipline = new Discipline();
                         discipline.setId(result.getInt("id_discipline"));
                         discipline.setName(result.getString("discipline"));

@@ -8,9 +8,9 @@
 <body>
 
 <div class="termslist-content-wrapper">
-    <form action="/terms-list" method="post" id="idForm">
+    <form action="/terms-select" method="post" id="idForm">
         <label>Выбрать семестр</label>
-        <select id="select-term">
+        <select id="select-term"  onclick="refreshPage()">
             <c:forEach items="${terms}" var="term">
                 <option value="${term.id}">${term.name}</option>
             </c:forEach>
@@ -33,14 +33,24 @@
         <a class="button" href="termCreating.html">Удалить выбранный семестр</a>
     </div>
     <script>
-        $( "#select-term" ).change(function() {
-          var idTerm = $( "select#select-term option:checked" ).val();
+        // $( "#select-term" ).select(function() {
+        //   var idTerm = $( "select#select-term option:checked" ).val();
+        //     var input = $("<input>")
+        //         .attr("type", "hidden")
+        //         .attr("name", "idTerm").val(idTerm);
+        //     $('#idForm').append($(input));
+        //   $( "#idForm" ).submit();
+        // });
+
+        function refreshPage() {
+            var x = document.getElementById("select-term").selectedIndex;
+            var idTerm = $( "select#select-term option:checked" ).val();
             var input = $("<input>")
-                .attr("type", "hidden")
-                .attr("name", "idTerm").val(idTerm);
+                    .attr("type", "hidden")
+                    .attr("name", "idTerm").val(idTerm);
             $('#idForm').append($(input));
-          $( "#idForm" ).submit();
-        });
+            $( "#idForm" ).submit();
+        }
     </script>
 </div>
 </body>
