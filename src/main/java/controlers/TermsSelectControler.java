@@ -27,6 +27,7 @@ public class TermsSelectControler extends HttpServlet{
 
         req.setAttribute("terms", terms);
         req.setAttribute("duration", terms.get(idTerm.orElse(defaultTermId)).getDuration());
+        req.setAttribute("idSelectedTerm",terms.get(idTerm.orElse(defaultTermId)).getId());
         req.setAttribute("disciplineList", terms.get(idTerm.orElse(defaultTermId)).getDisciplines());
         req.setAttribute("currentPage", "termsList.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);

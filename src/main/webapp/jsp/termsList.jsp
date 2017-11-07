@@ -10,9 +10,18 @@
 <div class="termslist-content-wrapper">
     <form action="/terms-select" method="post" id="idForm">
         <label>Выбрать семестр</label>
-        <select id="select-term"  onclick="refreshPage()">
+        <select id="select-term" onchange="refreshPage()">
             <c:forEach items="${terms}" var="term">
-                <option value="${term.id}">${term.name}</option>
+                <c:choose>
+                    <c:when test="${ idSelectedTerm eq term.id}">
+                        <option value="${term.id}" selected >${term.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${term.id}" >${term.name}</option>
+                    </c:otherwise>
+
+                </c:choose>
+
             </c:forEach>
         </select>
     </form>
@@ -33,24 +42,23 @@
         <a class="button" href="termCreating.html">Удалить выбранный семестр</a>
     </div>
     <script>
-        // $( "#select-term" ).select(function() {
-        //   var idTerm = $( "select#select-term option:checked" ).val();
-        //     var input = $("<input>")
-        //         .attr("type", "hidden")
-        //         .attr("name", "idTerm").val(idTerm);
-        //     $('#idForm').append($(input));
-        //   $( "#idForm" ).submit();
-        // });
-
-        function refreshPage() {
-            var x = document.getElementById("select-term").selectedIndex;
+        /*  $( "#select-term" ).change(function() {
             var idTerm = $( "select#select-term option:checked" ).val();
-            var input = $("<input>")
-                    .attr("type", "hidden")
-                    .attr("name", "idTerm").val(idTerm);
-            $('#idForm').append($(input));
+              var input = $("<input>")
+                  .attr("type", "hidden")
+                  .attr("name", "idTerm").val(idTerm);
+              $('#idForm').append($(input));
             $( "#idForm" ).submit();
-        }
+          });*/
+        function refreshPage() {
+            var idTerm = $("select#select-term option:checked").val();
+            var input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "idTerm").val(idTerm);
+
+            $('#idForm').append($(input));
+            $("#idForm").submit();
+        };
     </script>
 </div>
 </body>
