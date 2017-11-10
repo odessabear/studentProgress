@@ -2,7 +2,8 @@ package entity;
 
 import java.util.Objects;
 
-public class Mark {
+public class
+Mark {
     private int id;
     private int idStudent;
     private int idTermDiscipline;

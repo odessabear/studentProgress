@@ -135,15 +135,10 @@ public class DBConection {
     public List<Term> getTermsList() {
         List<Term> termsList = new LinkedList<>();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT DISTINCT \n" +
-                    "t.id_term as id,\n" +
-                    "t.terms_name as name,\n" +
-                    "t.duration,\n" +
-                    "d.id_discipline,\n" +
-                    "d.discipline\n" +
-                    "FROM term_disciplin as td\n" +
-                    "left join term as t on td.id_term=t.id_term\n" +
-                    "left join discipline as d on td.id_discipline=d.id_discipline where status = 1 order by id");
+            PreparedStatement statement = conn.prepareStatement("SELECT  t.id_term as id , t.terms_name as name ,t.duration ,d.id_discipline ,d.discipline\n" +
+                    "                    FROM term_disciplin as td\n" +
+                    "                    left join term as t on td.id_term=t.id_term\n" +
+                    "                    left join discipline as d on td.id_discipline=d.id_discipline where (t.status = 1 and d.status=1) order by id");
             ResultSet result = statement.executeQuery();
             int lastIdTerm = -1;
             while (result.next()) {
@@ -319,6 +314,15 @@ public class DBConection {
             e.printStackTrace();
         }
         return marks;
+    }
+    public void disableTerm(int id){
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE `term` SET `status`='0' WHERE `id_term`= ?");
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

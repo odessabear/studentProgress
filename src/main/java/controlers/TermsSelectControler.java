@@ -15,20 +15,21 @@ import java.util.Optional;
 @WebServlet(name = "TermsSelectControler", urlPatterns = {"/terms-select"})
 public class TermsSelectControler extends HttpServlet{
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBConection conection = new DBConection();
         List<Term> terms = conection.getTermsList();
 
-        int defaultTermId = 0;
-        Optional<Integer> idTerm =
-                Optional.ofNullable(req.getParameter("idTerm"))
-                        .map(Integer::parseInt)
-                        .map(termFromFrontEnd -> termFromFrontEnd - 1);
 
-        req.setAttribute("terms", terms);
-        req.setAttribute("duration", terms.get(idTerm.orElse(defaultTermId)).getDuration());
-        req.setAttribute("idSelectedTerm",terms.get(idTerm.orElse(defaultTermId)).getId());
-        req.setAttribute("disciplineList", terms.get(idTerm.orElse(defaultTermId)).getDisciplines());
+        Optional<String> termName =
+                Optional.ofNullable(req.getParameter("termName"));
+        Term maybeTerm = terms.stream()
+                .filter(term -> term.getName().toLowerCase().equals(termName.get().toLowerCase()))
+                .findFirst().get();
+
+        req.setAttribute("terms",  maybeTerm);
+        req.setAttribute("duration", maybeTerm.getDuration());
+        req.setAttribute("idSelectedTerm",maybeTerm.getId());
+        req.setAttribute("disciplineList", maybeTerm.getDisciplines());
         req.setAttribute("currentPage", "termsList.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
 

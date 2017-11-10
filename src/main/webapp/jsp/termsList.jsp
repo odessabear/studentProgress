@@ -8,9 +8,9 @@
 <body>
 
 <div class="termslist-content-wrapper">
-    <form action="/terms-select" method="post" id="idForm">
+    <form action="/terms-select" method="get" id="idForm">
         <label>Выбрать семестр</label>
-        <select id="select-term" onchange="refreshPage()">
+        <select id="select-term" onchange="refreshPageAfterSelectTerm()">
             <c:forEach items="${terms}" var="term">
                 <c:choose>
                     <c:when test="${ idSelectedTerm eq term.id}">
@@ -39,26 +39,47 @@
     <div class="admin-panel">
         <a class="button" href="termCreating.html">Создать семестр</a>
         <a class="button" href="termModifying.html">Модифицировать ввыбранный семестр</a>
-        <a class="button" href="termCreating.html">Удалить выбранный семестр</a>
+
+        <form id="deleteTermForm" method="post" action="/term-delete">
+            <input type="submit" id="deleteTermButton" value="Удалить выбранный семестр"/>
+        </form>
+        <%--<a class="button" href="/term-delete"></a>--%>
+
     </div>
     <script>
-        /*  $( "#select-term" ).change(function() {
-            var idTerm = $( "select#select-term option:checked" ).val();
-              var input = $("<input>")
-                  .attr("type", "hidden")
-                  .attr("name", "idTerm").val(idTerm);
-              $('#idForm').append($(input));
-            $( "#idForm" ).submit();
-          });*/
-        function refreshPage() {
+
+        function refreshPageAfterSelectTerm() {
             var idTerm = $("select#select-term option:checked").val();
+            var termName = $("#select-term").options[$("#select-term").selectedIndex].text();
+
             var input = $("<input>")
                 .attr("type", "hidden")
-                .attr("name", "idTerm").val(idTerm);
+                .attr("name", "termName").val(termName);
 
             $('#idForm').append($(input));
             $("#idForm").submit();
         };
+
+        function addTermIdToBePossiblyDeleted() {
+            var idTerm = $("select#select-term option:checked").val();
+            var input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "idTerm").val(idTerm);
+            $('#deleteTermForm').append($(input));
+        }
+
+
+        $(document).ready(function() {
+
+            $('#deleteTermForm').submit(function(event) {
+                if(!confirm("Вы действительно хотите удалить данный семестр?")){
+                    event.preventDefault();
+                }
+            });
+
+            addTermIdToBePossiblyDeleted();
+        });
+
     </script>
 </div>
 </body>
