@@ -49,8 +49,8 @@
     <script>
 
         function refreshPageAfterSelectTerm() {
-            var idTerm = $("select#select-term option:checked").val();
-            var termName = $("#select-term").options[$("#select-term").selectedIndex].text();
+            var selectedIndex = $("#select-term").prop("selectedIndex");
+            var termName = $("#select-term").prop("options")[selectedIndex].text;
 
             var input = $("<input>")
                 .attr("type", "hidden")

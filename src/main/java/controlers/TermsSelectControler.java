@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,8 @@ public class TermsSelectControler extends HttpServlet{
                 .filter(term -> term.getName().toLowerCase().equals(termName.get().toLowerCase()))
                 .findFirst().get();
 
-        req.setAttribute("terms",  maybeTerm);
+        req.setAttribute("terms", terms); // RENAME TO MENU_TERMS_LIST
+
         req.setAttribute("duration", maybeTerm.getDuration());
         req.setAttribute("idSelectedTerm",maybeTerm.getId());
         req.setAttribute("disciplineList", maybeTerm.getDisciplines());
