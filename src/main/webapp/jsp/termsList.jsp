@@ -37,7 +37,7 @@
 
 
     <div class="admin-panel">
-        <a class="button" href="termCreating.html">Создать семестр</a>
+        <a class="button" href="/term-create">Создать семестр</a>
         <a class="button" href="termModifying.html">Модифицировать ввыбранный семестр</a>
 
         <form id="deleteTermForm" method="post" action="/term-delete">

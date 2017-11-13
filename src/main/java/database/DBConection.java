@@ -325,6 +325,17 @@ public class DBConection {
         }
     }
 
+    public void createNewTerm(String termsName,int duration) {
+
+        try {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO `term` (`terms_name`, `duration`) VALUES (?, ?);");
+            statement.setString(1,termsName);
+            statement.setInt(2,duration);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

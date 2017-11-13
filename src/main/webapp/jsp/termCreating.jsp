@@ -10,9 +10,12 @@
     <p> Для создания семестра заполните все поля и нажмите кнопку "Создать".</p>
 </div>
 <div class="log-form-wrapper">
-    <form class="term-create-form" action="/action_page.php" method="post">
+    <form class="term-create-form" action="/term-create" method="post">
+        <div class="term-name-input">
+            <label>Название семестра</label><input type="text" name="${termsName}">
+        </div>
         <div class="term-length-input">
-            <label>Длительность(в неделях)</label><input type="text" name="lname">
+            <label>Длительность(в неделях)</label><input type="text" name="${valueOfDuration}">
         </div>
         <div class="term-discipline-input">
             <label>Дисциплины в семестре</label>

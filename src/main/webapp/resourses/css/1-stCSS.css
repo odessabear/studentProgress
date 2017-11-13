@@ -290,8 +290,11 @@ table th, table td {
 	display:inline-block;
 	font-weight:bold;
 }
-.term-length-input,.term-discipline-input{
+.term-length-input,.term-discipline-inpu{
 	margin-bottom:20px;
+}
+.term-name-input {
+    margin-bottom: 20px;
 }
 .term-create-form label{
 	width:200px;
