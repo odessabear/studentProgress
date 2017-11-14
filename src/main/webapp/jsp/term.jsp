@@ -14,17 +14,21 @@
 <div class="term-form-wrapper">
 
     <form method="post" id="createTermForm">
-        <label for="duration">Duration</label>
-        <input id="duration" type="text" value="${term.duration}" disabled/>
+        <label for="name">Name</label><br>
+        <input id="name" type="text" value="${term.name}" />
+        <br>
+        <br>
+        <label for="duration">Duration</label><br>
+        <input id="duration" type="text" value="${term.duration}" />
 
-        <br/>
+        <br>
+        <br>
         Disciplines
-        <br/>
-
+        <br>
+        <br>
         <c:forEach items="${term.disciplines}" var="discipline">
-
-            <input id="discipline_${discipline.id}" type="text" value="${discipline.name}" disabled/>
-            <br/>
+            <input id="discipline_${discipline.id}" type="text" value="${discipline.name}" />
+            <br>
         </c:forEach>
 
     </form>

@@ -1,7 +1,9 @@
 package controlers;
 
 import database.DBConection;
+import entity.Discipline;
 import entity.Term;
+import sun.security.pkcs11.Secmod;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,11 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "TermControler", urlPatterns = {"/term"})
-public class TermControler extends HttpServlet{
+public class TermControler extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,11 +42,13 @@ public class TermControler extends HttpServlet{
     }
 
     private Term getEmptyTurnForCreation() {
-            Term emptyTerm = new Term();
-            emptyTerm.setId(0);
+        Term emptyTerm = new Term();
+        emptyTerm.setId(0);
 
-            emptyTerm.setName("");
-            emptyTerm.setDuration(0);
+
+        emptyTerm.setName("");
+        emptyTerm.setDuration(0);
+
         // 1 - create empty term
         return emptyTerm;
     }
@@ -52,5 +57,9 @@ public class TermControler extends HttpServlet{
         return (id == null || id.length() == 0);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DBConection conection = new DBConection();
 
+    }
 }
