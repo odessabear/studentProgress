@@ -15,7 +15,7 @@
         <c:when test="${currentPage=='discList.jsp'}">
             <title>Список дисциплин</title>
         </c:when>
-        <c:when test="${currentPage=='termsList.jsp'}">
+        <c:when test="${currentPage=='allTermsList.jsp'}">
             <title>Список Семестров</title>
         </c:when>
 
@@ -40,7 +40,7 @@
 <br>
 <c:if test="${currentPage ne 'login.jsp' && currentPage ne 'title.jsp'}">
     <div class="navigation-links">
-        <c:if test="${currentPage ne 'studentsList.jsp' && currentPage ne 'discList.jsp' && currentPage ne 'termsList.jsp'}">
+        <c:if test="${currentPage ne 'studentsList.jsp' && currentPage ne 'discList.jsp' && currentPage ne 'allTermsList.jsp.jsp'}">
             <c:choose>
                 <c:when test="${ currentPage =='discModifying.jsp' ||  currentPage =='discCreating.jsp'}">
                     <a href="/discipline-list">Назад</a>

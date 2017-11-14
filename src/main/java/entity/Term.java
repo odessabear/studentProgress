@@ -13,10 +13,11 @@ public class Term {
     public Term() {
     }
 
-    public Term(int id, String name, int duration) {
+    public Term(int id, String name, int duration, List<Discipline> disciplines) {
         this.id = id;
         this.name = name;
         this.duration = duration;
+        this.disciplines = disciplines;
     }
 
     public int getId() {

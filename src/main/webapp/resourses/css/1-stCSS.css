@@ -101,13 +101,16 @@ ul{
 	width: 50%;
 }
 
-.disciplie-table-wrapper table {
+
+
+.disciplie-table-wrapper, table {
   border: 1px solid black;
   border-collapse: collapse;
   margin: 0;
   padding: 0;
   width: 100%;
 }
+
 
 table th, table td {
   border: 1px solid black;
@@ -129,6 +132,10 @@ table th, table td {
 .disciplie-table-wrapper th{
 	background-color:lightgrey;
 }
+.termslist-table-wrapper{
+    display: inline-block;
+    width:100%;
+}
 .studinfo-table-wrapper{
 	display: inline-block;
 	width:100%;
@@ -140,9 +147,12 @@ table th, table td {
   padding: 0;
   width: 100%;
 }
+
+
 .studinfo-table-wrapper th{
 	background-color:lightgrey;
 }
+
 .studinfo-table-wrapper th{
 	  border: 1px solid black;
   margin: 0;
@@ -207,6 +217,20 @@ table th, table td {
   padding: 0;
   width: 100%;
 }
+.termslist-table-wrapper table{
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.termslist-table-wrapper th{
+    background-color:lightgrey;
+    border: 1px solid black;
+    margin: 0;
+    padding: 10px;
+}
+
 .students-table-wrapper th{
 	background-color:lightgrey;
 	border: 1px solid black;
@@ -290,7 +314,7 @@ table th, table td {
 	display:inline-block;
 	font-weight:bold;
 }
-.term-length-input,.term-discipline-inpu{
+.term-length-input,.term-discipline-input{
 	margin-bottom:20px;
 }
 .term-name-input {
