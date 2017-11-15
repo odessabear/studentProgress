@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @WebServlet(name = "TermControler", urlPatterns = {"/term"})
 public class TermControler extends HttpServlet {
@@ -42,12 +40,15 @@ public class TermControler extends HttpServlet {
     }
 
     private Term getEmptyTurnForCreation() {
+        DBConection conection = new DBConection();
+        List<Discipline> disciplineList = conection.getAllDisciplines();
         Term emptyTerm = new Term();
         emptyTerm.setId(0);
 
 
         emptyTerm.setName("");
         emptyTerm.setDuration(0);
+        emptyTerm.setDisciplines(disciplineList);
 
         // 1 - create empty term
         return emptyTerm;
@@ -61,5 +62,10 @@ public class TermControler extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBConection conection = new DBConection();
 
+        System.out.println("we have new request to create term");
+        for (Map.Entry<String, String[]> requestParameter : req.getParameterMap().entrySet()) {
+            System.out.println("parameter key: " + requestParameter.getKey());
+            System.out.println("parameter values: " + Arrays.deepToString(requestParameter.getValue()));
+        }
     }
 }

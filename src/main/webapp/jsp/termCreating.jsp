@@ -19,7 +19,7 @@
         </div>
         <div class="term-discipline-input">
             <label>Дисциплины в семестре</label>
-            <select name="select" size="8" multiple>
+            <select name="select" size="" multiple>
                 <option selected value="s1">Информатика</option>
                 <option value="s2">Политология</option>
                 <option value="s3">Социология</option>
