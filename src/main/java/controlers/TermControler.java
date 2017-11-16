@@ -86,7 +86,7 @@ public class TermControler extends HttpServlet {
 
 
         // TODO: add redirect to term with the ID above.
-        terms.add(addedTermId, termToCreate);
+
         resp.sendRedirect("/terms-list");
 
     }
