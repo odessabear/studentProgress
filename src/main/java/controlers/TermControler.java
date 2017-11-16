@@ -3,7 +3,6 @@ package controlers;
 import database.DBConection;
 import entity.Discipline;
 import entity.Term;
-import sun.security.pkcs11.Secmod;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "TermControler", urlPatterns = {"/term"})
 public class TermControler extends HttpServlet {
@@ -25,7 +25,7 @@ public class TermControler extends HttpServlet {
 
         if (isEmpty(req.getParameter("id"))) {
             // assume creation
-            termToInsertToFrontend = getEmptyTurnForCreation();
+            termToInsertToFrontend = getEmptyTermForCreation();
         } else {
             int termIdFromFrontend = Integer.parseInt(req.getParameter("id"));
             Optional<Term> currentTerm = terms.stream()
@@ -39,7 +39,7 @@ public class TermControler extends HttpServlet {
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }
 
-    private Term getEmptyTurnForCreation() {
+    private Term getEmptyTermForCreation() {
         DBConection conection = new DBConection();
         List<Discipline> disciplineList = conection.getAllDisciplines();
         Term emptyTerm = new Term();
@@ -49,6 +49,8 @@ public class TermControler extends HttpServlet {
         emptyTerm.setName("");
         emptyTerm.setDuration(0);
         emptyTerm.setDisciplines(disciplineList);
+
+        System.out.println(emptyTerm);
 
         // 1 - create empty term
         return emptyTerm;
@@ -61,11 +63,40 @@ public class TermControler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBConection conection = new DBConection();
-
+        List<Term> terms = new ArrayList<>();
         System.out.println("we have new request to create term");
         for (Map.Entry<String, String[]> requestParameter : req.getParameterMap().entrySet()) {
             System.out.println("parameter key: " + requestParameter.getKey());
             System.out.println("parameter values: " + Arrays.deepToString(requestParameter.getValue()));
         }
+
+        Term termToCreate = new Term();
+        termToCreate.setDuration((Integer.parseInt(req.getParameter("durationLength"))));
+        termToCreate.setName(req.getParameter("name"));
+        List<Discipline> chosenDisciplines = new ArrayList<>();
+
+        for (int disciplineId : parseDisciplineIds(req.getParameter("disciplineList"))) {
+            Discipline discipline = conection.getDisciplineById(disciplineId);
+            chosenDisciplines.add(discipline);
+        }
+
+        termToCreate.setDisciplines(chosenDisciplines);
+
+        int addedTermId = conection.createNewTerm(termToCreate);
+
+
+        // TODO: add redirect to term with the ID above.
+        terms.add(addedTermId, termToCreate);
+        resp.sendRedirect("/terms-list");
+
+    }
+
+    private List<Integer> parseDisciplineIds(String input) {
+        System.out.println("input for discipline id was " + input);
+        String[] disciplineIds = input.split(",");
+
+        return Arrays.asList(disciplineIds).stream()
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }

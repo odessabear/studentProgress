@@ -27,15 +27,20 @@
             <label>Список дисцилин</label><br>
             <c:choose>
                 <c:when test="${term.id == 0}">
-                    <input id="discipline_${discipline.id}" name="disciplineName" type="text" value="${discipline.name}"/>
-                    <br />
+                    <select name="disciplineList" multiple>
+                        <c:forEach items="${term.disciplines}" var="discipline">
+                            <option selected value="${discipline.id}">${discipline.name}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
                 </c:when>
                 <c:otherwise>
                     <c:forEach items="${term.disciplines}" var="discipline">
-                        <input id="discipline_${discipline.id}" name="disciplineName" type="text" value="${discipline.name}"/>
+                        <input id="discipline_${discipline.id}" name="disciplineName" type="text"
+                               value="${discipline.name}"/>
                         <br>
                     </c:forEach>
-                    <br />
+                    <br/>
                 </c:otherwise>
             </c:choose>
 
@@ -47,35 +52,7 @@
             <c:if test="${term.id == 0}"><input type='submit' value="Создать"> </c:if>
         </div>
     </form>
-    <script>
 
-        // $( document ).ready(function() {
-        //
-        // var testForm = document.getElementById('createTermForm');
-        // testForm.onsubmit = function (event) {
-        // event.preventDefault();
-        // var formData = new FormData(document.getElementById('createTermForm'));
-        // console.log("current formdata = " + formData);
-        // // var request = new XMLHttpRequest();
-        // // request.open('POST', '/term', /* async = */ false);
-        // //
-        // //
-        // // request.send(formData);
-        //
-        // $.ajax({
-        // async: true,
-        // type: "POST",
-        // url: "/term",
-        // contentType: "application/json",
-        // data: JSON.stringify( formData )
-        // });
-        //
-        // // console.log(request.response);
-        // };
-        // });
-
-
-    </script>
 
 
 </div>

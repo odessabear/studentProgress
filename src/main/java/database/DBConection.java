@@ -315,26 +315,65 @@ public class DBConection {
         }
         return marks;
     }
-    public void disableTerm(int id){
+
+    public void disableTerm(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE `term` SET `status`='0' WHERE `id_term`= ?");
-            statement.setInt(1,id);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void createNewTerm(String termsName,int duration) {
+    public void createNewTerm(String termsName, int duration) {
 
         try {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO `term` (`terms_name`, `duration`) VALUES (?, ?);");
-            statement.setString(1,termsName);
-            statement.setInt(2,duration);
+            statement.setString(1, termsName);
+            statement.setInt(2, duration);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int createNewTerm(Term term) {
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement createTermStatement = conn.prepareStatement("INSERT INTO `term` (`terms_name`, `duration`) VALUES (?, ?);");
+            PreparedStatement addDisciplineToTerm = conn.prepareStatement("INSERT INTO `term_disciplin` (`id_term`, `id_discipline`) VALUES (?, ?);");
+
+            createTermStatement.setString(1, term.getName());
+            createTermStatement.setString(2, String.valueOf(term.getDuration()));
+            int result = createTermStatement.executeUpdate();
+
+            for (Discipline discipline : term.getDisciplines()) {
+                addDisciplineToTerm.setInt(1, term.getId());
+                addDisciplineToTerm.setLong(2, discipline.getId());
+                addDisciplineToTerm.executeUpdate();
+            }
+            conn.commit();
+            return result;
+
+            // TODO: add commit here
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        } finally {
+            try {
+
+                conn.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 }
 
