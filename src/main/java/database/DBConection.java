@@ -340,30 +340,37 @@ public class DBConection {
 
     public int createNewTerm(Term term) {
         try {
-            conn.setAutoCommit(false);
-            PreparedStatement createTermStatement = conn.prepareStatement("INSERT INTO `term` (`terms_name`, `duration`) VALUES (?, ?);");
-            PreparedStatement addDisciplineToTerm = conn.prepareStatement("INSERT INTO `term_disciplin` (`id_term`, `id_discipline`) VALUES (?, ?);");
+
+            PreparedStatement createTermStatement = conn.prepareStatement("INSERT INTO `term` (`terms_name`, `duration`) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement addDisciplineToTerm = conn.prepareStatement("INSERT INTO `term_disciplin` (`id_term`, `id_discipline`) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             createTermStatement.setString(1, term.getName());
             createTermStatement.setString(2, String.valueOf(term.getDuration()));
-            int result = createTermStatement.executeUpdate();
+            createTermStatement.executeUpdate();
+
+            int result = 0;
+            ResultSet rs = createTermStatement.getGeneratedKeys();
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
+
+            System.out.println("result of operation is " + result);
 
             for (Discipline discipline : term.getDisciplines()) {
-                addDisciplineToTerm.setInt(1, term.getId());
+                addDisciplineToTerm.setInt(1, result);
                 addDisciplineToTerm.setLong(2, discipline.getId());
                 addDisciplineToTerm.executeUpdate();
+
             }
-            conn.commit();
+
+
             return result;
 
             // TODO: add commit here
 
         } catch (SQLException e) {
-            try {
-                conn.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+            e.printStackTrace();
+
         } finally {
             try {
 

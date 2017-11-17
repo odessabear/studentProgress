@@ -76,7 +76,7 @@ public class TermControler extends HttpServlet {
         List<Discipline> chosenDisciplines = new ArrayList<>();
 
         for (int disciplineId : parseDisciplineIds(req.getParameter("disciplineList"))) {
-            Discipline discipline = conection.getDisciplineById(disciplineId);
+            Discipline discipline = conection.getDisciplineById(disciplineId -1);
             chosenDisciplines.add(discipline);
         }
 
@@ -87,8 +87,8 @@ public class TermControler extends HttpServlet {
 
         // TODO: add redirect to term with the ID above.
 
-        resp.sendRedirect("/terms-list");
 
+        resp.sendRedirect("/term?id=" + addedTermId);
     }
 
     private List<Integer> parseDisciplineIds(String input) {
