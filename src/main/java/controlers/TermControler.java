@@ -75,8 +75,11 @@ public class TermControler extends HttpServlet {
         termToCreate.setName(req.getParameter("name"));
         List<Discipline> chosenDisciplines = new ArrayList<>();
 
+        System.out.println(" got discipline from frontend : [[ " + req.getParameter("disciplineList") + " ]]");
+
         for (int disciplineId : parseDisciplineIds(req.getParameter("disciplineList"))) {
-            Discipline discipline = conection.getDisciplineById(disciplineId -1);
+            Discipline discipline = conection.getDisciplineById(disciplineId);
+            System.out.println("disc with id " + disciplineId + " has name " + discipline.getName());
             chosenDisciplines.add(discipline);
         }
 

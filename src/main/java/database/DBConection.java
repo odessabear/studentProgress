@@ -350,7 +350,7 @@ public class DBConection {
 
             int result = 0;
             ResultSet rs = createTermStatement.getGeneratedKeys();
-            if (rs.next()) {
+            while (rs.next()) {
                 result = rs.getInt(1);
             }
 
@@ -359,8 +359,10 @@ public class DBConection {
             for (Discipline discipline : term.getDisciplines()) {
                 addDisciplineToTerm.setInt(1, result);
                 addDisciplineToTerm.setLong(2, discipline.getId());
-                addDisciplineToTerm.executeUpdate();
 
+                System.out.println("going to add discipl to term like this request" + addDisciplineToTerm);
+
+                addDisciplineToTerm.executeUpdate();
             }
 
 
@@ -370,7 +372,7 @@ public class DBConection {
 
         } catch (SQLException e) {
             e.printStackTrace();
-
+            throw new IllegalArgumentException("bad things", e);
         } finally {
             try {
 
@@ -380,7 +382,6 @@ public class DBConection {
                 e.printStackTrace();
             }
         }
-        return 0;
     }
 }
 
