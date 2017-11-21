@@ -29,9 +29,9 @@
             <label>Список дисцилин</label><br>
             <c:choose>
                 <c:when test="${term.id == 0}">
-                    <select id="selectedMap"  name="disciplineList" multiple = "multiple"  onchange="detDiscIds()">
+                    <select id="selectedMap" name="disciplineList" multiple="multiple">
                         <c:forEach items="${term.disciplines}" var="discipline">
-                            <option selected value="${discipline.id}">${discipline.name}</option>
+                            <option value="${discipline.id}">${discipline.name}</option>
                         </c:forEach>
                     </select>
                     <br/>
@@ -39,7 +39,7 @@
                 <c:otherwise>
                     <c:forEach items="${term.disciplines}" var="discipline">
                         <input id="discipline_${discipline.id}" name="disciplineName" type="text"
-                               value="${discipline.name}"/>
+                               value="${discipline.name}"/>  <button onclick="deleteDisciplineFromTerm(${discipline.id}, ${term.id});">X</button>
                         <br>
                     </c:forEach>
                     <br/>
@@ -48,27 +48,40 @@
         </div>
 
 
-
         <div class="term-submit-input">
             <!-- 0 term id means we're about to create a new term. and right now we have empty term stub -->
-            <c:if test="${term.id == 0}"><input type='submit' value="Создать" > </c:if>
+            <c:if test="${term.id == 0}"><input type='submit' value="Создать"> </c:if>
         </div>
 
-        <script  type="text/javascript">
+        <script type="text/javascript">
+            function deleteDisciplineFromTerm(discId, termId) {
+                event.preventDefault();
+                console.log("you are trying to delete disc id " + discId + " from term id " + termId);
+                //
+                // $.post(
+                //     "/deleteDiscFromTerm",
+                //     {"discId": discId, "termId" : termId}
+                // )
+            }
 
-function detDiscIds() {
 
+            $(function() {
+                $("#createTermForm").submit(function() {
+                    var selectedDisciplines = $('#selectedMap').val().toString(); // comma-separated
 
-    var selected = [];
-    $('#selectedMap :selected').each(function () {
-        selected[$(this).val()] = $(this).text();
-    });
-    console.log(selected);
-}
+                    $('<input>', {
+                        type: 'hidden',
+                        id: 'selectedDisciplines',
+                        name: 'selectedDisciplines',
+                        value: selectedDisciplines
+                    }).appendTo('createTermForm');
+
+                    return true;
+                });
+            });
+
         </script>
     </form>
-
-
 
 
 </div>

@@ -73,13 +73,15 @@ public class TermControler extends HttpServlet {
         Term termToCreate = new Term();
         termToCreate.setDuration((Integer.parseInt(req.getParameter("durationLength"))));
         termToCreate.setName(req.getParameter("name"));
+
+        String[] disciplineIds = req.getParameterValues("disciplineList");
+        System.out.println("DISC ID is " + Arrays.deepToString(disciplineIds));
+
         List<Discipline> chosenDisciplines = new ArrayList<>();
-
-        System.out.println(" got discipline from frontend : [[ " + req.getParameter("disciplineList") + " ]]");
-
-        for (int disciplineId : parseDisciplineIds(req.getParameter("disciplineList"))) {
-            Discipline discipline = conection.getDisciplineById(disciplineId);
-            System.out.println("disc with id " + disciplineId + " has name " + discipline.getName());
+        for (String discIdAsString : disciplineIds) {
+            int discId = Integer.parseInt(discIdAsString);
+            Discipline discipline = conection.getDisciplineById(discId);
+            System.out.println("disc with id " + discId + " has name " + discipline.getName() + " and was added to this list.");
             chosenDisciplines.add(discipline);
         }
 
@@ -92,14 +94,5 @@ public class TermControler extends HttpServlet {
 
 
         resp.sendRedirect("/term?id=" + addedTermId);
-    }
-
-    private List<Integer> parseDisciplineIds(String input) {
-        System.out.println("input for discipline id was " + input);
-        String[] disciplineIds = input.split(",");
-
-        return Arrays.asList(disciplineIds).stream()
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
     }
 }
