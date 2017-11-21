@@ -1,6 +1,6 @@
 <html>
 <%
-    String redirectURL = "/home";
+    String redirectURL = "/login";
     response.sendRedirect(redirectURL);
 %>
 </html>

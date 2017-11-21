@@ -11,10 +11,7 @@ public class HomeControler extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cookie avtor = new Cookie("avtor", "Alexander");
         resp.addCookie(avtor);
-
         HttpSession httpSession = req.getSession();
-
-
         req.setAttribute("currentPage", "title.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }

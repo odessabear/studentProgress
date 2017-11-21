@@ -1,15 +1,17 @@
-
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="termslist-content-wrapper">
 
     <div class="admin-panel2">
         <a class="button" href="/students-progress">Просмотреть выбранных студентов</a>
-        <a class="button" href="/student-create">Создать студента</a>
-        <a class="button" onclick="modifyStudent()">Модифицировать выбранного студента</a>
-        <a class="button" onclick="deleteStudent()">Удалить выбранного студента</a>
-    </div><br>
+        <c:if test="${role eq '1'}">
+            <a class="button" href="/student-create">Создать студента</a>
+            <a class="button" onclick="modifyStudent()">Модифицировать выбранного студента</a>
+            <a class="button" onclick="deleteStudent()">Удалить выбранного студента</a>
+        </c:if>
+    </div>
+    <br>
     <div id="formDeleteDiv"></div>
     <div id="formModifyDiv">
         <form id="formModify" action="/students-modifying" method="post">
@@ -38,13 +40,14 @@
                     <td>${st.surname}</td>
                     <td>${st.name}</td>
                     <td>${st.group}</td>
-                    <td><fmt:formatDate pattern = "dd/MM/yyyy"
-                                        value = "${st.inDate}" /></td>
+                    <td><fmt:formatDate pattern="dd/MM/yyyy"
+                                        value="${st.inDate}"/></td>
                 </tr>
             </c:forEach>
 
             </tbody>
-        </table><br>
+        </table>
+        <br>
         <br>
         <br>
     </div>

@@ -39,6 +39,7 @@ public class LogingControler extends HttpServlet {
         int idAccount=conection.isAvailableUser(login, password);
         if (idAccount!=-1) {
             if (conection.isCorrectRoleFromUser(idAccount,idRole)){
+                req.getSession().setAttribute("role", idRole);
                 resp.sendRedirect("/home");
             }else {
                 DBConection con = new DBConection();

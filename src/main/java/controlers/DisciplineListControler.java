@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Discipline;
 
 import javax.servlet.ServletException;
@@ -15,8 +16,9 @@ import java.util.List;
 public class DisciplineListControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
-        List<Discipline> disciplines = conection.getAllDisciplines();
+
+        DataService dataService = new DataService();
+        List<Discipline> disciplines = dataService.getAllDisciplines();
 
         req.setAttribute("disciplines",disciplines);
         req.setAttribute("currentPage","discList.jsp");
