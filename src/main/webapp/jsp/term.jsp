@@ -39,7 +39,8 @@
                 <c:otherwise>
                     <c:forEach items="${term.disciplines}" var="discipline">
                         <input id="discipline_${discipline.id}" name="disciplineName" type="text"
-                               value="${discipline.name}"/>  <button onclick="deleteDisciplineFromTerm(${discipline.id}, ${term.id});">X</button>
+                               value="${discipline.name}"/>
+                        <button onclick="deleteDisciplineFromTerm(${discipline.id}, ${term.id});">x</button>
                         <br>
                     </c:forEach>
                     <br/>
@@ -56,17 +57,27 @@
         <script type="text/javascript">
             function deleteDisciplineFromTerm(discId, termId) {
                 event.preventDefault();
-                console.log("you are trying to delete disc id " + discId + " from term id " + termId);
+                console.log( document.getElementById("discipline_" + discId).value );
+
+            .
+                log("you are trying to delete disc id " + discId + " from term id " + termId);
+
                 //
                 // $.post(
                 //     "/deleteDiscFromTerm",
                 //     {"discId": discId, "termId" : termId}
                 // )
+             /*   $(function() {
+                    $('form').submit(function() {
+                        $('#result').text(JSON.stringify($('form').serializeObject()));
+                        return false;
+                    });
+                });*/
             }
 
 
-            $(function() {
-                $("#createTermForm").submit(function() {
+            $(function () {
+                $("#createTermForm").submit(function () {
                     var selectedDisciplines = $('#selectedMap').val().toString(); // comma-separated
 
                     $('<input>', {
