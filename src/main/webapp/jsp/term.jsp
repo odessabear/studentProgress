@@ -55,24 +55,19 @@
         </div>
 
         <script type="text/javascript">
+
             function deleteDisciplineFromTerm(discId, termId) {
                 event.preventDefault();
-                console.log( document.getElementById("discipline_" + discId).value );
+                console.log("you are trying to delete disc id " + discId + " from term id " + termId);
+                var deleteRequest = document.getElementById("discipline_" + discId).innerHTML =
+                    ("{\"disciplineId\" : \""+ discId + "\" ,", "\"termId\" :\"" + termId + "\"}");
+                console.log(deleteRequest);
 
-            .
-                log("you are trying to delete disc id " + discId + " from term id " + termId);
 
-                //
-                // $.post(
-                //     "/deleteDiscFromTerm",
-                //     {"discId": discId, "termId" : termId}
-                // )
-             /*   $(function() {
-                    $('form').submit(function() {
-                        $('#result').text(JSON.stringify($('form').serializeObject()));
-                        return false;
-                    });
-                });*/
+                $.post("/deleteDiscFromTerm", // endpoint
+                    deleteRequest
+                );
+
             }
 
 
