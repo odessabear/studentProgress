@@ -63,7 +63,7 @@ public class TermControler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBConection conection = new DBConection();
-        List<Term> terms = new ArrayList<>();
+
         System.out.println("we have new request to create term");
         for (Map.Entry<String, String[]> requestParameter : req.getParameterMap().entrySet()) {
             System.out.println("parameter key: " + requestParameter.getKey());

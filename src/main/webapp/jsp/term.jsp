@@ -60,14 +60,20 @@
                 event.preventDefault();
                 console.log("you are trying to delete disc id " + discId + " from term id " + termId);
                 var deleteRequest = document.getElementById("discipline_" + discId).innerHTML =
-                    ("{\"disciplineId\" : \""+ discId + "\" ,", "\"termId\" :\"" + termId + "\"}");
+                    JSON.stringify({"disciplineId":discId,"termId ":termId});
                 console.log(deleteRequest);
 
 
-                $.post("/deleteDiscFromTerm", // endpoint
-                    deleteRequest
-                );
-
+                $.ajax({
+                    type: 'POST',
+                    url: '/deleteDiscFromTerm',
+                    data: deleteRequest,
+                    success: function (data) {
+                        alert('data: ' + data);
+                    },
+                    contentType: "application/json",
+                    dataType: 'json'
+                });
             }
 
 
