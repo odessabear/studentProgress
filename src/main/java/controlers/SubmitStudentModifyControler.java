@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Student;
 
 import javax.servlet.ServletException;
@@ -30,8 +31,8 @@ public class SubmitStudentModifyControler extends HttpServlet {
         }
         if (surname.equals("")||name.equals("")||group.equals("")||inDate.equals("")){
             int id = Integer.parseInt(idstr);
-            DBConection conection = new DBConection();
-            Student student=conection.getStudentById(id);
+            DataService dataService = new DataService();
+            Student student=dataService.getStudentById(id);
             req.setAttribute("student",student);
             req.setAttribute("errorMessage",3);
             req.setAttribute("currentPage", "stModifying.jsp");
@@ -50,8 +51,8 @@ public class SubmitStudentModifyControler extends HttpServlet {
         }
 
         int id = Integer.parseInt(idstr);
-        DBConection conection = new DBConection();
-        conection.updateStudent(id,surname, name, group, timestamp);
+        DataService dataService = new DataService();
+        dataService.updateStudent(id,surname, name, group, timestamp);
 
         resp.sendRedirect("/students-list");
     }

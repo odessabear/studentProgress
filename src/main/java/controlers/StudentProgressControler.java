@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Mark;
 
 import javax.servlet.ServletException;
@@ -16,9 +17,9 @@ import java.util.List;
 public class StudentProgressControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
 
-        List<Mark> marks = conection.getStudentsMarks();
+        List<Mark> marks = dataService.getStudentsMarks();
 
         req.setAttribute("marks",marks);
         req.setAttribute("currentPage","stProgress.jsp");

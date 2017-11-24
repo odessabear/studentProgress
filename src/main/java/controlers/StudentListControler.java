@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Student;
 
 import javax.servlet.ServletException;
@@ -15,8 +16,9 @@ import java.util.List;
 public class StudentListControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
-        List<Student> students = conection.getAllActiveStudents();
+        DataService dataService = new DataService();
+
+        List<Student> students = dataService.getAllActiveStudents();
 
         req.setAttribute("students",students);
         req.setAttribute("currentPage", "studentsList.jsp");

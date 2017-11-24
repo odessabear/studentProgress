@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,10 +25,10 @@ public class DeleteStudentControler extends HttpServlet {
             ids.add(stringTokenizer.nextToken());
         }
 
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
         for (String idStr:ids){
             int id=Integer.parseInt(idStr);
-            conection.deleteStudent(id);
+            dataService.deleteStudent(id);
         }
         resp.sendRedirect("/students-list");
 

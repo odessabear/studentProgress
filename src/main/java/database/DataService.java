@@ -2,7 +2,10 @@ package database;
 
 import constants.Constants;
 import entity.Discipline;
+import entity.Mark;
+import entity.Student;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,5 +46,52 @@ public class DataService {
         List<Discipline> disciplines = conection.getAllDisciplines();
         putConnection(conection);
         return disciplines;
+    }
+
+    public void deleteStudent(int id) {
+        DBConection conection = getConnection();
+        conection.deleteStudent(id);
+        putConnection(conection);
+
+    }
+
+    public List<Student> getAllActiveStudents() {
+        DBConection conection = getConnection();
+        List<Student> students = conection.getAllActiveStudents();
+        putConnection(conection);
+        return students;
+    }
+
+    public void insertNewStudent(String surname, String name, String group, Timestamp timestamp) {
+        DBConection conection = getConnection();
+        conection.insertNewStudent(surname, name, group, timestamp);
+        putConnection(conection);
+    }
+
+    public List<Mark> getStudentsMarks() {
+        DBConection conection = getConnection();
+        List<Mark> marks = conection.getStudentsMarks();
+        putConnection(conection);
+        return marks;
+    }
+
+    public Student getStudentById(int id) {
+        DBConection conection = getConnection();
+        Student student = conection.getStudentById(id);
+        putConnection(conection);
+        return student;
+    }
+
+    public void modifyingDisciplineById(int idDisipline, String disciplineName) {
+        DBConection conection = getConnection();
+        conection.modifyingDisciplineById(idDisipline, disciplineName);
+        putConnection(conection);
+
+    }
+
+    public void updateStudent(int id, String surname, String name, String group, Timestamp timestamp) {
+        DBConection conection = getConnection();
+        conection.updateStudent(id,surname,name,group,timestamp);
+        putConnection(conection);
     }
 }

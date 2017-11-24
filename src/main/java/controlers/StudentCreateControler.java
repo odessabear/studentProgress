@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Student;
 
 import javax.servlet.ServletException;
@@ -51,8 +52,8 @@ public class StudentCreateControler extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DBConection conection = new DBConection();
-        conection.insertNewStudent(surname, name, group, timestamp);
+        DataService dataService = new DataService();
+        dataService.insertNewStudent(surname, name, group, timestamp);
 
         resp.sendRedirect("/students-list");
 

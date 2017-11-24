@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,8 @@ import java.io.IOException;
 public class SubmitModifyDisciplineControler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DataService dataService = new DataService();
+
         String disciplineName = req.getParameter("nameDiscipline");
         if(disciplineName.equals("")){
             req.setAttribute("errorMessage",3);
@@ -22,8 +25,7 @@ public class SubmitModifyDisciplineControler extends HttpServlet {
         }
         String idDisciplineStr = req.getParameter("idDiscipline");
         int idDisipline = Integer.parseInt(idDisciplineStr);
-        DBConection conection = new DBConection();
-        conection.modifyingDisciplineById(idDisipline,disciplineName);
+        dataService.modifyingDisciplineById(idDisipline,disciplineName);
         resp.sendRedirect("/discipline-list");
 
 

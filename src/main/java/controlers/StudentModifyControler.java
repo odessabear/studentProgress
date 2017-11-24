@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Student;
 
 import javax.servlet.ServletException;
@@ -18,9 +19,9 @@ public class StudentModifyControler extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idstr = req.getParameter("checkboxesModify");
         int id = Integer.parseInt(idstr);
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
 
-        Student student= conection.getStudentById(id);
+        Student student= dataService.getStudentById(id);
         req.setAttribute("student",student);
         req.setAttribute("currentPage", "stModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
