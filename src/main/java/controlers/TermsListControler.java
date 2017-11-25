@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Discipline;
 import entity.Term;
 
@@ -17,8 +18,8 @@ import java.util.List;
 public class TermsListControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
-        List<Term> terms = conection.getTermsList();
+        DataService dataService = new DataService();
+        List<Term> terms = dataService.getTermsList();
 
         req.setAttribute("terms",terms);
         req.setAttribute("currentPage","allTermsList.jsp");

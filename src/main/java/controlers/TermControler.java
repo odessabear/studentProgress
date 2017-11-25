@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Discipline;
 import entity.Term;
 
@@ -62,7 +63,7 @@ public class TermControler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
 
         System.out.println("we have new request to create term");
         for (Map.Entry<String, String[]> requestParameter : req.getParameterMap().entrySet()) {
@@ -80,14 +81,14 @@ public class TermControler extends HttpServlet {
         List<Discipline> chosenDisciplines = new ArrayList<>();
         for (String discIdAsString : disciplineIds) {
             int discId = Integer.parseInt(discIdAsString);
-            Discipline discipline = conection.getDisciplineById(discId);
+            Discipline discipline = dataService.getDisciplineById(discId);
             System.out.println("disc with id " + discId + " has name " + discipline.getName() + " and was added to this list.");
             chosenDisciplines.add(discipline);
         }
 
         termToCreate.setDisciplines(chosenDisciplines);
 
-        int addedTermId = conection.createNewTerm(termToCreate);
+        int addedTermId = dataService.createNewTerm(termToCreate);
 
 
         // TODO: add redirect to term with the ID above.

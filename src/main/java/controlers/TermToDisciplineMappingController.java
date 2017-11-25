@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Discipline;
 import entity.Term;
 
@@ -20,9 +21,9 @@ public class TermToDisciplineMappingController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
         int termId = Integer.parseInt(req.getParameter("termId"));
-        Term foundTerm = conection.getTermsList().stream()
+        Term foundTerm = dataService.getTermsList().stream()
                 .filter(term -> term.getId() == termId)
                 .findFirst().get();
         List<String> disciplineNames =

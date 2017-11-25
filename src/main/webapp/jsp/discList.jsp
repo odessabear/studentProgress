@@ -36,6 +36,7 @@
         <a class="button" onclick="deleteDiscipline()">Удалить выбранные дисциплины</a>
     </div>
     <div id="formDeleteDiv"></div>
+
     <div id="formModifyDiv">
         <form id="formModify" action="/discipline-modify" method="post">
             <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>

@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,6 @@ import java.util.StringTokenizer;
 @WebServlet(name = "DeleteDisciplineControler", urlPatterns = {"/discipline-delete", "/discipline-delete/"})
 public class DeleteDisciplineControler extends HttpServlet{
 
-    private DBConection conection = new DBConection();
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String checkboxes = req.getParameter("checkboxes");
@@ -25,10 +24,10 @@ public class DeleteDisciplineControler extends HttpServlet{
         while (stringTokenizer.hasMoreTokens()){
             ids.add(stringTokenizer.nextToken());
         }
-
+        DataService dataService = new DataService();
         for (String idstr:ids){
             int id=Integer.parseInt(idstr);
-            conection.deleteDiscipline(id);
+            dataService.deleteDiscipline(id);
         }
         resp.sendRedirect("/discipline-list");
     }
@@ -36,9 +35,5 @@ public class DeleteDisciplineControler extends HttpServlet{
     // MOVE THIS TO SPRING-CONTROLLED LIFECYCLE
 
 
-    @Override
-    public void destroy() {
-        conection.disconnect();
-        super.destroy();
-    }
+
 }

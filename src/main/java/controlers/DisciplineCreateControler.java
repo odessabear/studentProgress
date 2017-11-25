@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +27,8 @@ public class DisciplineCreateControler extends HttpServlet {
             req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
             return;
         }
-        DBConection conection = new DBConection();
-        boolean result = conection.insertDiscipline(discipline);
+        DataService dataService = new DataService();
+        boolean result = dataService.insertDiscipline(discipline);
         if (result) {
             resp.sendRedirect("/discipline-list");
 

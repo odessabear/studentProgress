@@ -92,7 +92,7 @@ ul{
 
 }
 .button onclick{
-	cursor: pointer;
+	cursor: auto;
 }
 
 
@@ -108,7 +108,7 @@ ul{
   border-collapse: collapse;
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 62%;
 }
 
 

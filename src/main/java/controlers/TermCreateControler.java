@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Term;
 
 import javax.servlet.ServletException;
@@ -28,14 +29,14 @@ public class TermCreateControler extends HttpServlet {
         String duration = req.getParameter("duration");
         int valueOfDuration = Integer.parseInt(duration);
 
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
         if (stringIsEmpty(termsName) || valueOfDuration == 0) {
             req.setAttribute("errorMessage",3);
             req.setAttribute("currentPage", "termCreating.jsp");
             req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
             return;
         }
-        conection.createNewTerm(termsName,valueOfDuration);
+        dataService.createNewTerm(termsName,valueOfDuration);
         resp.sendRedirect("/terms-list");
     }
 

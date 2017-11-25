@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,12 +25,12 @@ public class TermDeleteControler extends HttpServlet {
         Optional<Integer> maybeIdTerm =
                 Optional.ofNullable(req.getParameter("idTerm"))
                         .map(Integer::parseInt);
-        DBConection conection = new DBConection();
+        DataService dataService = new DataService();
 
         if (maybeIdTerm.isPresent()) {
             System.err.println("term is present. removing one with id " + maybeIdTerm.get());
             int idTerm = maybeIdTerm.get();
-            conection.disableTerm(idTerm);
+            dataService.disableTerm(idTerm);
 
             // do your stuff with it
         } else {

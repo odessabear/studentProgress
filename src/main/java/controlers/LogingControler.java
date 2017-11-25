@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DBConection;
+import database.DataService;
 import entity.Role;
 
 import javax.servlet.ServletException;
@@ -16,8 +17,8 @@ import java.util.List;
 public class LogingControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
-        List<Role> roles = conection.getAllRoles();
+        DataService dataService = new DataService();
+        List<Role> roles = dataService.getAllRoles();
 
         req.setAttribute("roles", roles);
 
@@ -35,15 +36,15 @@ public class LogingControler extends HttpServlet {
         int idRole = Integer.parseInt(role);
 
 
-        DBConection conection = new DBConection();
-        int idAccount=conection.isAvailableUser(login, password);
+        DataService dataService = new DataService();
+        int idAccount=dataService.isAvailableUser(login, password);
         if (idAccount!=-1) {
-            if (conection.isCorrectRoleFromUser(idAccount,idRole)){
+            if (dataService.isCorrectRoleFromUser(idAccount,idRole)){
                 req.getSession().setAttribute("role", idRole);
                 resp.sendRedirect("/home");
             }else {
-                DBConection con = new DBConection();
-                List<Role> roles = con.getAllRoles();
+
+                List<Role> roles = dataService.getAllRoles();
 
                 req.setAttribute("roles", roles);
                 req.setAttribute("errorMessage", 2);
@@ -52,8 +53,8 @@ public class LogingControler extends HttpServlet {
                 req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
             }
         }else{
-            DBConection con = new DBConection();
-            List<Role> roles = con.getAllRoles();
+
+            List<Role> roles = dataService.getAllRoles();
 
             req.setAttribute("roles", roles);
             req.setAttribute("errorMessage", 1);

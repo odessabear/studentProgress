@@ -1,9 +1,7 @@
 package database;
 
 import constants.Constants;
-import entity.Discipline;
-import entity.Mark;
-import entity.Student;
+import entity.*;
 
 import java.sql.Timestamp;
 import java.util.LinkedList;
@@ -91,7 +89,76 @@ public class DataService {
 
     public void updateStudent(int id, String surname, String name, String group, Timestamp timestamp) {
         DBConection conection = getConnection();
-        conection.updateStudent(id,surname,name,group,timestamp);
+        conection.updateStudent(id, surname, name, group, timestamp);
         putConnection(conection);
     }
+
+    public boolean insertDiscipline(String discipline) {
+        DBConection conection = getConnection();
+        conection.insertDiscipline(discipline);
+        putConnection(conection);
+        return true;
+    }
+
+    public Discipline getDisciplineById(int id) {
+        DBConection conection = getConnection();
+        Discipline discipline = conection.getDisciplineById(id);
+        putConnection(conection);
+        return discipline;
+    }
+
+    public void deleteDiscipline(int id) {
+        DBConection conection = getConnection();
+        conection.deleteDiscipline(id);
+        putConnection(conection);
+    }
+
+    public List<Role> getAllRoles() {
+        DBConection conection = getConnection();
+        List<Role> roles = conection.getAllRoles();
+        putConnection(conection);
+        return roles;
+    }
+
+    public int isAvailableUser(String login, String password) {
+        DBConection conection = getConnection();
+        int result = conection.isAvailableUser(login, password);
+        putConnection(conection);
+        return result;
+    }
+
+    public boolean isCorrectRoleFromUser(int idAccount, int idRole) {
+        DBConection conection = getConnection();
+        boolean result = conection.isCorrectRoleFromUser(idAccount, idRole);
+        return result;
+    }
+
+    public int createNewTerm(Term termToCreate) {
+        DBConection conection = getConnection();
+        int result = conection.createNewTerm(termToCreate);
+        putConnection(conection);
+        return result;
+
+    }
+
+    public void createNewTerm(String termsName, int valueOfDuration) {
+        DBConection conection = getConnection();
+        conection.createNewTerm(termsName, valueOfDuration);
+        putConnection(conection);
+    }
+
+    public List<Term> getTermsList() {
+        DBConection conection = getConnection();
+        List<Term> termList = conection.getTermsList();
+        putConnection(conection);
+        return termList;
+    }
+
+    public void disableTerm(int idTerm) {
+        DBConection conection= new DBConection();
+        conection.disableTerm(idTerm);
+        putConnection(conection);
+    }
+
+
 }
