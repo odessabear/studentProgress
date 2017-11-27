@@ -1,6 +1,7 @@
 package controlers;
 
 import com.google.gson.Gson;
+import entity.SelectedTermAndDiscipline;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,16 +27,14 @@ public class DeleteDesciplineFromTermControler extends HttpServlet{
         String data = buffer.toString();
 
         System.out.println("we have new request to delete discipline from  term ::: " + data);
+
         Gson gson = new Gson();
 
+        SelectedTermAndDiscipline termAnId = gson.fromJson(data, SelectedTermAndDiscipline.class);
 
-        Map<String, Integer> termAnId = gson.fromJson(data, Map.class);
-
-        for (Map.Entry<String, Integer> entry : termAnId.entrySet()) {
-
-            System.out.println("k: " + entry.getKey() + "  v: " + entry.getValue());
+        //for (Map.Entry<String, String> entry : termAnId.getTermId()) {
+          //  System.out.println("k: " + entry.getKey() + "  v: " + entry.getValue());
         }
 
-
     }
-}
+

@@ -76,7 +76,7 @@ function deleteStudent() {
     if (checkboxesChecked.length == 0) {
         alert("Ни один из элементов не выбран");
         return;
-    }    console.log("You checked" + checkboxesChecked);
+    }
 
 
     var data = '<form id="formdelete" action="/students-deleting" method="post"><input type="hidden" name="checkboxes"value="' + checkboxesChecked + '"/></form>'
