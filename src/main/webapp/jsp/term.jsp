@@ -60,7 +60,7 @@
                 event.preventDefault();
                 console.log("you are trying to delete disc id " + discId + " from term id " + termId);
                 var deleteRequest = document.getElementById("discipline_" + discId).innerHTML =
-                    JSON.stringify({"disciplineId":discId,"termId ":termId});
+                    JSON.stringify({"disciplineId":discId,"termId":termId});
                 console.log(deleteRequest);
 
 

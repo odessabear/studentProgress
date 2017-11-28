@@ -1,6 +1,7 @@
 package database;
 
 import constants.Constants;
+import dto.SelectedTermAndDiscipline;
 import entity.*;
 
 import java.sql.Timestamp;
@@ -155,8 +156,14 @@ public class DataService {
     }
 
     public void disableTerm(int idTerm) {
-        DBConection conection= new DBConection();
+        DBConection conection= getConnection();
         conection.disableTerm(idTerm);
+        putConnection(conection);
+    }
+
+    public void deleteDisciplineFromTerm(SelectedTermAndDiscipline selectedTermAndDiscipline) {
+        DBConection conection = getConnection();
+        conection.deleteDisciplineFromTerm(selectedTermAndDiscipline.getDisciplineId(), selectedTermAndDiscipline.getTermId());
         putConnection(conection);
     }
 

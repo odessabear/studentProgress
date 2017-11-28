@@ -383,6 +383,21 @@ public class DBConection {
             }
         }
     }
+
+    public void deleteDisciplineFromTerm(int disciplineId, int termId) {
+        PreparedStatement deleteDiscFromTerm;
+        try {
+            deleteDiscFromTerm = conn.prepareStatement("Delete from `term_disciplin` WHERE id_discipline = ?1 and id_term = ?2", Statement.RETURN_GENERATED_KEYS);
+
+            deleteDiscFromTerm.setInt(1, disciplineId);
+            deleteDiscFromTerm.setInt(2, termId);
+
+            deleteDiscFromTerm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
