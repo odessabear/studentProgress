@@ -14,7 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(name = "DeleteDesciplineFromTermControler", urlPatterns = {"/deleteDiscFromTerm"})
-public class DeleteDesciplineFromTermControler extends HttpServlet{
+public class DeleteDesciplineFromTermControler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -36,10 +36,13 @@ public class DeleteDesciplineFromTermControler extends HttpServlet{
         DataService service = new DataService();
         service.deleteDisciplineFromTerm(fromFrontend);
 
-        resp.sendRedirect("/term?id=" + fromFrontend.getTermId());
-        //for (Map.Entry<String, String> entry : termAnId.getTermId()) {
-          //  System.out.println("k: " + entry.getKey() + "  v: " + entry.getValue());
-        }
 
+        System.out.println("current id is " + fromFrontend.getTermId());
+
+        req.setAttribute("currentPage", "term.jsp");
+        req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
+        resp.sendRedirect("/term?id="+fromFrontend.getTermId());
     }
+
+}
 

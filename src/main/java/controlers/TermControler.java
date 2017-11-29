@@ -90,10 +90,6 @@ public class TermControler extends HttpServlet {
 
         int addedTermId = dataService.createNewTerm(termToCreate);
 
-
-        // TODO: add redirect to term with the ID above.
-
-
         resp.sendRedirect("/term?id=" + addedTermId);
     }
 }

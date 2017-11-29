@@ -48,7 +48,7 @@
                 <c:when test="${ currentPage =='stModifying.jsp' ||  currentPage =='stCreating.jsp'}">
                     <a href="/students-list">Назад</a>
                 </c:when>
-                <c:when test="${ currentPage =='termModifying.jsp' ||  currentPage =='termCreating.jsp'}">
+                <c:when test="${ currentPage =='termModifying.jsp' ||  currentPage =='term.jsp'}">
                     <a href="/terms-list">Назад</a>
                 </c:when>
                 <c:otherwise>

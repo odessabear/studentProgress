@@ -386,13 +386,19 @@ public class DBConection {
 
     public void deleteDisciplineFromTerm(int disciplineId, int termId) {
         PreparedStatement deleteDiscFromTerm;
+        PreparedStatement deleteDiscFromTerm2;
+        PreparedStatement deleteDiscFromTerm3;
         try {
-            deleteDiscFromTerm = conn.prepareStatement("Delete from `term_disciplin` WHERE id_discipline = ?1 and id_term = ?2", Statement.RETURN_GENERATED_KEYS);
+            deleteDiscFromTerm = conn.prepareStatement("SEt FOREIGN_KEY_CHECKS = 0;");
+            deleteDiscFromTerm2 = conn.prepareStatement("Delete from term_disciplin WHERE id_discipline=?  and id_term = ?;");
+            deleteDiscFromTerm3 = conn.prepareStatement("set FOREIGN_KEY_CHECKS = 1;");
 
-            deleteDiscFromTerm.setInt(1, disciplineId);
-            deleteDiscFromTerm.setInt(2, termId);
+            deleteDiscFromTerm2.setInt(1, disciplineId);
+            deleteDiscFromTerm2.setInt(2, termId);
 
             deleteDiscFromTerm.executeUpdate();
+            deleteDiscFromTerm2.executeUpdate();
+            deleteDiscFromTerm3.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
