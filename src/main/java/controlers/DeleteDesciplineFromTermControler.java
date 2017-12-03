@@ -39,8 +39,7 @@ public class DeleteDesciplineFromTermControler extends HttpServlet {
 
         System.out.println("current id is " + fromFrontend.getTermId());
 
-        req.setAttribute("currentPage", "term.jsp");
-        req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
+
         resp.sendRedirect("/term?id="+fromFrontend.getTermId());
     }
 

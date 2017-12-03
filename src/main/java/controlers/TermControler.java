@@ -19,8 +19,8 @@ public class TermControler extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBConection conection = new DBConection();
-        List<Term> terms = conection.getTermsList();
+        DataService service = new DataService();
+        List<Term> terms = service.getTermsList();
 
         Term termToInsertToFrontend;
 
@@ -41,8 +41,8 @@ public class TermControler extends HttpServlet {
     }
 
     private Term getEmptyTermForCreation() {
-        DBConection conection = new DBConection();
-        List<Discipline> disciplineList = conection.getAllDisciplines();
+        DataService service = new DataService();
+        List<Discipline> disciplineList = service.getAllDisciplines();
         Term emptyTerm = new Term();
         emptyTerm.setId(0);
 
