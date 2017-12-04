@@ -404,6 +404,23 @@ public class DBConection {
             e.printStackTrace();
         }
     }
+
+    public Term getTermById(int id) {
+        Term termById = new Term();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM `term` where `id_term` = ?;");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()){
+                termById.setId(id);
+                termById.setName(result.getString("terms_name"));
+                termById.setDuration(result.getInt("duration"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return termById;
+    }
 }
 
 

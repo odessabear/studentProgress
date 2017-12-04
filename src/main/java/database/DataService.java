@@ -168,4 +168,10 @@ public class DataService {
     }
 
 
+    public Term getTermById(int id) {
+        DBConection conection = getConnection();
+        Term termById=conection.getTermById(id);
+        putConnection(conection);
+        return termById;
+    }
 }
