@@ -1,31 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: alexander.mikhailov
-  Date: 06.10.2017
-  Time: 18:54
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="title" style="font-size:120%">
     <p> Для модификации семестра отредактируйте данные и нажмите кнопку "Создать".</p>
 </div>
 <div class="log-form-wrapper">
-    <form class="term-create-form" action="/action_page.php" method="get">
+    <form class="term-create-form" action="/term-modifying" method="post">
+        <input type="hidden" name="id" value="${term.id}">
+        <div class="term-name-input">
+            <label>Название семестра</label><input type="text" name="termsName" value="${term.name}">
+        </div>
         <div class="term-length-input">
-            <label>Длительность(в неделях)</label><input type="text" name="lname">
+            <label>Длительность(в неделях)</label><input type="text" name="duration" value="${term.duration}">
         </div>
         <div>
             <div class="term-discipline-input">
                 <label>Дисциплины в семестре</label>
-                <select name="select" size="8" multiple>
-                    <option selected value="s1">Информатика</option>
-                    <option value="s2">Политология</option>
-                    <option value="s3">Социология</option>
-                    <option value="s4">Высшая Математика</option>
-                    <option value="s4">Теория Алгоритмизации</option>
-                    <option value="s4">Теория Игр</option>
-                    <option value="s4">Булева Алгебра</option>
-                    <option value="s4">Системный анализ</option>
+                <select id="selectedMap" name="disciplineList" multiple="multiple">
+                    <c:forEach items="${term.disciplines}" var="discipline">
+                        <option value="${discipline.id}">${discipline.name}</option>
+                    </c:forEach>
                 </select>
             </div>
             <div class="term-submit-input">

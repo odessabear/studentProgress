@@ -7,12 +7,17 @@
         <c:if test="${role eq '1'}">
             <button class="termButtons" type="submit" onclick="location.href = '/term';">Create a new term</button>
 
-            <button class="termButtons" type="submit" onclick="location.href = '/term-modifying';">Modify term</button>
+            <button class="termButtons" type="submit" onclick="modifyTerm()">Modify term</button>
 
-            <button class="termButtons" type="submit" onclick="location.href = '/term-deliting';">Delete term</button>
+            <button class="termButtons" type="submit" onclick="location.href = '/term-deleting';">Delete term</button>
         </c:if>
     </div>
     <br>
+    <div id="formModifyDiv">
+        <form id="formModify" action="/term-modifying" method="post">
+            <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
+        </form>
+    </div>
     <br>
 
 
