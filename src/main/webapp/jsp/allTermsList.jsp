@@ -14,7 +14,7 @@
     </div>
     <br>
     <div id="formModifyDiv">
-        <form id="formModify" action="/term-modifying" method="post">
+        <form id="formModify" action="/term-modifying" method="get">
             <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
         </form>
     </div>

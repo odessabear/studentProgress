@@ -16,17 +16,31 @@ import java.util.List;
 
 public class TermModifyingControler extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         DataService service = new DataService();
         String idString = req.getParameter("checkboxesModify");
         int id = Integer.parseInt(idString);
 
         Term termToModify = service.getTermById(id);
-
+        List<Discipline> disciplines = service.getAllDisciplines();
+        termToModify.setDisciplines(disciplines);
 
         req.setAttribute("term", termToModify);
+        req.setAttribute("disciplines", disciplines);
         req.setAttribute("currentPage", "termModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DataService service = new DataService();
+
+        String termsName = req.getParameter("termsName");
+        int duration = Integer.parseInt(req.getParameter("duration"));
+        int id = Integer.parseInt(req.getParameter("idStr"));
+        String[] disciplineIds = req.getParameterValues("disciplineList");
+
+
+        }
 }
