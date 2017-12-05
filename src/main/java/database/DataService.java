@@ -174,4 +174,10 @@ public class DataService {
         putConnection(conection);
         return termById;
     }
+
+    public void termUpdating(Term termToModify) {
+        DBConection conection = getConnection();
+        conection.termUpdating(termToModify);
+        putConnection(conection);
+    }
 }

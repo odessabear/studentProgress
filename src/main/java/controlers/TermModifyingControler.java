@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "TermModifyingControler", urlPatterns = {"/term-modifying"})
@@ -38,9 +39,26 @@ public class TermModifyingControler extends HttpServlet {
 
         String termsName = req.getParameter("termsName");
         int duration = Integer.parseInt(req.getParameter("duration"));
-        int id = Integer.parseInt(req.getParameter("idStr"));
+        int id = Integer.parseInt(req.getParameter("id"));
         String[] disciplineIds = req.getParameterValues("disciplineList");
 
+        Term termToModify = service.getTermById(id);
+        termToModify.setName(termsName);
+        termToModify.setDuration(duration);
 
+        List<Discipline> selectedDisciplines = new ArrayList<>();
+
+        for (String idDiscAsString : disciplineIds) {
+            int idDisc = Integer.parseInt(idDiscAsString);
+            Discipline discipline = service.getDisciplineById(idDisc);
+            System.out.println("disc with id " + idDisc + " has name " + discipline.getName() + " and was added to this list.");
+            selectedDisciplines.add(discipline);
         }
+
+        termToModify.setDisciplines(selectedDisciplines);
+
+        service.termUpdating(termToModify);
+
+        resp.sendRedirect("/term?=" + id);
+    }
 }

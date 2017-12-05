@@ -412,14 +412,48 @@ public class DBConection {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
 
-            while (result.next()){
+            while (result.next()) {
                 termById.setId(id);
                 termById.setName(result.getString("terms_name"));
                 termById.setDuration(result.getInt("duration"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }return termById;
+        }
+        return termById;
+    }
+
+    public void termUpdating(Term termToModify) {
+        try {
+            PreparedStatement termModifyingStatement = conn.prepareStatement("UPDATE `term` SET `terms_name`=?, `duration`=? WHERE `id_term`=?;");
+            PreparedStatement insertDisciplineStatement = conn.prepareStatement("INSERT INTO `term_disciplin` (`id_term`, `id_discipline`) VALUES (?, ?);");
+
+            termModifyingStatement.setString(1, termToModify.getName());
+            termModifyingStatement.setInt(2, termToModify.getDuration());
+            termModifyingStatement.setInt(3,termToModify.getId());
+            termModifyingStatement.executeUpdate();
+
+            int termid = termToModify.getId();
+
+            for (Discipline discipline : termToModify.getDisciplines()) {
+                insertDisciplineStatement.setInt(1, termid);
+                insertDisciplineStatement.setLong(2, discipline.getId());
+
+                System.out.println("going to add discipl to term like this request" + insertDisciplineStatement);
+
+                insertDisciplineStatement.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("bad things", e);
+            }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 
