@@ -156,7 +156,7 @@ public class DataService {
     }
 
     public void disableTerm(int idTerm) {
-        DBConection conection= getConnection();
+        DBConection conection = getConnection();
         conection.disableTerm(idTerm);
         putConnection(conection);
     }
@@ -170,14 +170,15 @@ public class DataService {
 
     public Term getTermById(int id) {
         DBConection conection = getConnection();
-        Term termById=conection.getTermById(id);
+        Term termById = conection.getTermById(id);
         putConnection(conection);
         return termById;
     }
 
-    public void termUpdating(Term termToModify) {
+    public int termUpdating(Term termToModify) {
         DBConection conection = getConnection();
-        conection.termUpdating(termToModify);
+        int result = conection.termUpdating(termToModify);
         putConnection(conection);
+        return result;
     }
 }

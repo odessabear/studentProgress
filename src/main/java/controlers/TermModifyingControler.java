@@ -57,7 +57,7 @@ public class TermModifyingControler extends HttpServlet {
 
         termToModify.setDisciplines(selectedDisciplines);
 
-        service.termUpdating(termToModify);
+        id =service.termUpdating(termToModify);
 
         resp.sendRedirect("/term?=" + id);
     }
