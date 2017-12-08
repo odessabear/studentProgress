@@ -4,6 +4,7 @@ import constants.Constants;
 import dto.SelectedTermAndDiscipline;
 import entity.*;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -180,5 +181,13 @@ public class DataService {
         int result = conection.termUpdating(termToModify);
         putConnection(conection);
         return result;
+    }
+
+
+    public List<Integer> getDisciplinesIdByTermId(int id) {
+        DBConection conection = getConnection();
+        List<Integer> idsList = conection.getDisciplinesIdByTermId(id);
+        putConnection(conection);
+        return idsList;
     }
 }

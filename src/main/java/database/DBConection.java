@@ -422,10 +422,28 @@ public class DBConection {
         return termById;
     }
 
+    public List<Integer> getDisciplinesIdByTermId(int id)  {
+        List<Integer> disciplinesIdsFromTerm = new ArrayList<>();
+        try {
+            PreparedStatement getDisciplineFromTermStatement = conn.prepareStatement("SELECT `id_discipline` FROM `term_disciplin` WHERE `id_term` = ?;");
+            getDisciplineFromTermStatement.setInt(1, id);
+            ResultSet resultSet = getDisciplineFromTermStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                int discId = resultSet.getInt(1);
+                disciplinesIdsFromTerm.add(discId);
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } return disciplinesIdsFromTerm;
+    }
+
     public int termUpdating(Term termToModify) {
         try {
-            PreparedStatement termModifyingStatement = conn.prepareStatement("UPDATE `term` SET `terms_name`=?, `duration`=? WHERE `id_term`=?",Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement insertDisciplineStatement = conn.prepareStatement("UPDATE `term_disciplin` SET `id_discipline`=? WHERE `id_term_discipline`=?",Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement termModifyingStatement = conn.prepareStatement("UPDATE `term` SET `terms_name`=?, `duration`=? WHERE `id_term`=?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement insertDisciplineStatement = conn.prepareStatement("UPDATE `term_disciplin` SET `id_discipline`=? WHERE `id_term_discipline`=?", Statement.RETURN_GENERATED_KEYS);
 
             termModifyingStatement.setString(1, termToModify.getName());
             termModifyingStatement.setInt(2, termToModify.getDuration());
@@ -434,8 +452,8 @@ public class DBConection {
 
             int termid = termToModify.getId();
 
-            ResultSet resultSet= termModifyingStatement.getGeneratedKeys();
-            while (resultSet.next()){
+            ResultSet resultSet = termModifyingStatement.getGeneratedKeys();
+            while (resultSet.next()) {
                 termid = resultSet.getInt(1);
             }
 
@@ -447,7 +465,8 @@ public class DBConection {
                 System.out.println("going to add discipl to term like this request" + insertDisciplineStatement);
 
                 insertDisciplineStatement.executeUpdate();
-            }return termid;
+            }
+            return termid;
 
         } catch (SQLException e) {
             e.printStackTrace();

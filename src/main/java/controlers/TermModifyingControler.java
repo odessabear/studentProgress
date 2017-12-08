@@ -24,8 +24,15 @@ public class TermModifyingControler extends HttpServlet {
         int id = Integer.parseInt(idString);
 
         Term termToModify = service.getTermById(id);
-        List<Discipline> disciplines = service.getAllDisciplines();
-        termToModify.setDisciplines(disciplines);
+
+        List<Integer> disciplinesid = service.getDisciplinesIdByTermId(id);
+
+        List<Discipline> disciplines = new ArrayList<>();
+
+        for (int idDisc:disciplinesid){
+            Discipline discipline=service.getDisciplineById(idDisc);
+            disciplines.add(discipline);
+        }
 
         req.setAttribute("term", termToModify);
         req.setAttribute("disciplines", disciplines);
