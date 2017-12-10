@@ -443,7 +443,7 @@ public class DBConection {
     public int termUpdating(Term termToModify) {
         try {
             PreparedStatement termModifyingStatement = conn.prepareStatement("UPDATE `term` SET `terms_name`=?, `duration`=? WHERE `id_term`=?", Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement insertDisciplineStatement = conn.prepareStatement("UPDATE `term_disciplin` SET `id_discipline`=? WHERE `id_term_discipline`=?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement insertDisciplineStatement = conn.prepareStatement("INSERT INTO `term_disciplin` (`id_term`, `id_discipline`) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             termModifyingStatement.setString(1, termToModify.getName());
             termModifyingStatement.setInt(2, termToModify.getDuration());
@@ -458,8 +458,9 @@ public class DBConection {
             }
 
             for (Discipline discipline : termToModify.getDisciplines()) {
-                insertDisciplineStatement.setLong(1, discipline.getId());
-                insertDisciplineStatement.setInt(2, termid);
+                insertDisciplineStatement.setInt(1, termid);
+                insertDisciplineStatement.setLong(2, discipline.getId());
+
 
 
                 System.out.println("going to add discipl to term like this request" + insertDisciplineStatement);

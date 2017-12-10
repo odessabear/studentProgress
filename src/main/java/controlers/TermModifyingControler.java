@@ -33,9 +33,11 @@ public class TermModifyingControler extends HttpServlet {
             Discipline discipline=service.getDisciplineById(idDisc);
             disciplines.add(discipline);
         }
+        List<Discipline> disciplineList =service.getAllDisciplines();
 
         req.setAttribute("term", termToModify);
         req.setAttribute("disciplines", disciplines);
+        req.setAttribute("disciplineList",disciplineList);
         req.setAttribute("currentPage", "termModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }

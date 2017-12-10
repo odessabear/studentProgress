@@ -34,7 +34,6 @@
                     <c:forEach items="${term.disciplines}" var="discipline">
                         <input id="discipline_${discipline.id}" name="disciplineName" type="text"
                                value="${discipline.name}"/>
-                        <button onclick="deleteDisciplineFromTerm(${discipline.id}, ${term.id});">x</button>
                         <br>
                     </c:forEach>
                     <br/>
@@ -50,25 +49,7 @@
 
         <script type="text/javascript">
 
-            function deleteDisciplineFromTerm(discId, termId) {
-                event.preventDefault();
-                console.log("you are trying to delete disc id " + discId + " from term id " + termId);
-                var deleteRequest = document.getElementById("discipline_" + discId).innerHTML =
-                    JSON.stringify({"disciplineId":discId,"termId":termId});
-                console.log(deleteRequest);
 
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/deleteDiscFromTerm',
-                    data: deleteRequest,
-                    success: function (data) {
-                        alert('data: ' + data);
-                    },
-                    contentType: "application/json",
-                    dataType: 'json'
-                });
-            }
 
 
             $(function () {

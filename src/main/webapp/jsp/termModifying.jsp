@@ -14,9 +14,17 @@
         </div>
 
         <div class="term-discipline-input">
-            <label>Дисциплины в семестре</label>
+            <label>Дисциплины в семестре</label><br>
+            <br>
+            <c:forEach items="${disciplines}" var="discipline">
+                <input id="discipline_${discipline.id}" name="disciplineName" type="text"
+                       value="${discipline.name}"/>
+                <button onclick="deleteDisciplineFromTerm(${discipline.id}, ${term.id});">x</button>
+                <br>
+            </c:forEach>
+            <br>
             <select id="selectedDisc" name="disciplineList" multiple="multiple">
-                <c:forEach items="${disciplines}" var="discipline">
+                <c:forEach items="${disciplineList}" var="discipline">
                     <option value="${discipline.id}">${discipline.name}</option>
                 </c:forEach>
             </select>
@@ -25,9 +33,30 @@
             <input type="submit" value="Применить">
         </div>
         <script>
-            $('#selectedDisc').change(function() {
-                var selectedValues  = $(this).val();
-                console.log("we want to add "+selectedValues);
+            function deleteDisciplineFromTerm(discId, termId) {
+                event.preventDefault();
+                console.log("you are trying to delete disc id " + discId + " from term id " + termId);
+                var deleteRequest = document.getElementById("discipline_" + discId).innerHTML =
+                    JSON.stringify({"disciplineId":discId,"termId":termId});
+                console.log(deleteRequest);
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/deleteDiscFromTerm',
+                    data: deleteRequest,
+                    success: function (data) {
+                        alert('data: ' + data);
+                    },
+                    contentType: "application/json",
+                    dataType: 'json'
+                });
+            }
+
+            /** function for select discipline from dropbox*/
+            $('#selectedDisc').change(function () {
+                var selectedValues = $(this).val();
+                console.log("we want to add " + selectedValues);
             });
 
         </script>
