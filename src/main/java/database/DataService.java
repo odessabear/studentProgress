@@ -190,4 +190,11 @@ public class DataService {
         putConnection(conection);
         return idsList;
     }
+
+    public Discipline getActiveDisciplineById(int discId) {
+        DBConection conection=getConnection();
+        Discipline activeDiscipline = conection.getActiveDisciplineById(discId);
+        putConnection(conection);
+        return activeDiscipline;
+    }
 }

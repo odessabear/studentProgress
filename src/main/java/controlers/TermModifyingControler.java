@@ -30,7 +30,7 @@ public class TermModifyingControler extends HttpServlet {
         List<Discipline> disciplines = new ArrayList<>();
 
         for (int idDisc:disciplinesid){
-            Discipline discipline=service.getDisciplineById(idDisc);
+            Discipline discipline=service.getActiveDisciplineById(idDisc);
             disciplines.add(discipline);
         }
         List<Discipline> disciplineList =service.getAllDisciplines();
@@ -59,15 +59,15 @@ public class TermModifyingControler extends HttpServlet {
 
         for (String idDiscAsString : disciplineIds) {
             int idDisc = Integer.parseInt(idDiscAsString);
-            Discipline discipline = service.getDisciplineById(idDisc);
+            Discipline discipline = service.getActiveDisciplineById(idDisc);
             System.out.println("disc with id " + idDisc + " has name " + discipline.getName() + " and was added to this list.");
             selectedDisciplines.add(discipline);
         }
 
         termToModify.setDisciplines(selectedDisciplines);
 
-        id =service.termUpdating(termToModify);
+        service.termUpdating(termToModify);
 
-        resp.sendRedirect("/term?=" + id);
+        resp.sendRedirect("/terms-list");
     }
 }

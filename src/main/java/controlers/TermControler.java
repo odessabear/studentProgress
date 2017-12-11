@@ -81,7 +81,7 @@ public class TermControler extends HttpServlet {
         List<Discipline> chosenDisciplines = new ArrayList<>();
         for (String discIdAsString : disciplineIds) {
             int discId = Integer.parseInt(discIdAsString);
-            Discipline discipline = dataService.getDisciplineById(discId);
+            Discipline discipline = dataService.getActiveDisciplineById(discId);
             System.out.println("disc with id " + discId + " has name " + discipline.getName() + " and was added to this list.");
             chosenDisciplines.add(discipline);
         }

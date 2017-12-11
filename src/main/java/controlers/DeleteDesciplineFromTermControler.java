@@ -40,7 +40,7 @@ public class DeleteDesciplineFromTermControler extends HttpServlet {
         System.out.println("current id is " + fromFrontend.getTermId());
 
 
-        resp.sendRedirect("/term?id="+fromFrontend.getTermId());
+        resp.sendRedirect("/term-modifying");
     }
 
 }

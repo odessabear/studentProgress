@@ -222,6 +222,23 @@ public class DBConection {
 
     }
 
+    public Discipline getActiveDisciplineById(int id) {
+        Discipline activeDiscipline = new Discipline();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM `discipline` WHERE id_discipline=? and status=1;");
+            statement.setInt(1,id);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()){
+                activeDiscipline.setId(id);
+                activeDiscipline.setName(result.getString("discipline"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activeDiscipline;
+    }
+
     public void modifyingDisciplineById(int idDisipline, String disciplineName) {
         try {
             PreparedStatement statement = conn.prepareStatement("UPDATE `student_progress`.`discipline` SET `discipline`=? WHERE `id_discipline`= ?");
@@ -422,10 +439,10 @@ public class DBConection {
         return termById;
     }
 
-    public List<Integer> getDisciplinesIdByTermId(int id)  {
+    public List<Integer> getDisciplinesIdByTermId(int id) {
         List<Integer> disciplinesIdsFromTerm = new ArrayList<>();
         try {
-            PreparedStatement getDisciplineFromTermStatement = conn.prepareStatement("SELECT `id_discipline` FROM `term_disciplin` WHERE `id_term` = ?;");
+            PreparedStatement getDisciplineFromTermStatement = conn.prepareStatement("SELECT `id_discipline` FROM `term_disciplin` WHERE `id_term` = ? ;");
             getDisciplineFromTermStatement.setInt(1, id);
             ResultSet resultSet = getDisciplineFromTermStatement.executeQuery();
 
@@ -433,11 +450,12 @@ public class DBConection {
 
                 int discId = resultSet.getInt(1);
                 disciplinesIdsFromTerm.add(discId);
-                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } return disciplinesIdsFromTerm;
+        }
+        return disciplinesIdsFromTerm;
     }
 
     public int termUpdating(Term termToModify) {
@@ -460,7 +478,6 @@ public class DBConection {
             for (Discipline discipline : termToModify.getDisciplines()) {
                 insertDisciplineStatement.setInt(1, termid);
                 insertDisciplineStatement.setLong(2, discipline.getId());
-
 
 
                 System.out.println("going to add discipl to term like this request" + insertDisciplineStatement);
