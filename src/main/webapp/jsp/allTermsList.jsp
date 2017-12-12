@@ -9,10 +9,11 @@
 
             <button class="termButtons" type="submit" onclick="modifyTerm()">Modify term</button>
 
-            <button class="termButtons" type="submit" onclick="location.href = '/term-deleting';">Delete term</button>
+            <button class="termButtons" type="submit" onclick="disableTerm()">Delete term</button>
         </c:if>
     </div>
     <br>
+    <div id="formDeleteDiv"></div>
     <div id="formModifyDiv">
         <form id="formModify" action="/term-modifying" method="get">
             <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>

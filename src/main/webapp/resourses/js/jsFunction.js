@@ -102,3 +102,27 @@ function modifyTerm() {
     document.getElementById("formModify").submit();
     console.log("You selected termId " + checkedboxes[0].value);
 }
+function disableTerm() {
+    var checkboxes = document.getElementsByName("termToSelect");
+    var checkboxesChecked = '';
+
+    // loop over them all
+    for (var i = 0; i < checkboxes.length; i++) {
+        // And stick the checked ones onto an array...
+        if (checkboxes[i].checked) {
+            checkboxesChecked = checkboxesChecked + checkboxes[i].value + '|';
+            console.log("You checked" + checkboxesChecked);
+
+        }
+    }
+
+    if (checkboxesChecked.length == 0) {
+        alert("Ни один из семестров не выбран");
+        return;
+    }
+
+
+    var data = '<form id="formdelete" action="/term-delete" method="post"><input type="hidden" name="checkboxes"value="' + checkboxesChecked + '"/></form>'
+    document.getElementById('formDeleteDiv').innerHTML = data;
+    document.getElementById("formdelete").submit();
+}

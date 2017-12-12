@@ -28,6 +28,7 @@ public class DBConection {
             conn = DriverManager.getConnection(connectionUrl);
         } catch (Exception e) {
             e.printStackTrace();
+
         }
     }
 
