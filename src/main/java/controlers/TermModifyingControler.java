@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "TermModifyingControler", urlPatterns = {"/term-modifying"})
 
@@ -20,24 +21,31 @@ public class TermModifyingControler extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         DataService service = new DataService();
+
         String idString = req.getParameter("checkboxesModify");
         int id = Integer.parseInt(idString);
 
-        Term termToModify = service.getTermById(id);
+        List<Term> alTerms = service.getTermsList();
 
-        List<Integer> disciplinesid = service.getDisciplinesIdByTermId(id);
+        Term termToModify;
+
+        Optional<Term> currentTerm = alTerms.stream()
+                .filter(term -> term.getId() == id)
+                .findFirst();
+        termToModify = currentTerm.get();
+        /* List<Integer> disciplinesid = service.getDisciplinesIdByTermId(id);
 
         List<Discipline> disciplines = new ArrayList<>();
 
         for (int idDisc:disciplinesid){
             Discipline discipline=service.getActiveDisciplineById(idDisc);
             disciplines.add(discipline);
-        }
-        List<Discipline> disciplineList =service.getAllDisciplines();
+        }*/
+        List<Discipline> disciplineList = service.getAllDisciplines();
 
         req.setAttribute("term", termToModify);
-        req.setAttribute("disciplines", disciplines);
-        req.setAttribute("disciplineList",disciplineList);
+        //req.setAttribute("disciplines", disciplines);
+        req.setAttribute("disciplineList", disciplineList);
         req.setAttribute("currentPage", "termModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }

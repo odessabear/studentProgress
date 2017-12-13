@@ -83,6 +83,23 @@ function deleteStudent() {
     document.getElementById('formDeleteDiv').innerHTML = data;
     document.getElementById("formdelete").submit();
 }
+function selectStudent() {
+    var checkedbox = document.querySelectorAll('input[type="checkbox"]:checked');
+    var count = checkedbox.length;
+
+    if (count == 0) {
+        alert("Ни один из элементов не выбран");
+        return;
+    }
+
+    if (count > 1) {
+        alert("Вы можете выбрать только одного студента");
+        return;
+    }
+
+    document.getElementById("checkboxesModify").value = checkedbox[0].value;
+    document.getElementById("formModify").submit();
+}
 
 function modifyTerm() {
     var checkedboxes = document.querySelectorAll('input[type="checkbox"]:checked');

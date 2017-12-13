@@ -36,11 +36,10 @@ public class DeleteDesciplineFromTermControler extends HttpServlet {
         DataService service = new DataService();
         service.deleteDisciplineFromTerm(fromFrontend);
 
-
         System.out.println("current id is " + fromFrontend.getTermId());
 
 
-        resp.sendRedirect("/term-modifying");
+        resp.sendRedirect("/term-modifying?checkboxesModify=" + fromFrontend.getTermId());
     }
 
 }

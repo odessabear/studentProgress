@@ -4,7 +4,7 @@
 <div class="termslist-content-wrapper">
 
     <div class="admin-panel2">
-        <a class="button" href="/students-progress">Просмотреть выбранных студентов</a>
+        <a class="button" onclick= "selectStudent()">Посмотреть успеваемость студента</a>
         <c:if test="${role eq '1'}">
             <a class="button" href="/student-create">Создать студента</a>
             <a class="button" onclick="modifyStudent()">Модифицировать выбранного студента</a>
@@ -18,6 +18,7 @@
             <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
         </form>
     </div>
+
     <br>
 
     <h3>Список студентов</h3>

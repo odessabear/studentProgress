@@ -16,7 +16,7 @@
         <div class="term-discipline-input">
             <label>Дисциплины в семестре</label><br>
             <br>
-            <c:forEach items="${disciplines}" var="discipline">
+            <c:forEach items="${term.disciplines}" var="discipline">
                 <input id="discipline_${discipline.id}" name="disciplineName" type="text"
                        value="${discipline.name}"/>
                 <button onclick="deleteDisciplineFromTerm(${discipline.id}, ${term.id});">x</button>
