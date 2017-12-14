@@ -3,7 +3,13 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <div class="termslist-content-wrapper">
     <h3>Отображена успеваемость следующего студента</h3>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+    </script>
     <div class="studinfo-table-wrapper" >
+        <input type="hidden" name="id" value="${student.id}">
         <table>
             <thead>
             <th>Фамилия</th>
@@ -12,10 +18,11 @@
             <th>Дата поступления</th>
             </thead>
             <tbody>
-            <td>Петров</td>
-            <td>Петр</td>
-            <td>КТ-21</td>
-            <td>1/09/2011</td>
+            <td>${student.surname}</td>
+            <td>${student.name}</td>
+            <td>${student.group}</td>
+            <td><fmt:formatDate pattern="dd/MM/yyyy"
+                                value="${student.inDate}"/></td>
             </tbody>
         </table><br>
         <br>

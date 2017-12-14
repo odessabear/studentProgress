@@ -84,8 +84,8 @@ function deleteStudent() {
     document.getElementById("formdelete").submit();
 }
 function selectStudent() {
-    var checkedbox = document.querySelectorAll('input[type="checkbox"]:checked');
-    var count = checkedbox.length;
+    var checkedboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    var count = checkedboxes.length;
 
     if (count == 0) {
         alert("Ни один из элементов не выбран");
@@ -93,13 +93,12 @@ function selectStudent() {
     }
 
     if (count > 1) {
-        alert("Вы можете выбрать только одного студента");
+        alert("Вы можете выбрать только одного из списка");
         return;
     }
 
-    document.getElementById("checkboxesToLook").value = checkedbox[0].value;
+    document.getElementById("selectedCheckbox").value = checkedboxes[0].value;
     document.getElementById("formToLook").submit();
-    console.log(checkedbox[0]);
 }
 
 function modifyTerm() {
