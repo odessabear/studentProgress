@@ -97,8 +97,9 @@ function selectStudent() {
         return;
     }
 
-    document.getElementById("checkboxesModify").value = checkedbox[0].value;
-    document.getElementById("formModify").submit();
+    document.getElementById("checkboxesToLook").value = checkedbox[0].value;
+    document.getElementById("formToLook").submit();
+    console.log(checkedbox[0]);
 }
 
 function modifyTerm() {

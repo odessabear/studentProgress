@@ -18,6 +18,11 @@
             <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
         </form>
     </div>
+    <div id="checkboxesToLook">
+        <form id="formToLook" action="/students-progress" method="get">
+            <input type="hidden" name="checkboxesModify" id="checkboxesModify"/>
+        </form>
+    </div>
 
     <br>
 

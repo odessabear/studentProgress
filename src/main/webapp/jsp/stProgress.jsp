@@ -1,9 +1,9 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <div class="termslist-content-wrapper">
     <h3>Отображена успеваемость следующего студента</h3>
-    <div class="studinfo-table-wrapper">
+    <div class="studinfo-table-wrapper" >
         <table>
             <thead>
             <th>Фамилия</th>
