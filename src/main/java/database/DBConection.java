@@ -32,16 +32,6 @@ public class DBConection {
         }
     }
 
-    public void disconnect() {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public int isAvailableUser(String login, String password) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM student_progress.account where login = ? and password=?;");
@@ -59,7 +49,7 @@ public class DBConection {
     }
 
     public List<Role> getAllRoles() {
-        List<Role> roles = new ArrayList<Role>();
+        List<Role> roles = new ArrayList<>();
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM role");
             ResultSet result = statement.executeQuery();
@@ -390,14 +380,6 @@ public class DBConection {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("bad things", e);
-        } finally {
-            try {
-
-                conn.close();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -492,12 +474,16 @@ public class DBConection {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("bad things", e);
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        }
+    }
+
+    private void closeConnection() {
+        try {
+            System.out.println("closing db connection");
+
+            this.conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
