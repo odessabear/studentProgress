@@ -1,14 +1,20 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="termslist-content-wrapper">
     <h3>Отображена успеваемость следующего студента</h3>
     <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+
+        function getSelectedValue() {
+            var selectedValue = document.getElementById("selectedTerm").value;
+            console.log(selectedValue);
+        }
+
     </script>
-    <div class="studinfo-table-wrapper" >
+    <div class="studinfo-table-wrapper">
         <input type="hidden" name="id" value="${student.id}">
         <table>
             <thead>
@@ -24,7 +30,8 @@
             <td><fmt:formatDate pattern="dd/MM/yyyy"
                                 value="${student.inDate}"/></td>
             </tbody>
-        </table><br>
+        </table>
+        <br>
         <br>
         <br>
     </div>
@@ -40,55 +47,22 @@
             <tbody>
             <tr>
                 <td>
-                    Высшая математика
+                    ${discipline}
                 </td>
                 <td>
-                    5
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Политология
-                </td>
-                <td>
-                    4
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    История Науки и Техники
-                </td>
-                <td>
-                    5
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Информатика
-                </td>
-                <td>
-                    4
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Теория Алгоритмизации
-                </td>
-                <td>
-                    5
+                    ${mark}
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
     <div class="select-panel">
-        <form action="select1.php" method="get">
+        <form  action="#" >
             <label><strong>Выбрать семестр</strong></label>
-            <select>
-                <option>Семестр 1</option>
-                <option>Семестр 2</option>
-                <option>Семестр 3</option>
+            <select id="selectedTerm" name="terms" onchange="getSelectedValue()">
+
+                <option >${term}</option>
+
             </select>
         </form>
         <h4>Средний бал за семестр:</h4>

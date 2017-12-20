@@ -49,9 +49,6 @@
 
         <script type="text/javascript">
 
-
-
-
             $(function () {
                 $("#createTermForm").submit(function () {
                     var selectedDisciplines = $('#selectedMap').val().toString(); // comma-separated

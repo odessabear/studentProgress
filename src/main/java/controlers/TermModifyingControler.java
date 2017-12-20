@@ -33,18 +33,10 @@ public class TermModifyingControler extends HttpServlet {
                 .filter(term -> term.getId() == id)
                 .findFirst();
         termToModify = currentTerm.get();
-        /* List<Integer> disciplinesid = service.getDisciplinesIdByTermId(id);
 
-        List<Discipline> disciplines = new ArrayList<>();
-
-        for (int idDisc:disciplinesid){
-            Discipline discipline=service.getActiveDisciplineById(idDisc);
-            disciplines.add(discipline);
-        }*/
         List<Discipline> disciplineList = service.getAllDisciplines();
 
         req.setAttribute("term", termToModify);
-        //req.setAttribute("disciplines", disciplines);
         req.setAttribute("disciplineList", disciplineList);
         req.setAttribute("currentPage", "termModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);

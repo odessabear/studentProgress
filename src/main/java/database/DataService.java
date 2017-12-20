@@ -2,6 +2,7 @@ package database;
 
 import constants.Constants;
 import dto.SelectedTermAndDiscipline;
+import dto.TermAndMark;
 import entity.*;
 
 import java.sql.SQLException;
@@ -196,5 +197,12 @@ public class DataService {
         Discipline activeDiscipline = conection.getActiveDisciplineById(discId);
         putConnection(conection);
         return activeDiscipline;
+    }
+
+    public List<TermAndMark> getStudentMarksByStudentId(int id) {
+        DBConection conection = getConnection();
+        List<TermAndMark> result = conection.getStudentMarksByStudentId(id);
+        putConnection(conection);
+        return result;
     }
 }
