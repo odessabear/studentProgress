@@ -2,7 +2,9 @@ package controlers;
 
 import database.DBConection;
 import database.DataService;
+import dto.StudentTerm;
 import dto.TermAndMark;
+import entity.Discipline;
 import entity.Mark;
 import entity.Student;
 import entity.Term;
@@ -26,21 +28,9 @@ public class StudentProgressControler extends HttpServlet {
         Student selectedStudent = dataService.getStudentById(idStudent);
         System.out.println("selected id is " + idStudent);
 
+        List<StudentTerm> studentTerms = dataService.getTermByStudentId(idStudent);
 
-
-        List<TermAndMark> termAndMarks = dataService.getStudentMarksByStudentId(idStudent);
-        String term = null;
-        String discipline = null;
-        int mark = 0;
-        for (TermAndMark result : termAndMarks) {
-            term = result.getTermName();
-            discipline = result.getDiscipline();
-            mark = result.getMark();
-        }
-
-        req.setAttribute("term", term);
-        req.setAttribute("discipline", discipline);
-        req.setAttribute("mark", mark);
+        req.setAttribute("studentTerms",studentTerms);
         req.setAttribute("student", selectedStudent);
         req.setAttribute("currentPage", "stProgress.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);

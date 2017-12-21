@@ -2,6 +2,7 @@ package database;
 
 import constants.Constants;
 import dto.SelectedTermAndDiscipline;
+import dto.StudentTerm;
 import dto.TermAndMark;
 import entity.*;
 
@@ -204,5 +205,12 @@ public class DataService {
         List<TermAndMark> result = conection.getStudentMarksByStudentId(id);
         putConnection(conection);
         return result;
+    }
+
+    public List<StudentTerm> getTermByStudentId(int id){
+        DBConection conection = getConnection();
+        List<StudentTerm> studentTerms = conection.getTermByStudentId(id);
+        putConnection(conection);
+        return studentTerms;
     }
 }

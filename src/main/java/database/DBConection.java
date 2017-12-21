@@ -1,6 +1,7 @@
 package database;
 
 
+import dto.StudentTerm;
 import dto.TermAndMark;
 import entity.*;
 
@@ -556,6 +557,35 @@ public class DBConection {
             e.printStackTrace();
         }
         return termAndMarkList;
+    }
+
+    public List<StudentTerm> getTermByStudentId(int id){
+        List<StudentTerm> studentTerms = new ArrayList<>();
+        try {
+            PreparedStatement termStatement = conn.prepareStatement("SELECT term.id_term as id_term,terms_name from student\n" +
+                    "left join mark on student.id_student = mark.id_student\n" +
+                    "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
+                    "left join term on term_disciplin.id_term = term.id_term\n" +
+                    "where student.id_student = ? and term.status=1 group by terms_name;");
+
+            termStatement.setInt(1,id);
+
+            ResultSet resultSet=termStatement.executeQuery();
+
+            while (resultSet.next()){
+                StudentTerm term = new StudentTerm();
+                int termId = resultSet.getInt("id_term");
+                String termsName = resultSet.getString("terms_name");
+
+                term.setTermId(termId);
+                term.setTermsName(termsName);
+
+                studentTerms.add(term);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return studentTerms;
     }
 }
 

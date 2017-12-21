@@ -8,9 +8,24 @@
             $("#datepicker").datepicker();
         });
 
-        function getSelectedValue() {
-            var selectedValue = document.getElementById("selectedTerm").value;
+        function getSelectedValue(termId,termsName) {
+            event.preventDefault();
+            console.log("you are trying to select term with id " + termId + " and with name " + termsName);
+            var selectedValue = document.getElementById(termId).innerHTML=
+            JSON.stringify({"termId":termId,"termsName":termsName});
             console.log(selectedValue);
+
+            $.ajax({
+                type: 'GET',
+                url: '/students-marks',
+                data: selectedValue,
+                success: function (data) {
+                    alert('data: ' + data);
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            });
+
         }
 
     </script>
@@ -46,23 +61,31 @@
 
             <tbody>
             <tr>
+
                 <td>
-                    ${discipline}
+
+                        ${discipline}
+
                 </td>
+
                 <td>
-                    ${mark}
+
+                        ${mark}
+
                 </td>
+
+
             </tr>
             </tbody>
         </table>
     </div>
     <div class="select-panel">
-        <form  action="#" >
+        <form action="#">
             <label><strong>Выбрать семестр</strong></label>
-            <select id="selectedTerm" name="terms" onchange="getSelectedValue()">
-
-                <option >${term}</option>
-
+            <select id="selectedTerm" name="studentTerms" onchange="getSelectedValue(${termId}, ${termsName});">
+                <c:forEach items="${studentTerms}" var="term">
+                    <option value="${term.termId}">${term.termsName}</option>
+                </c:forEach>
             </select>
         </form>
         <h4>Средний бал за семестр:</h4>
