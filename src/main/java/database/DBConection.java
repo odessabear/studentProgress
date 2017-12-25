@@ -13,16 +13,23 @@ public class DBConection {
 
     private static final String LAPTOP_PC_NAME = "X501A";
 
+    private static final String SIGMA_LAPTOP_PC_NAME = "amikhailov";
+
+    private String getPasswordForLaptop(String lapTopName){
+        String lowerCase = lapTopName.toLowerCase();
+        if (lowerCase.equals(SIGMA_LAPTOP_PC_NAME.toLowerCase())||lowerCase.equals(LAPTOP_PC_NAME)){
+            return "Faster1218";
+            }else{
+            return "root";
+        }
+    }
+
     public DBConection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
             String computerName = System.getProperty("user.name");
-            String password = "root"; // default one
-
-            if (computerName.toLowerCase().equals(LAPTOP_PC_NAME.toLowerCase())) {
-                password = "Faster1218";
-            }
+            String password = getPasswordForLaptop(computerName);
 
             String connectionUrl = "jdbc:mysql://localhost:3306/student_progress?user=root&password="
                     + password + "&characterEncoding=utf-8";
@@ -566,9 +573,10 @@ public class DBConection {
                     "left join mark on student.id_student = mark.id_student\n" +
                     "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
                     "left join term on term_disciplin.id_term = term.id_term\n" +
-                    "where student.id_student = ? and term.status=1 group by terms_name;");
+                    "where student.id_student = ? and term.status=1 group by id_term,terms_name;");
 
             termStatement.setInt(1,id);
+
 
             ResultSet resultSet=termStatement.executeQuery();
 
