@@ -8,26 +8,6 @@
             $("#datepicker").datepicker();
         });
 
-        function getSelectedValue(termId,termsName) {
-            event.preventDefault();
-            console.log("you are trying to select term with id " + termId + " and with name " + termsName);
-            var selectedValue = document.getElementById(termId).innerHTML=
-            JSON.stringify({"termId":termId,"termsName":termsName});
-            console.log(selectedValue);
-
-            $.ajax({
-                type: 'GET',
-                url: '/students-marks',
-                data: selectedValue,
-                success: function (data) {
-                    alert('data: ' + data);
-                },
-                contentType: "application/json",
-                dataType: 'json'
-            });
-
-        }
-
     </script>
     <div class="studinfo-table-wrapper">
         <input type="hidden" name="id" value="${student.id}">
@@ -64,13 +44,13 @@
 
                 <td>
 
-                        ${discipline}
+                    ${discipline}
 
                 </td>
 
                 <td>
 
-                        ${mark}
+                    ${mark}
 
                 </td>
 
@@ -80,14 +60,41 @@
         </table>
     </div>
     <div class="select-panel">
-        <form action="#">
+        <form action="/students-marks" method="get">
             <label><strong>Выбрать семестр</strong></label>
-            <select id="selectedTerm" name="studentTerms" onchange="getSelectedValue(${termId}, ${termsName});">
+            <select id="selectedTerm" name="studentTerms">
                 <c:forEach items="${studentTerms}" var="term">
                     <option value="${term.termId}">${term.termsName}</option>
                 </c:forEach>
             </select>
+
         </form>
+        <script>
+            /** function for select term from dropbox*/
+            $('#selectedTerm').click(function () {
+                var selectedValues = $(this).val();
+                console.log("we want to select " + selectedValues + " term");
+            });
+
+            function getSelectedValue(termId,termsName) {
+                event.preventDefault();
+                console.log("you are trying to select term with id " + termId + " and with name " + termsName);
+                var selectedValue = document.getElementById(termId).innerHTML =
+                    JSON.stringify({"termId": termId, "termsName": termsName});
+                console.log(selectedValue);
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/students-marks',
+                    data: selectedValue,
+                    success: function (data) {
+                        alert('data: ' + data);
+                    },
+                    contentType: "application/json",
+                    dataType: 'json'
+                });
+            }
+        </script>
         <h4>Средний бал за семестр:</h4>
     </div>
 
