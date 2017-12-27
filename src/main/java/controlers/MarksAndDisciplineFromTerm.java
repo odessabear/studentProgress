@@ -11,6 +11,12 @@ import java.io.IOException;
 public class MarksAndDisciplineFromTerm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String stringTermId = req.getParameter("termId");
+        String stringStudentId = req.getParameter("studendId");
 
+        int termId = Integer.parseInt(stringTermId);
+      //  int studentId = Integer.parseInt(stringStudentId);
+
+        System.out.println("our values are: "+ termId+" and ");
     }
 }

@@ -71,7 +71,7 @@
         </form>
         <script>
             /** function for select term from dropbox*/
-            $('#selectedTerm').click(function () {
+            $('#selectedTerm').change(function () {
                 var selectedValue = $(this).val();
                 console.log("we want to select " + selectedValue + " term");
                 var studentId = ${student.id};
@@ -84,24 +84,7 @@
                 });
             });
 
-            function getSelectedValue(termId,termsName) {
-                event.preventDefault();
-                console.log("you are trying to select term with id " + termId + " and with name " + termsName);
-                var selectedValue = document.getElementById(termId).innerHTML =
-                    JSON.stringify({"termId": termId, "termsName": termsName});
-                console.log(selectedValue);
 
-                $.ajax({
-                    type: 'GET',
-                    url: '/students-marks',
-                    data: selectedValue,
-                    success: function (data) {
-                        alert('data: ' + data);
-                    },
-                    contentType: "application/json",
-                    dataType: 'json'
-                });
-            }
         </script>
         <h4>Средний бал за семестр:</h4>
     </div>
