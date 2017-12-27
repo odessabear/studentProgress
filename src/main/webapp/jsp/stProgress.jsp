@@ -72,8 +72,16 @@
         <script>
             /** function for select term from dropbox*/
             $('#selectedTerm').click(function () {
-                var selectedValues = $(this).val();
-                console.log("we want to select " + selectedValues + " term");
+                var selectedValue = $(this).val();
+                console.log("we want to select " + selectedValue + " term");
+                var studentId = ${student.id};
+                $.ajax({
+                    type: 'GET',
+                    url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
             });
 
             function getSelectedValue(termId,termsName) {
