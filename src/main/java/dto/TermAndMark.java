@@ -1,16 +1,16 @@
 package dto;
 
 public class TermAndMark {
-    private String termName;
+
     private String discipline;
     private int mark;
 
-    public String getTermName() {
-        return termName;
+    public TermAndMark() {
     }
 
-    public void setTermName(String termName) {
-        this.termName = termName;
+    public TermAndMark(String discipline, int mark) {
+        this.discipline = discipline;
+        this.mark = mark;
     }
 
     public String getDiscipline() {

@@ -496,12 +496,12 @@ public class DBConection {
         }
     }
 
-    public List<TermAndMark> getStudentProgressByStudentId(int studentId, int termId) {
+    public List<TermAndMark> getStudentProgressByStudentAndTermIds(int studentId, int termId) {
 
         List<TermAndMark> termAndMarkList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = conn.prepareStatement("select terms_name,discipline,mark\n" +
+            PreparedStatement statement = conn.prepareStatement("select discipline,mark\n" +
                     "from student left join mark on student.id_student = mark.id_student\n" +
                     "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
                     "left join term on term_disciplin.id_term=term.id_term\n" +
@@ -514,48 +514,12 @@ public class DBConection {
 
             while (resultSet.next()) {
                 TermAndMark termAndMark = new TermAndMark();
-                String termName = resultSet.getString("terms_name");
+
                 String discipline = resultSet.getString("discipline");
                 int mark = resultSet.getInt("mark");
 
                 termAndMark.setDiscipline(discipline);
                 termAndMark.setMark(mark);
-                termAndMark.setTermName(termName);
-
-                termAndMarkList.add(termAndMark);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return termAndMarkList;
-    }
-
-    public List<TermAndMark> getStudentMarksByStudentId(int studentId) {
-
-        List<TermAndMark> termAndMarkList = new ArrayList<>();
-
-        try {
-            PreparedStatement statement = conn.prepareStatement("select terms_name,discipline,mark\n" +
-                    "from student left join mark on student.id_student = mark.id_student\n" +
-                    "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
-                    "left join term on term_disciplin.id_term=term.id_term\n" +
-                    "left join discipline on term_disciplin.id_discipline=discipline.id_discipline\n" +
-                    "where student.id_student = ? and term.status=1 and discipline.status=1;");
-
-            statement.setInt(1,studentId);
-
-            ResultSet resultSet=statement.executeQuery();
-
-            while (resultSet.next()) {
-                TermAndMark termAndMark = new TermAndMark();
-                String termName = resultSet.getString("terms_name");
-                String discipline = resultSet.getString("discipline");
-                int mark = resultSet.getInt("mark");
-
-                termAndMark.setDiscipline(discipline);
-                termAndMark.setMark(mark);
-                termAndMark.setTermName(termName);
 
                 termAndMarkList.add(termAndMark);
             }

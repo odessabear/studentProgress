@@ -40,22 +40,12 @@
             </thead>
 
             <tbody>
+<c:forEach items="${progress}"  var="param">
             <tr>
-
-                <td>
-
-                    ${discipline}
-
-                </td>
-
-                <td>
-
-                    ${mark}
-
-                </td>
-
-
+                <td>${param.discipline}</td>
+                <td>${param.mark}</td>
             </tr>
+</c:forEach>
             </tbody>
         </table>
     </div>

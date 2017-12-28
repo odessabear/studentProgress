@@ -200,9 +200,9 @@ public class DataService {
         return activeDiscipline;
     }
 
-    public List<TermAndMark> getStudentMarksByStudentId(int id) {
+    public List<TermAndMark> getStudentProgressByStudentAndTermIds(int studentId, int termId) {
         DBConection conection = getConnection();
-        List<TermAndMark> result = conection.getStudentMarksByStudentId(id);
+        List<TermAndMark> result = conection.getStudentProgressByStudentAndTermIds(studentId,termId);
         putConnection(conection);
         return result;
     }
