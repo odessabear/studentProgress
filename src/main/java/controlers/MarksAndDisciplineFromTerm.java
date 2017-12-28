@@ -1,5 +1,6 @@
 package controlers;
 
+import com.google.gson.Gson;
 import database.DataService;
 import dto.TermAndMark;
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "MarksAndDisciplineFromTerm", urlPatterns = {"/students-marks"})
@@ -28,8 +31,15 @@ public class MarksAndDisciplineFromTerm extends HttpServlet {
 
         List<TermAndMark> progress = service.getStudentProgressByStudentAndTermIds(studentId, termId);
 
+        Gson gson = new Gson();
+        String jsonS = gson.toJson(progress);
 
-        req.setAttribute("progress", progress);
-        resp.sendRedirect("/students-progress?selectedCheckbox=" + studentId);
+        System.out.println("gson = " + jsonS);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.print(jsonS);
+        out.flush();
     }
 }

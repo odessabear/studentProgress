@@ -39,13 +39,13 @@
             </tr>
             </thead>
 
-            <tbody>
-<c:forEach items="${progress}"  var="param">
+            <tbody id="discAndMarks">
+
             <tr>
-                <td>${param.discipline}</td>
-                <td>${param.mark}</td>
+                <td></td>
+                <td></td>
             </tr>
-</c:forEach>
+
             </tbody>
         </table>
     </div>
@@ -70,6 +70,19 @@
                     url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
                     success: function (data) {
                         console.log(data);
+                        $("#discAndMarks").empty();
+
+                        data.forEach(function(elem) {
+                            console.log("elem.disc " + elem.discipline + " elem.mark " + elem.mark);
+                            var tr ;
+                            tr =$('<tr/>');
+
+                            tr.append("<td>" + elem.discipline + "</td>");
+                            tr.append("<td>" + elem.mark + "</td>");
+                            $('#discAndMarks').append(tr);
+
+
+                        });
                     }
                 });
             });
