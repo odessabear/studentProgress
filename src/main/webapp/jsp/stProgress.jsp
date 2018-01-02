@@ -61,7 +61,7 @@
         </form>
         <script>
             /** function for select term from dropbox*/
-            $('#selectedTerm').change(function () {
+            $('#selectedTerm').click(function () {
                 var selectedValue = $(this).val();
                 console.log("we want to select " + selectedValue + " term");
                 var studentId = ${student.id};
@@ -72,7 +72,11 @@
                         console.log(data);
                         $("#discAndMarks").empty();
 
+                        var totalMark = 0;
+                        var avg = 0;
+
                         data.forEach(function(elem) {
+                            console.log(elem);
                             console.log("elem.disc " + elem.discipline + " elem.mark " + elem.mark);
                             var tr ;
                             tr =$('<tr/>');
@@ -81,8 +85,13 @@
                             tr.append("<td>" + elem.mark + "</td>");
                             $('#discAndMarks').append(tr);
 
+                            totalMark = totalMark + elem.mark;
+
 
                         });
+
+                        avg = totalMark / data.length;
+                        console.log(avg);
                     }
                 });
             });
