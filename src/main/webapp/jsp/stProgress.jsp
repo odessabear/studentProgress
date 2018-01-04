@@ -43,7 +43,7 @@
 
             <tr>
                 <td></td>
-                <td><input></td>
+                <td id="markOfStudent"></td>
             </tr>
 
             </tbody>
@@ -72,31 +72,55 @@
                         console.log(data);
                         $("#discAndMarks").empty();
 
+                        var totalMark = 0;
+                        var avg = 0;
+
                         data.forEach(function (elem) {
+                            console.log(elem);
                             console.log("elem.disc " + elem.discipline + " elem.mark " + elem.mark);
                             var tr;
-                            var avg = 0;
-                            var count = 0;
-                                tr = $('<tr/>');
+                            tr = $('<tr/>');
 
                             tr.append("<td>" + elem.discipline + "</td>");
-                            tr.append("<td>" + elem.mark + "</td>");
+                            tr.append("<td>" + elem.mark  + "</td>");
                             $('#discAndMarks').append(tr);
 
+                            totalMark = totalMark + elem.mark;
 
-                            avg=avg+parseInt($(elem.mark).text());
-                            count=count+1;
-                            avg=avg/count;
-                            console.log(avg);
 
                         });
+
+                        avg = totalMark / data.length;
+                        avg.toFixed(2);
+                        console.log(avg);
+                        $("#result").empty();
+                        $('#result').append(avg);
                     }
                 });
             });
 
 
+            $(function()	{
+                $('#discAndMarks').click(function(e)	{
+                    //ловим элемент, по которому кликнули
+                    var t = e.target || e.srcElement;
+                    //получаем название тега
+                    var elm_name = t.tagName.toLowerCase();
+                    //если это инпут - ничего не делаем
+                    if(elm_name == 'input')	{return false;}
+                    var val = $(this).html();
+                    var code = '<input type="text" id="edit" value="'+val+'" />';
+                    $(this).empty().append(code);
+                    $('#edit').focus();
+                    $('#edit').blur(function()	{
+                        var val = $(this).val();
+                        $(this).parent().empty().html(val);
+                    });
+                });
+            });
         </script>
         <h4>Средний бал за семестр:</h4>
+        <div id="result"></div>
     </div>
 
 
