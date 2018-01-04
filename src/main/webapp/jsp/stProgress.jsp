@@ -31,7 +31,7 @@
         <br>
     </div>
     <div class="marks-table-wrapper">
-        <table>
+        <table id="marksTable">
             <thead>
             <tr>
                 <th>Дисциплина</th>
@@ -43,7 +43,7 @@
 
             <tr>
                 <td></td>
-                <td id="markOfStudent"></td>
+                <td></td>
             </tr>
 
             </tbody>
@@ -82,7 +82,7 @@
                             tr = $('<tr/>');
 
                             tr.append("<td>" + elem.discipline + "</td>");
-                            tr.append("<td>" + elem.mark  + "</td>");
+                            tr.append("<td>" + elem.mark + "</td>");
                             $('#discAndMarks').append(tr);
 
                             totalMark = totalMark + elem.mark;
@@ -100,24 +100,6 @@
             });
 
 
-            $(function()	{
-                $('#discAndMarks').click(function(e)	{
-                    //ловим элемент, по которому кликнули
-                    var t = e.target || e.srcElement;
-                    //получаем название тега
-                    var elm_name = t.tagName.toLowerCase();
-                    //если это инпут - ничего не делаем
-                    if(elm_name == 'input')	{return false;}
-                    var val = $(this).html();
-                    var code = '<input type="text" id="edit" value="'+val+'" />';
-                    $(this).empty().append(code);
-                    $('#edit').focus();
-                    $('#edit').blur(function()	{
-                        var val = $(this).val();
-                        $(this).parent().empty().html(val);
-                    });
-                });
-            });
         </script>
         <h4>Средний бал за семестр:</h4>
         <div id="result"></div>
