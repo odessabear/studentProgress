@@ -36,6 +36,7 @@
             <tr>
                 <th>Дисциплина</th>
                 <th>Оценка</th>
+                <th></th>
             </tr>
             </thead>
 
@@ -43,11 +44,14 @@
 
             <tr>
                 <td></td>
+                <td class="content"></td>
                 <td></td>
             </tr>
 
             </tbody>
         </table>
+        <br>
+
     </div>
     <div class="select-panel">
         <form action="/students-marks" method="get">
@@ -82,25 +86,47 @@
                             tr = $('<tr/>');
 
                             tr.append("<td>" + elem.discipline + "</td>");
-                            tr.append("<td contenteditable=\"true\">" + elem.mark  + "</td>");
+                            tr.append("<td contenteditable=\"true\" class=\"content\" id='mark'>" + elem.mark + "</td>");
+                            tr.append("<td>"+"<button class=\"editBtn\" >"+"Edit"+"</button>"+"</td>");
                             $('#discAndMarks').append(tr);
 
                             totalMark = totalMark + elem.mark;
 
 
+
+
                         });
 
                         avg = totalMark / data.length;
-                        average=avg.toPrecision(3);
+                        var average = avg.toPrecision(3);
                         console.log(average);
                         $("#result").empty();
                         $('#result').append(average);
+
+                        $(document).ready(function() {
+                            $('.editBtn').click(function(elem) {
+                                alert("Do you want to change this mark");
+                                var newMark = $(event.target).parents('tr').find('.content').text();
+                                var newValue=document.getElementsByClassName(mark).innerHTML=
+                                    JSON.stringify({"newMarkId":newMark});
+                                console.log(newValue);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/change-marks',
+                                    data: newValue,
+                                    success: function (data) {
+                                        alert('data: ' + data);
+                                    },
+                                    contentType: "application/json",
+                                    dataType: 'json'
+                                });
+
+                            })
+
+                        });
                     }
                 });
             });
-
-
-
 
         </script>
         <h4>Средний бал за семестр:</h4>
