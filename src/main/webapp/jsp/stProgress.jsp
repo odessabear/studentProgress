@@ -104,15 +104,15 @@
                         $('#result').append(average);
 
                         $(document).ready(function() {
-                            $('.editBtn').click(function(elem) {
+                            $('.editBtn').click(function() {
                                 alert("Do you want to change this mark");
                                 var newMark = $(event.target).parents('tr').find('.content').text();
                                 var newValue=document.getElementsByClassName(mark).innerHTML=
-                                    JSON.stringify({"newMarkId":newMark});
+                                    JSON.stringify({"newMark":newMark});
                                 console.log(newValue);
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/change-marks',
+                                    url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
                                     data: newValue,
                                     success: function (data) {
                                         alert('data: ' + data);
