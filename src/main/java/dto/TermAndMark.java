@@ -4,6 +4,7 @@ public class TermAndMark {
 
     private String discipline;
     private int mark;
+    private int idMark;
 
     public TermAndMark() {
     }
@@ -11,6 +12,14 @@ public class TermAndMark {
     public TermAndMark(String discipline, int mark) {
         this.discipline = discipline;
         this.mark = mark;
+    }
+
+    public int getIdMark() {
+        return idMark;
+    }
+
+    public void setIdMark(int idMark) {
+        this.idMark = idMark;
     }
 
     public String getDiscipline() {

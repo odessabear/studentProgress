@@ -501,7 +501,7 @@ public class DBConection {
         List<TermAndMark> termAndMarkList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = conn.prepareStatement("select discipline,mark\n" +
+            PreparedStatement statement = conn.prepareStatement("select discipline,mark,id_mark\n" +
                     "from student left join mark on student.id_student = mark.id_student\n" +
                     "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
                     "left join term on term_disciplin.id_term=term.id_term\n" +
@@ -517,9 +517,11 @@ public class DBConection {
 
                 String discipline = resultSet.getString("discipline");
                 int mark = resultSet.getInt("mark");
+                int idMark = resultSet.getInt("id_mark");
 
                 termAndMark.setDiscipline(discipline);
                 termAndMark.setMark(mark);
+                termAndMark.setIdMark(idMark);
 
                 termAndMarkList.add(termAndMark);
             }

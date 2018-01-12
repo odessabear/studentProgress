@@ -34,6 +34,7 @@
         <table>
             <thead>
             <tr>
+                <th></th>
                 <th>Дисциплина</th>
                 <th>Оценка</th>
                 <th></th>
@@ -43,6 +44,7 @@
             <tbody id="discAndMarks">
 
             <tr>
+                <td ></td>
                 <td></td>
                 <td class="content"></td>
                 <td></td>
@@ -81,18 +83,17 @@
 
                         data.forEach(function (elem) {
                             console.log(elem);
-                            console.log("elem.disc " + elem.discipline + " elem.mark " + elem.mark);
+                            console.log(" elem.idMark " + elem.idMark + " elem.disc " + elem.discipline + " elem.mark " + elem.mark );
                             var tr;
                             tr = $('<tr/>');
 
+                            tr.append("<td id='marksId'>" + elem.idMark + "</td>");
                             tr.append("<td>" + elem.discipline + "</td>");
                             tr.append("<td contenteditable=\"true\" class=\"content\" id='mark'>" + elem.mark + "</td>");
-                            tr.append("<td>"+"<button class=\"editBtn\" >"+"Edit"+"</button>"+"</td>");
+                            tr.append("<td>" + "<button class=\"editBtn\" >" + "Edit" + "</button>" + "</td>");
                             $('#discAndMarks').append(tr);
 
                             totalMark = totalMark + elem.mark;
-
-
 
 
                         });
@@ -103,12 +104,15 @@
                         $("#result").empty();
                         $('#result').append(average);
 
-                        $(document).ready(function() {
-                            $('.editBtn').click(function() {
+
+                        $(document).ready(function () {
+                            $('.editBtn').click(function () {
                                 alert("Do you want to change this mark");
+                                var idOfMark = document.getElementById('marksId').innerText;
                                 var newMark = $(event.target).parents('tr').find('.content').text();
-                                var newValue=document.getElementsByClassName(mark).innerHTML=
-                                    JSON.stringify({"newMark":newMark});
+                                var newValue = document.getElementById('discAndMarks').innerHTML =
+                                    JSON.stringify({"idOfMark":idOfMark,"newMark": newMark});
+
                                 console.log(newValue);
                                 $.ajax({
                                     type: 'POST',
