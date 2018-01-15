@@ -116,7 +116,7 @@
                                 console.log(newValue);
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
+                                    url: '/change-mark',
                                     data: newValue,
                                     success: function (data) {
                                         alert('data: ' + data);

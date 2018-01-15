@@ -43,19 +43,6 @@ public class MarksAndDisciplineFromTerm extends HttpServlet {
         out.flush();
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DataService service = new DataService();
 
-        String stringTermId = req.getParameter("termId");
-        String stringStudentId = req.getParameter("studentId");
-
-        int termId = Integer.parseInt(stringTermId);
-        int studentId = Integer.parseInt(stringStudentId);
-
-        System.out.println("values are: " + termId+ " & " + studentId);
-
-
-        }
 }
 

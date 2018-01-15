@@ -561,6 +561,10 @@ public class DBConection {
             e.printStackTrace();
         }return studentTerms;
     }
+
+    public void changeMarkById(int idOfMark,int marksValue){
+
+    }
 }
 
 
