@@ -44,7 +44,7 @@
             <tbody id="discAndMarks">
 
             <tr>
-                <td ></td>
+                <td></td>
                 <td></td>
                 <td class="content"></td>
                 <td></td>
@@ -83,7 +83,7 @@
 
                         data.forEach(function (elem) {
                             console.log(elem);
-                            console.log(" elem.idMark " + elem.idMark + " elem.disc " + elem.discipline + " elem.mark " + elem.mark );
+                            console.log(" elem.idMark " + elem.idMark + " elem.disc " + elem.discipline + " elem.mark " + elem.mark);
                             var tr;
                             tr = $('<tr/>');
 
@@ -111,12 +111,12 @@
                                 var idOfMark = document.getElementById('marksId').innerText;
                                 var newMark = $(event.target).parents('tr').find('.content').text();
                                 var newValue = document.getElementById('discAndMarks').innerHTML =
-                                    JSON.stringify({"idOfMark":idOfMark,"newMark": newMark});
+                                    JSON.stringify({"newMark": newMark,"idOfMark": idOfMark});
 
                                 console.log(newValue);
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/change-mark',
+                                    url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
                                     data: newValue,
                                     success: function (data) {
                                         alert('data: ' + data);
