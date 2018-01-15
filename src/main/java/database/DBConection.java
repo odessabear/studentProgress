@@ -562,7 +562,18 @@ public class DBConection {
         }return studentTerms;
     }
 
-    public void changeMarkById(int idOfMark,int marksValue){
+    public void changeMarkById(int marksValue,int idOfMark){
+        try {
+            PreparedStatement changeMarkStatement = conn.prepareStatement("UPDATE `mark` SET `mark`=? WHERE `id_mark`=?;");
+
+            changeMarkStatement.setInt(1,marksValue);
+            changeMarkStatement.setInt(2,idOfMark);
+
+            changeMarkStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -213,4 +213,9 @@ public class DataService {
         putConnection(conection);
         return studentTerms;
     }
+    public void changeMarkById(int marksValue,int idOfMark){
+        DBConection conection = getConnection();
+        conection.changeMarkById(marksValue, idOfMark);
+        putConnection(conection);
+    }
 }
