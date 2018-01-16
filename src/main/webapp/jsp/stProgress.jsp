@@ -67,7 +67,7 @@
         </form>
         <script>
             /** function for select term from dropbox*/
-            $('#selectedTerm').change(function () {
+            $('#selectedTerm').click(function () {
                 var selectedValue = $(this).val();
                 console.log("we want to select " + selectedValue + " term");
                 var studentId = ${student.id};

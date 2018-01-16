@@ -72,13 +72,9 @@ public class MarksAndDisciplineFromTerm extends HttpServlet {
         MarkAndID dataFromFrontend = gson.fromJson(data, MarkAndID.class);
         System.out.println(dataFromFrontend);
 
-        int marksValue = dataFromFrontend.getMark();
-        int idOfMark = dataFromFrontend.getIdMark();
 
-        System.out.println("new mark is " + marksValue + " id of mark is " + idOfMark);
-        service.changeMarkById(marksValue, idOfMark);
 
-        resp.sendRedirect("/students-progress?selectedCheckbox=" + stringTermId);
+       // resp.sendRedirect("/students-progress?selectedCheckbox=" + stringTermId);
     }
 }
 
