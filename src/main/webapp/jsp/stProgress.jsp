@@ -108,10 +108,10 @@
                         $(document).ready(function () {
                             $('.editBtn').click(function () {
                                 alert("Do you want to change this mark");
-                                var idOfMark = document.getElementById('marksId').innerText;
-                                var newMark = $(event.target).parents('tr').find('.content').text();
+                                var idMark = document.getElementById('marksId').innerText;
+                                var mark = $(event.target).parents('tr').find('.content').text();
                                 var newValue = document.getElementById('discAndMarks').innerHTML =
-                                    JSON.stringify({"newMark": newMark,"idOfMark": idOfMark});
+                                    JSON.stringify({"mark": mark,"idMark": idMark});
 
                                 console.log(newValue);
                                 $.ajax({

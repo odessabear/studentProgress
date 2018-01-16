@@ -3,15 +3,15 @@ package dto;
 import java.util.Objects;
 
 public class MarkAndID {
-    private Integer marksValue;
+    private Integer mark;
     private Integer idMark;
 
     public Integer getMarksValue() {
-        return marksValue;
+        return mark;
     }
 
-    public void setMarksValue(Integer marksValue) {
-        this.marksValue = marksValue;
+    public void setMarksValue(Integer mark) {
+        this.mark = mark;
     }
 
     public Integer getIdMark() {
@@ -27,20 +27,20 @@ public class MarkAndID {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MarkAndID markAndID = (MarkAndID) o;
-        return Objects.equals(marksValue, markAndID.marksValue) &&
+        return Objects.equals(mark, markAndID.mark) &&
                 Objects.equals(idMark, markAndID.idMark);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(marksValue, idMark);
+        return Objects.hash(mark, idMark);
     }
 
     @Override
     public String toString() {
         return "MarkAndID{" +
-                "mark=" + marksValue +
+                "mark=" + mark +
                 ", idMark=" + idMark +
                 '}';
     }
