@@ -110,8 +110,7 @@
                                 alert("Do you want to change this mark");
                                 var idMark = document.getElementById('marksId').innerText;
                                 var mark = $(event.target).parents('tr').find('.content').text();
-                                var newValue = document.getElementById('discAndMarks').innerHTML =
-                                    JSON.stringify({"mark": mark,"idMark": idMark});
+                                var newValue = JSON.stringify({"mark": mark,"idMark": idMark});
 
                                 console.log(newValue);
                                 $.ajax({
