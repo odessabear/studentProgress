@@ -41,13 +41,21 @@ public class TermModifyingControler extends HttpServlet {
         req.setAttribute("currentPage", "termModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }
-
+    //https://technology.amis.nl/2017/12/15/handle-http-patch-request-with-java-servlet/
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DataService service = new DataService();
 
         String termsName = req.getParameter("termsName");
-        int duration = Integer.parseInt(req.getParameter("duration"));
+        String stringDuration = req.getParameter("duration");
+
+        if (termsName.equals("") || stringDuration.equals("")) {
+            req.setAttribute("errorMessage", 3);
+            req.setAttribute("currentPage", "termModifying.jsp");
+            req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
+            return;
+        }
+        int duration = Integer.parseInt(stringDuration);
         int id = Integer.parseInt(req.getParameter("id"));
         String[] disciplineIds = req.getParameterValues("disciplineList");
 
@@ -56,18 +64,21 @@ public class TermModifyingControler extends HttpServlet {
         termToModify.setDuration(duration);
 
         List<Discipline> selectedDisciplines = new ArrayList<>();
-
-        for (String idDiscAsString : disciplineIds) {
-            int idDisc = Integer.parseInt(idDiscAsString);
-            Discipline discipline = service.getActiveDisciplineById(idDisc);
-            System.out.println("disc with id " + idDisc + " has name " + discipline.getName() + " and was added to this list.");
-            selectedDisciplines.add(discipline);
+        try {
+            for (String idDiscAsString : disciplineIds) {
+                int idDisc = Integer.parseInt(idDiscAsString);
+                Discipline discipline = service.getActiveDisciplineById(idDisc);
+                System.out.println("disc with id " + idDisc + " has name " + discipline.getName() + " and was added to this list.");
+                selectedDisciplines.add(discipline);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        termToModify.setDisciplines(selectedDisciplines);
+            termToModify.setDisciplines(selectedDisciplines);
 
-        service.termUpdating(termToModify);
+            service.termUpdating(termToModify);
 
-        resp.sendRedirect("/terms-list");
+            resp.sendRedirect("/terms-list");
+        }
     }
-}

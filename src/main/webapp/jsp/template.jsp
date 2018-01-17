@@ -64,25 +64,32 @@
 </c:if>
 
 <jsp:include page="${currentPage}"/>
+<
+<div class="warning">
 <c:choose>
     <c:when test="${errorMessage=='1'}">
-        Логин или пароль введены неверно.
+        Login or password entered incorrectly.
         <br/>
     </c:when>
     <c:when test="${errorMessage=='2'}">
-        Вы вошли не под своей ролью.
+        You did not enter under your role.
         <br/>
     </c:when>
     <c:when test="${errorMessage=='3'}">
-        Поле должно быть заполнено!
+        All fields must be filled!
         <br/>
     </c:when>
     <c:when test="${errorMessage=='4'}">
-        Что-то пощло не так.Попробуйте позже.
+        Something is wrong.Try again later!
+        <br/>
+    </c:when>
+    <c:when test="${errorMessage=='5'}">
+        You entered an invalid value!
         <br/>
     </c:when>
     <c:otherwise>
     </c:otherwise>
 </c:choose>
+</div>
 </body>
 </html>
