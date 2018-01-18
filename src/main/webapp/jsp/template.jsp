@@ -64,7 +64,6 @@
 </c:if>
 
 <jsp:include page="${currentPage}"/>
-<
 <div class="warning">
 <c:choose>
     <c:when test="${errorMessage=='1'}">
