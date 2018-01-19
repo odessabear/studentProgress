@@ -119,3 +119,6 @@ function modifyTerm() {
     document.getElementById("formModify").submit();
     console.log("You selected termId " + checkedboxes[0].value);
 }
+
+
+
