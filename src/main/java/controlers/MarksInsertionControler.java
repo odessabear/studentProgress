@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "MarksInsertionControler", urlPatterns = {"/insert-marks"})
@@ -23,9 +24,11 @@ public class MarksInsertionControler extends HttpServlet{
         Student selectedStudent = dataService.getStudentById(idStudent);
         System.out.println("selected id is " + idStudent);
 
+        List<StudentTerm> termsList = new ArrayList<>();
+         termsList = dataService.getAllTermsNamesAndIds();
+        System.out.println(termsList);
 
-
-
+        req.setAttribute("termsList",termsList);
         req.setAttribute("student", selectedStudent);
         req.setAttribute("currentPage", "markInsertion.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);

@@ -218,4 +218,11 @@ public class DataService {
         conection.changeMarkById(marksValue, idOfMark);
         putConnection(conection);
     }
+
+    public List<StudentTerm> getAllTermsNamesAndIds(){
+        DBConection conection = getConnection();
+        List<StudentTerm> termsNamesAndIds = conection.getAllTermsNamesAndIds();
+        putConnection(conection);
+        return termsNamesAndIds;
+    }
 }

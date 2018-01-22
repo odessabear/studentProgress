@@ -576,6 +576,30 @@ public class DBConection {
         }
 
     }
+
+    public List<StudentTerm> getAllTermsNamesAndIds(){
+        List<StudentTerm> allActiveTermsNamesAndIds = new ArrayList<>();
+        try {
+            PreparedStatement getTermsStatement = conn.prepareStatement("SELECT id_term,terms_name FROM student_progress.term where status = 1;");
+
+            ResultSet resultSet = getTermsStatement.executeQuery();
+
+            while (resultSet.next()){
+                StudentTerm term = new StudentTerm();
+
+                int termsId = resultSet.getInt("id_term");
+                String termsName = resultSet.getString("terms_name");
+
+                term.setTermId(termsId);
+                term.setTermsName(termsName);
+
+                allActiveTermsNamesAndIds.add(term);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return allActiveTermsNamesAndIds;
+    }
 }
 
 
