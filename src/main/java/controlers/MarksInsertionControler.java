@@ -24,9 +24,8 @@ public class MarksInsertionControler extends HttpServlet{
         Student selectedStudent = dataService.getStudentById(idStudent);
         System.out.println("selected id is " + idStudent);
 
-        List<StudentTerm> termsList = new ArrayList<>();
-         termsList = dataService.getAllTermsNamesAndIds();
-        System.out.println(termsList);
+        List<StudentTerm> termsList =dataService.getAllTermsNamesAndIds();
+
 
         req.setAttribute("termsList",termsList);
         req.setAttribute("student", selectedStudent);

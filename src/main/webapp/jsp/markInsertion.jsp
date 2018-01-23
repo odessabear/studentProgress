@@ -66,7 +66,10 @@
 
         </form>
         <script>
-
+            $('#selectedTerm').click(function () {
+                var selectedValue = $(this).val();
+                console.log("we want to select " + selectedValue + " term");
+            });
         </script>
 
     </div>
