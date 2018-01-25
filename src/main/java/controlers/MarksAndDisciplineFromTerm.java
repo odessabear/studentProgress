@@ -79,7 +79,7 @@ public class MarksAndDisciplineFromTerm extends HttpServlet {
 
         service.changeMarkById(marksValue, idOfMark);
 
-        resp.sendRedirect("/students-progress?selectedCheckbox=" + studentId);
+        //resp.sendRedirect("/students-progress?selectedCheckbox=" + studentId);
     }
 }
 

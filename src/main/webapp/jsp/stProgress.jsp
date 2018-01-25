@@ -87,10 +87,10 @@
                             var tr;
                             tr = $('<tr/>');
 
-                            tr.append("<td id='marksId'>" + elem.idMark + "</td>");
+                            tr.append("<td>" + elem.idMark + "</td>");
                             tr.append("<td>" + elem.discipline + "</td>");
                             tr.append("<td contenteditable=\"true\" class=\"content\" id='mark'>" + elem.mark + "</td>");
-                            tr.append("<td>" + "<button class=\"editBtn\" >" + "Edit" + "</button>" + "</td>");
+                            tr.append("<td>" + "<button class=\"editBtn\" data-element=" + elem.idMark + ">" + "Edit" + "</button>" + "</td>");
                             $('#discAndMarks').append(tr);
 
                             totalMark = totalMark + elem.mark;
@@ -106,9 +106,10 @@
 
 
                         $(document).ready(function () {
-                            $('.editBtn').click(function () {
+                            $('.editBtn').click(function (event) {
+
                                 alert("Do you want to change this mark");
-                                var idMark = document.getElementById('marksId').innerText;
+                                var idMark = event.target.dataset.element;
                                 var mark = $(event.target).parents('tr').find('.content').text();
                                 var newValue = JSON.stringify({"mark": mark,"idMark": idMark});
 
