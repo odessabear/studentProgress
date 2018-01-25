@@ -34,10 +34,10 @@
         <table>
             <thead>
             <tr>
-                <th></th>
+                <th>ID</th>
                 <th>Дисциплина</th>
                 <th>Оценка</th>
-                <th></th>
+
             </tr>
             </thead>
 
@@ -47,7 +47,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+
             </tr>
 
             </tbody>
@@ -56,7 +56,7 @@
 
     </div>
     <div class="select-panel">
-        <form action="/insert-marks" method="get">
+        <form action="/select-for-insert-marks" method="get">
             <label><strong>Выбрать семестр</strong></label>
             <select id="selectedTerm" name="termsList">
                 <c:forEach items="${termsList}" var="term">

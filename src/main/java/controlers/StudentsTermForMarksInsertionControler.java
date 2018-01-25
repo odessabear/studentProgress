@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "MarksInsertionControler", urlPatterns = {"/insert-marks"})
-public class MarksInsertionControler extends HttpServlet{
+@WebServlet(name = "StudentsTermForMarksInsertionControler", urlPatterns = {"/select-for-insert-marks"})
+public class StudentsTermForMarksInsertionControler extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DataService dataService = new DataService();

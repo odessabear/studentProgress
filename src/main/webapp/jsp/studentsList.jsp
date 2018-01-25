@@ -47,7 +47,7 @@
         </form>
     </div>
     <div id="checkboxesForMarksDiv">
-        <form id="formForMarks" action="/insert-marks" method="get">
+        <form id="formForMarks" action="/select-for-insert-marks" method="get">
             <input type="hidden" name="checkboxForMarks" id="checkboxForMarks"/>
         </form>
     </div>
