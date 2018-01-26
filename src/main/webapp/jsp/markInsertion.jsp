@@ -56,7 +56,7 @@
 
     </div>
     <div class="select-panel">
-        <form action="/select-for-insert-marks" method="get">
+        <form action="/marks-insertion" method="get">
             <label><strong>Выбрать семестр</strong></label>
             <select id="selectedTerm" name="termsList">
                 <c:forEach items="${termsList}" var="term">
@@ -69,6 +69,12 @@
             $('#selectedTerm').click(function () {
                 var selectedValue = $(this).val();
                 console.log("we want to select " + selectedValue + " term");
+                var studentId=${student.id};
+
+                $.ajax({
+                   type:'get',
+
+                });
 
             });
         </script>

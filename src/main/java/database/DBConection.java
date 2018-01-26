@@ -2,6 +2,7 @@ package database;
 
 
 import dto.StudentTerm;
+import dto.TermAndDiscipline;
 import dto.TermAndMark;
 import entity.*;
 
@@ -599,6 +600,34 @@ public class DBConection {
         } catch (SQLException e) {
             e.printStackTrace();
         }return allActiveTermsNamesAndIds;
+    }
+
+    public List<TermAndDiscipline> getTermDisciplineIdsAndDisciplineIdsByTermId(int termId){
+        List<TermAndDiscipline> valuesOfIds = new ArrayList<>();
+
+        try {
+            PreparedStatement getIdsStatement = conn.prepareStatement("SELECT id_term_discipline,id_discipline FROM term_disciplin WHERE id_term = ?;");
+
+            getIdsStatement.setInt(1,termId);
+
+            ResultSet resultSet = getIdsStatement.executeQuery();
+
+            while (resultSet.next()){
+
+                TermAndDiscipline values = new TermAndDiscipline();
+
+                int termAndDisciplineId = resultSet.getInt("id_term_discipline");
+                int idDiscipline = resultSet.getInt("id_discipline");
+
+                values.setIdTermAndDiscipline(termAndDisciplineId);
+                values.setIdDiscipline(idDiscipline);
+
+                valuesOfIds.add(values);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return valuesOfIds;
     }
 }
 

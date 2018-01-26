@@ -3,11 +3,13 @@ package database;
 import constants.Constants;
 import dto.SelectedTermAndDiscipline;
 import dto.StudentTerm;
+import dto.TermAndDiscipline;
 import dto.TermAndMark;
 import entity.*;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -224,5 +226,13 @@ public class DataService {
         List<StudentTerm> termsNamesAndIds = conection.getAllTermsNamesAndIds();
         putConnection(conection);
         return termsNamesAndIds;
+    }
+
+    public List<TermAndDiscipline> getTermDisciplineIdsAndDisciplineIdsByTermId(int termId) {
+        List<TermAndDiscipline> valuesOfIds = new ArrayList<>();
+        DBConection conection = getConnection();
+        valuesOfIds= conection.getTermDisciplineIdsAndDisciplineIdsByTermId(termId);
+        putConnection(conection);
+        return valuesOfIds;
     }
 }
