@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="termslist-content-wrapper">
-    <h3>Отображена успеваемость следующего студента</h3>
+    <h3>Выставить оценки следующего студента</h3>
     <script>
         $(function () {
             $("#datepicker").datepicker();
@@ -71,10 +71,10 @@
                 console.log("we want to select " + selectedValue + " term");
                 var studentId=${student.id};
 
-                $.ajax({
-                   type:'get',
+             //   $.ajax({
+                //   type:'get',
 
-                });
+               // });
 
             });
         </script>

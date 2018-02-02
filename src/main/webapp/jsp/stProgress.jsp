@@ -34,20 +34,28 @@
         <table>
             <thead>
             <tr>
-                <th></th>
+                <c:if test="${role eq '1'}">
+                    <th></th>
+                </c:if>
                 <th>Дисциплина</th>
                 <th>Оценка</th>
-                <th></th>
+                <c:if test="${role eq '1'}">
+                    <th></th>
+                </c:if>
             </tr>
             </thead>
 
             <tbody id="discAndMarks">
 
             <tr>
-                <td></td>
+                <c:if test="${role eq '1'}">
+                    <td></td>
+                </c:if>
                 <td></td>
                 <td class="content"></td>
-                <td></td>
+                <c:if test="${role eq '1'}">
+                    <td></td>
+                </c:if>
             </tr>
 
             </tbody>
@@ -86,11 +94,14 @@
                             console.log(" elem.idMark " + elem.idMark + " elem.disc " + elem.discipline + " elem.mark " + elem.mark);
                             var tr;
                             tr = $('<tr/>');
-
+                            <c:if test="${role eq '1'}">
                             tr.append("<td>" + elem.idMark + "</td>");
+                            </c:if>
                             tr.append("<td>" + elem.discipline + "</td>");
                             tr.append("<td contenteditable=\"true\" class=\"content\" id='mark'>" + elem.mark + "</td>");
+                            <c:if test="${role eq '1'}">
                             tr.append("<td>" + "<button class=\"editBtn\" data-element=" + elem.idMark + ">" + "Edit" + "</button>" + "</td>");
+                            </c:if>
                             $('#discAndMarks').append(tr);
 
                             totalMark = totalMark + elem.mark;
@@ -111,7 +122,7 @@
                                 alert("Do you want to change this mark");
                                 var idMark = event.target.dataset.element;
                                 var mark = $(event.target).parents('tr').find('.content').text();
-                                var newValue = JSON.stringify({"mark": mark,"idMark": idMark});
+                                var newValue = JSON.stringify({"mark": mark, "idMark": idMark});
 
                                 console.log(newValue);
                                 $.ajax({
