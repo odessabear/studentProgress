@@ -26,7 +26,6 @@ public class StudentsTermForMarksInsertionControler extends HttpServlet{
 
         List<StudentTerm> termsList =dataService.getAllTermsNamesAndIds();
 
-
         req.setAttribute("termsList",termsList);
         req.setAttribute("student", selectedStudent);
         req.setAttribute("currentPage", "markInsertion.jsp");
