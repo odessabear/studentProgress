@@ -34,10 +34,8 @@
         <table>
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Дисциплина</th>
                 <th>Оценка</th>
-
             </tr>
             </thead>
 
@@ -46,8 +44,6 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-
             </tr>
 
             </tbody>
@@ -69,12 +65,15 @@
             $('#selectedTerm').click(function () {
                 var selectedValue = $(this).val();
                 console.log("we want to select " + selectedValue + " term");
-                var studentId=${student.id};
 
-             //   $.ajax({
-                //   type:'get',
+                $.ajax({
+                    type: 'get',
+                    url: '/select-for-insert-marks' + selectedValue,
+                    success:function(data){
 
-               // });
+                    }
+
+                });
 
             });
         </script>

@@ -41,7 +41,7 @@ public class TermModifyingControler extends HttpServlet {
         req.setAttribute("currentPage", "termModifying.jsp");
         req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);
     }
-    //https://technology.amis.nl/2017/12/15/handle-http-patch-request-with-java-servlet/
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DataService service = new DataService();
