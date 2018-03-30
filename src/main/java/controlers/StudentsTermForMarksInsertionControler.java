@@ -25,18 +25,10 @@ public class StudentsTermForMarksInsertionControler extends HttpServlet {
         Student selectedStudent = dataService.getStudentById(idStudent);
         System.out.println("to present marks for student with id " + idStudent);
 
-        String stringTermId = req.getParameter("selectedValue");
-        int termId = Integer.parseInt(stringTermId);
+       /* String stringTermId = req.getParameter("selectedValue");
+        int termId = Integer.parseInt(stringTermId);*/
 
         List<StudentTerm> termsList = dataService.getAllTermsNamesAndIds();
-
-
-        List<Integer> disciplinesIds = dataService.getDisciplinesIdByTermId(termId);
-
-        List<Discipline> disciplines = new ArrayList<>();
-
-
-        System.out.println("Hi,chuvak)");
 
 
         req.setAttribute("termsList",termsList);

@@ -1,6 +1,7 @@
 package database;
 
 
+import dto.IdTermDisciplineAndDiscipline;
 import dto.StudentTerm;
 import dto.TermAndDiscipline;
 import dto.TermAndMark;
@@ -16,11 +17,11 @@ public class DBConection {
 
     private static final String SIGMA_LAPTOP_PC_NAME = "amikhailov";
 
-    private String getPasswordForLaptop(String lapTopName){
+    private String getPasswordForLaptop(String lapTopName) {
         String lowerCase = lapTopName.toLowerCase();
-        if (lowerCase.equals(SIGMA_LAPTOP_PC_NAME.toLowerCase())||lowerCase.equals(LAPTOP_PC_NAME)){
+        if (lowerCase.equals(SIGMA_LAPTOP_PC_NAME.toLowerCase()) || lowerCase.equals(LAPTOP_PC_NAME)) {
             return "Faster1218";
-            }else{
+        } else {
             return "root";
         }
     }
@@ -509,9 +510,9 @@ public class DBConection {
                     "left join discipline on term_disciplin.id_discipline=discipline.id_discipline\n" +
                     "where student.id_student = ? and term.id_term = ? and term.status=1 and discipline.status=1;");
 
-            statement.setInt(1,studentId);
-            statement.setInt(2,termId);
-            ResultSet resultSet=statement.executeQuery();
+            statement.setInt(1, studentId);
+            statement.setInt(2, termId);
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 TermAndMark termAndMark = new TermAndMark();
@@ -533,7 +534,7 @@ public class DBConection {
         return termAndMarkList;
     }
 
-    public List<StudentTerm> getTermByStudentId(int id){
+    public List<StudentTerm> getTermByStudentId(int id) {
         List<StudentTerm> studentTerms = new ArrayList<>();
         try {
             PreparedStatement termStatement = conn.prepareStatement("SELECT term.id_term as id_term,terms_name from student\n" +
@@ -542,12 +543,12 @@ public class DBConection {
                     "left join term on term_disciplin.id_term = term.id_term\n" +
                     "where student.id_student = ? and term.status=1 group by id_term,terms_name;");
 
-            termStatement.setInt(1,id);
+            termStatement.setInt(1, id);
 
 
-            ResultSet resultSet=termStatement.executeQuery();
+            ResultSet resultSet = termStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 StudentTerm term = new StudentTerm();
                 int termId = resultSet.getInt("id_term");
                 String termsName = resultSet.getString("terms_name");
@@ -560,15 +561,16 @@ public class DBConection {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }return studentTerms;
+        }
+        return studentTerms;
     }
 
-    public void changeMarkById(int marksValue,int idOfMark){
+    public void changeMarkById(int marksValue, int idOfMark) {
         try {
             PreparedStatement changeMarkStatement = conn.prepareStatement("UPDATE `mark` SET `mark`=? WHERE `id_mark`=?;");
 
-            changeMarkStatement.setInt(1,marksValue);
-            changeMarkStatement.setInt(2,idOfMark);
+            changeMarkStatement.setInt(1, marksValue);
+            changeMarkStatement.setInt(2, idOfMark);
 
             changeMarkStatement.executeUpdate();
 
@@ -578,14 +580,14 @@ public class DBConection {
 
     }
 
-    public List<StudentTerm> getAllTermsNamesAndIds(){
+    public List<StudentTerm> getAllTermsNamesAndIds() {
         List<StudentTerm> allActiveTermsNamesAndIds = new ArrayList<>();
         try {
             PreparedStatement getTermsStatement = conn.prepareStatement("SELECT id_term,terms_name FROM student_progress.term where status = 1;");
 
             ResultSet resultSet = getTermsStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 StudentTerm term = new StudentTerm();
 
                 int termsId = resultSet.getInt("id_term");
@@ -599,20 +601,21 @@ public class DBConection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }return allActiveTermsNamesAndIds;
+        }
+        return allActiveTermsNamesAndIds;
     }
 
-    public List<TermAndDiscipline> getTermDisciplineIdsAndDisciplineIdsByTermId(int termId){
+    public List<TermAndDiscipline> getTermDisciplineIdsAndDisciplineIdsByTermId(int termId) {
         List<TermAndDiscipline> valuesOfIds = new ArrayList<>();
 
         try {
             PreparedStatement getIdsStatement = conn.prepareStatement("SELECT id_term_discipline,id_discipline FROM term_disciplin WHERE id_term = ?;");
 
-            getIdsStatement.setInt(1,termId);
+            getIdsStatement.setInt(1, termId);
 
             ResultSet resultSet = getIdsStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
                 TermAndDiscipline values = new TermAndDiscipline();
 
@@ -627,7 +630,36 @@ public class DBConection {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }return valuesOfIds;
+        }
+        return valuesOfIds;
+    }
+
+    public List<IdTermDisciplineAndDiscipline> getIdTermDisciplineAndDisciplineByTermId(int termId) {
+        List<IdTermDisciplineAndDiscipline> idsAndDisciplineNames = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT id_term_discipline,discipline FROM term_disciplin left join discipline on term_disciplin.id_discipline = discipline.id_discipline where id_term = ? and discipline.status = 1;\n");
+
+            statement.setInt(1, termId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                IdTermDisciplineAndDiscipline values = new IdTermDisciplineAndDiscipline();
+
+                int idTermDiscipline = resultSet.getInt("id_term_discipline");
+                String disciplineName = resultSet.getString("discipline");
+
+                values.setIdTermDiscipline(idTermDiscipline);
+                values.setDisciplineName(disciplineName);
+
+                idsAndDisciplineNames.add(values);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idsAndDisciplineNames;
     }
 }
 

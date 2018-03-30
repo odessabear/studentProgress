@@ -1,10 +1,7 @@
 package database;
 
 import constants.Constants;
-import dto.SelectedTermAndDiscipline;
-import dto.StudentTerm;
-import dto.TermAndDiscipline;
-import dto.TermAndMark;
+import dto.*;
 import entity.*;
 
 import java.sql.SQLException;
@@ -229,10 +226,16 @@ public class DataService {
     }
 
     public List<TermAndDiscipline> getTermDisciplineIdsAndDisciplineIdsByTermId(int termId) {
-        List<TermAndDiscipline> valuesOfIds = new ArrayList<>();
         DBConection conection = getConnection();
-        valuesOfIds= conection.getTermDisciplineIdsAndDisciplineIdsByTermId(termId);
+        List<TermAndDiscipline> valuesOfIds = conection.getTermDisciplineIdsAndDisciplineIdsByTermId(termId);
         putConnection(conection);
         return valuesOfIds;
+    }
+
+    public List<IdTermDisciplineAndDiscipline> getIdTermDisciplineAndDisciplineByTermId(int termId){
+        DBConection conection = getConnection();
+        List<IdTermDisciplineAndDiscipline> idsAndDisciplineNames = conection.getIdTermDisciplineAndDisciplineByTermId(termId);
+        putConnection(conection);
+        return idsAndDisciplineNames;
     }
 }
