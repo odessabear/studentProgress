@@ -1,6 +1,7 @@
 package controlers;
 
 import database.DataService;
+import dto.IdTermDisciplineAndDiscipline;
 import dto.StudentTerm;
 import entity.Discipline;
 import entity.Student;
@@ -20,16 +21,14 @@ public class StudentsTermForMarksInsertionControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DataService dataService = new DataService();
+
         String idAsString = req.getParameter("checkboxForMarks");
         int idStudent = Integer.parseInt(idAsString);
+
         Student selectedStudent = dataService.getStudentById(idStudent);
         System.out.println("to present marks for student with id " + idStudent);
 
-       /* String stringTermId = req.getParameter("selectedValue");
-        int termId = Integer.parseInt(stringTermId);*/
-
         List<StudentTerm> termsList = dataService.getAllTermsNamesAndIds();
-
 
         req.setAttribute("termsList",termsList);
         req.setAttribute("student", selectedStudent);
