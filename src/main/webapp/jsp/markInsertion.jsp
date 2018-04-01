@@ -37,6 +37,7 @@
                 <th>ID</th>
                 <th>Дисциплина</th>
                 <th>Оценка</th>
+                <th></th>
             </tr>
             </thead>
 
@@ -45,6 +46,7 @@
             <tr>
                 <td></td>
                 <td></td>
+                <td class="content"></td>
                 <td></td>
             </tr>
 
@@ -67,13 +69,58 @@
             $('#selectedTerm').click(function () {
                 var selectedValue = $(this).val();
                 console.log("we want to select " + selectedValue + " term");
-
-               $.ajax({
+                var studentId = ${student.id};
+                $.ajax({
                     type: 'get',
-                    url: '/mark-insertion?termId='+selectedValue,
-                   success : function (data) {
-                      console.log(data);
-                   }
+                    url: '/mark-insertion?termId=' + selectedValue,
+                    success: function (data) {
+                        console.log(data);
+                        $("#idsAndDisciplines").empty();
+
+
+                        data.forEach(function (elem) {
+                            console.log(elem);
+                            console.log(" elem.idTermDiscipline " + elem.idTermDiscipline + " elem.disciplineName " + elem.disciplineName + " elem.marksValue " + elem.marksValue);
+                            var tr;
+                            tr = $('<tr/>');
+
+                            tr.append("<td>" + elem.idTermDiscipline + "</td>");
+
+                            tr.append("<td>" + elem.disciplineName + "</td>");
+
+                            tr.append("<td contenteditable=\"true\" class=\"content\" id='marksValue'>" + elem.marksValue + "</td>");
+
+                            tr.append("<td>" + "<button class=\"editBtn\" data-element=" + elem.idTermDiscipline + ">" + "Insert" + "</button>" + "</td>");
+
+                            $('#idsAndDisciplines').append(tr);
+                        });
+
+                        $(document).ready(function () {
+                            $('.editBtn').click(function (event) {
+
+                                alert("Do you want to change this mark");
+                                var idTermDiscipline = event.target.dataset.element;
+                                var marksName = $(event.target).parents('tr').find('.content').text();
+                                var newValues = JSON.stringify({"studentId":studentId,
+                                    "idTermDiscipline": idTermDiscipline,
+                                    "marksName": marksName
+                                });
+
+                                console.log(newValues);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
+                                    data: newValues,
+                                    success: function (data) {
+                                        alert('data: ' + data);
+                                    },
+                                    contentType: "application/json",
+                                    dataType: 'json'
+                                });
+
+                            });
+                        });
+                    }
 
                 });
 
