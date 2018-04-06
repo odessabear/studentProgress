@@ -2,23 +2,23 @@ package dto;
 
 public class IdTermDisciplineAndDiscipline {
 
-    private int idTermDiscipline;
+    private int termDisciplineId;
     private String disciplineName;
 
-    public IdTermDisciplineAndDiscipline(int idTermDiscipline, String disciplineName) {
-        this.idTermDiscipline = idTermDiscipline;
+    public IdTermDisciplineAndDiscipline(int termDisciplineId, String disciplineName) {
+        this.termDisciplineId = termDisciplineId;
         this.disciplineName = disciplineName;
     }
 
     public IdTermDisciplineAndDiscipline() {
     }
 
-    public int getIdTermDiscipline() {
-        return idTermDiscipline;
+    public int getTermDisciplineId() {
+        return termDisciplineId;
     }
 
-    public void setIdTermDiscipline(int idTermDiscipline) {
-        this.idTermDiscipline = idTermDiscipline;
+    public void setTermDisciplineId(int termDisciplineId) {
+        this.termDisciplineId = termDisciplineId;
     }
 
     public String getDisciplineName() {
@@ -28,6 +28,4 @@ public class IdTermDisciplineAndDiscipline {
     public void setDisciplineName(String disciplineName) {
         this.disciplineName = disciplineName;
     }
-
-
 }

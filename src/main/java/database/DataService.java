@@ -238,4 +238,10 @@ public class DataService {
         putConnection(conection);
         return idsAndDisciplineNames;
     }
+
+    public void insertMark(int studentId, int termDisciplineId, int marksValue){
+        DBConection conection = getConnection();
+        conection.insertMark(studentId,termDisciplineId,marksValue);
+        putConnection(conection);
+    }
 }

@@ -80,17 +80,17 @@
 
                         data.forEach(function (elem) {
                             console.log(elem);
-                            console.log(" elem.idTermDiscipline " + elem.idTermDiscipline + " elem.disciplineName " + elem.disciplineName + " elem.marksValue " + elem.marksValue);
+                            console.log(" elem.idTermDiscipline " + elem.termDisciplineId + " elem.disciplineName " + elem.disciplineName + " elem.marksValue " + elem.marksValue);
                             var tr;
                             tr = $('<tr/>');
 
-                            tr.append("<td>" + elem.idTermDiscipline + "</td>");
+                            tr.append("<td>" + elem.termDisciplineId + "</td>");
 
                             tr.append("<td>" + elem.disciplineName + "</td>");
 
                             tr.append("<td contenteditable=\"true\" class=\"content\" id='marksValue'>" + elem.marksValue + "</td>");
 
-                            tr.append("<td>" + "<button class=\"editBtn\" data-element=" + elem.idTermDiscipline + ">" + "Insert" + "</button>" + "</td>");
+                            tr.append("<td>" + "<button class=\"editBtn\" data-element=" + elem.termDisciplineId + ">" + "Insert" + "</button>" + "</td>");
 
                             $('#idsAndDisciplines').append(tr);
                         });
@@ -99,17 +99,17 @@
                             $('.editBtn').click(function (event) {
 
                                 alert("Do you want to change this mark");
-                                var idTermDiscipline = event.target.dataset.element;
-                                var marksName = $(event.target).parents('tr').find('.content').text();
+                                var termDisciplineId = event.target.dataset.element;
+                                var marksValue = $(event.target).parents('tr').find('.content').text();
                                 var newValues = JSON.stringify({"studentId":studentId,
-                                    "idTermDiscipline": idTermDiscipline,
-                                    "marksName": marksName
+                                    "termDisciplineId": termDisciplineId,
+                                    "marksValue": marksValue
                                 });
 
                                 console.log(newValues);
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/students-marks?termId=' + selectedValue + "&studentId=" + studentId,
+                                    url: '/mark-insertion?termId=' + selectedValue + "&studentId=" + studentId,
                                     data: newValues,
                                     success: function (data) {
                                         alert('data: ' + data);

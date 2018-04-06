@@ -1,10 +1,7 @@
 package database;
 
 
-import dto.IdTermDisciplineAndDiscipline;
-import dto.StudentTerm;
-import dto.TermAndDiscipline;
-import dto.TermAndMark;
+import dto.*;
 import entity.*;
 
 import java.sql.*;
@@ -650,7 +647,7 @@ public class DBConection {
                 int idTermDiscipline = resultSet.getInt("id_term_discipline");
                 String disciplineName = resultSet.getString("discipline");
 
-                values.setIdTermDiscipline(idTermDiscipline);
+                values.setTermDisciplineId(idTermDiscipline);
                 values.setDisciplineName(disciplineName);
 
                 idsAndDisciplineNames.add(values);
@@ -660,6 +657,20 @@ public class DBConection {
             e.printStackTrace();
         }
         return idsAndDisciplineNames;
+    }
+
+    public void insertMark(int studentId, int termDisciplineId, int marksValue) {
+
+        try {
+            PreparedStatement insertMarkStatement = conn.prepareStatement("insert into student_progress.mark values (DEFAULT,?, ?, ?);");
+            insertMarkStatement.setInt(1, studentId);
+            insertMarkStatement.setInt(2, termDisciplineId);
+            insertMarkStatement.setInt(3, marksValue);
+            insertMarkStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

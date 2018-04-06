@@ -1156,4 +1156,7 @@ USE `student_progress_test`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+ALTER TABLE student_progress.mark ADD CONSTRAINT uq_mark_for_stud_and_disc UNIQUE (id_student, id_term_discipline);
+
+
 -- Dump completed on 2017-12-28  9:04:05
