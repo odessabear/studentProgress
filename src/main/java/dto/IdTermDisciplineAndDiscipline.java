@@ -4,10 +4,12 @@ public class IdTermDisciplineAndDiscipline {
 
     private int termDisciplineId;
     private String disciplineName;
+    private int marksValue;
 
-    public IdTermDisciplineAndDiscipline(int termDisciplineId, String disciplineName) {
+    public IdTermDisciplineAndDiscipline(int termDisciplineId, String disciplineName,int marksValue) {
         this.termDisciplineId = termDisciplineId;
         this.disciplineName = disciplineName;
+        this.marksValue = marksValue;
     }
 
     public IdTermDisciplineAndDiscipline() {
@@ -27,5 +29,13 @@ public class IdTermDisciplineAndDiscipline {
 
     public void setDisciplineName(String disciplineName) {
         this.disciplineName = disciplineName;
+    }
+
+    public int getValueOfMark() {
+        return marksValue;
+    }
+
+    public void setValueOfMark(int valueOfMark) {
+        this.marksValue = valueOfMark;
     }
 }

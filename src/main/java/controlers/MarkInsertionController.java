@@ -49,26 +49,27 @@ public class MarkInsertionController extends HttpServlet {
         DataService dataService = new DataService();
 
         StringBuilder buffer = new StringBuilder();
-        BufferedReader reader=req.getReader();
+        BufferedReader reader = req.getReader();
         String line;
 
         while ((line = reader.readLine()) != null) {
-        buffer.append(line);
+            buffer.append(line);
         }
 
         String data = buffer.toString();
 
-        System.out.println("we have new request for insert"+data);
+        System.out.println("we have new request for insert" + data);
 
         Gson gson = GsonSingleton.INSTANCE.getGson();
 
-        TermDisciplineIdAndMarksValue dataFromFrontend =gson.fromJson(data,TermDisciplineIdAndMarksValue.class);
+        TermDisciplineIdAndMarksValue dataFromFrontend = gson.fromJson(data, TermDisciplineIdAndMarksValue.class);
         System.out.println(dataFromFrontend);
 
         int studentId = dataFromFrontend.getStudentId();
         int termDisciplineId = dataFromFrontend.getTermDisciplineId();
         int marksValue = dataFromFrontend.getMarksValue();
 
-        dataService.insertMark(studentId,termDisciplineId,marksValue);
-        }
+
+            dataService.insertMark(studentId, termDisciplineId, marksValue);
+            }
 }

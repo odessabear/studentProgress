@@ -635,8 +635,8 @@ public class DBConection {
         List<IdTermDisciplineAndDiscipline> idsAndDisciplineNames = new ArrayList<>();
 
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT id_term_discipline,discipline FROM term_disciplin left join discipline on term_disciplin.id_discipline = discipline.id_discipline where id_term = ? and discipline.status = 1;\n");
-
+            PreparedStatement statement = conn.prepareStatement("SELECT id_term_discipline,discipline FROM term_disciplin left join discipline on term_disciplin.id_discipline = discipline.id_discipline where id_term = ? and discipline.status = 1;", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement markStatement = conn.prepareStatement("SELECT mark FROM mark WHERE id_term_discipline = ?", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, termId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -646,7 +646,14 @@ public class DBConection {
 
                 int idTermDiscipline = resultSet.getInt("id_term_discipline");
                 String disciplineName = resultSet.getString("discipline");
+                int marksValue = 0;
+                markStatement.setInt(1,idTermDiscipline);
+                ResultSet resultSet1 = markStatement.executeQuery();
+                while (resultSet1.next()) {
+                    marksValue = resultSet1.getInt("mark");
+                }
 
+                values.setValueOfMark(marksValue);
                 values.setTermDisciplineId(idTermDiscipline);
                 values.setDisciplineName(disciplineName);
 

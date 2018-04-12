@@ -101,6 +101,10 @@
                                 alert("Do you want to change this mark");
                                 var termDisciplineId = event.target.dataset.element;
                                 var marksValue = $(event.target).parents('tr').find('.content').text();
+                                if (marksValue<1||marksValue>5){
+                                    alert("You insert an invalid value");
+                                    return;5
+                                }
                                 var newValues = JSON.stringify({"studentId":studentId,
                                     "termDisciplineId": termDisciplineId,
                                     "marksValue": marksValue
