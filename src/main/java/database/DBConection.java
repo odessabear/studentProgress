@@ -647,13 +647,15 @@ public class DBConection {
                 int idTermDiscipline = resultSet.getInt("id_term_discipline");
                 String disciplineName = resultSet.getString("discipline");
                 int marksValue = 0;
-                markStatement.setInt(1,idTermDiscipline);
+                markStatement.setInt(1, idTermDiscipline);
                 ResultSet resultSet1 = markStatement.executeQuery();
                 while (resultSet1.next()) {
                     marksValue = resultSet1.getInt("mark");
+
+                    values.setValueOfMark(marksValue);
+
                 }
 
-                values.setValueOfMark(marksValue);
                 values.setTermDisciplineId(idTermDiscipline);
                 values.setDisciplineName(disciplineName);
 
