@@ -65,11 +65,16 @@ public class TermModifyingControler extends HttpServlet {
 
         List<Discipline> selectedDisciplines = new ArrayList<>();
         try {
-            for (String idDiscAsString : disciplineIds) {
-                int idDisc = Integer.parseInt(idDiscAsString);
-                Discipline discipline = service.getActiveDisciplineById(idDisc);
-                System.out.println("disc with id " + idDisc + " has name " + discipline.getName() + " and was added to this list.");
-                selectedDisciplines.add(discipline);
+
+            if (disciplineIds != null) {
+                for (String idDiscAsString : disciplineIds) {
+                    int idDisc = Integer.parseInt(idDiscAsString);
+                    Discipline discipline = service.getActiveDisciplineById(idDisc);
+                    System.out.println("disc with id " + idDisc + " has name " + discipline.getName() + " and was added to this list.");
+                    selectedDisciplines.add(discipline);
+                }
+            } else {
+                // then this is aftershock of removing disc from term
             }
         }catch (Exception e){
             e.printStackTrace();
