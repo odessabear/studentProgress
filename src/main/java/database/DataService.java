@@ -11,7 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DataService {
+
     private static Object monitor = new Object();
+
     private static List<DBConection> pool = new LinkedList<>();
 
     public void init() {
@@ -21,7 +23,7 @@ public class DataService {
     }
 
     private void newConnection() {
-        DBConection conection = new DBConection();
+        DBConection conection = DBConection.createConnection();
         synchronized (monitor) {
             pool.add(conection);
         }
@@ -193,7 +195,7 @@ public class DataService {
     }
 
     public Discipline getActiveDisciplineById(int discId) {
-        DBConection conection=getConnection();
+        DBConection conection = getConnection();
         Discipline activeDiscipline = conection.getActiveDisciplineById(discId);
         putConnection(conection);
         return activeDiscipline;
@@ -201,24 +203,25 @@ public class DataService {
 
     public List<TermAndMark> getStudentProgressByStudentAndTermIds(int studentId, int termId) {
         DBConection conection = getConnection();
-        List<TermAndMark> result = conection.getStudentProgressByStudentAndTermIds(studentId,termId);
+        List<TermAndMark> result = conection.getStudentProgressByStudentAndTermIds(studentId, termId);
         putConnection(conection);
         return result;
     }
 
-    public List<StudentTerm> getTermByStudentId(int id){
+    public List<StudentTerm> getTermByStudentId(int id) {
         DBConection conection = getConnection();
         List<StudentTerm> studentTerms = conection.getTermByStudentId(id);
         putConnection(conection);
         return studentTerms;
     }
-    public void changeMarkById(int marksValue,int idOfMark){
+
+    public void changeMarkById(int marksValue, int idOfMark) {
         DBConection conection = getConnection();
         conection.changeMarkById(marksValue, idOfMark);
         putConnection(conection);
     }
 
-    public List<StudentTerm> getAllTermsNamesAndIds(){
+    public List<StudentTerm> getAllTermsNamesAndIds() {
         DBConection conection = getConnection();
         List<StudentTerm> termsNamesAndIds = conection.getAllTermsNamesAndIds();
         putConnection(conection);
@@ -232,16 +235,16 @@ public class DataService {
         return valuesOfIds;
     }
 
-    public List<IdTermDisciplineAndDiscipline> getIdTermDisciplineAndDisciplineByTermId(int termId){
+    public List<IdTermDisciplineAndDiscipline> getIdTermDisciplineAndDisciplineByTermId(int termId) {
         DBConection conection = getConnection();
         List<IdTermDisciplineAndDiscipline> idsAndDisciplineNames = conection.getIdTermDisciplineAndDisciplineByTermId(termId);
         putConnection(conection);
         return idsAndDisciplineNames;
     }
 
-    public void insertMark(int studentId, int termDisciplineId, int marksValue){
+    public void insertMark(int studentId, int termDisciplineId, int marksValue) {
         DBConection conection = getConnection();
-        conection.insertMark(studentId,termDisciplineId,marksValue);
+        conection.insertMark(studentId, termDisciplineId, marksValue);
         putConnection(conection);
     }
 }

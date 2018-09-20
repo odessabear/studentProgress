@@ -1,8 +1,6 @@
 package controlers;
 
-import database.DBConection;
 import database.DataService;
-import entity.Term;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static utils.Utils.stringIsEmpty;
+import static utils.Utils.isEmpty;
 
 @WebServlet(name = "TermCreateControler", urlPatterns = {"/term-create"})
 
@@ -30,7 +28,7 @@ public class TermCreateControler extends HttpServlet {
         int valueOfDuration = Integer.parseInt(duration);
 
         DataService dataService = new DataService();
-        if (stringIsEmpty(termsName) || valueOfDuration == 0) {
+        if (isEmpty(termsName) || valueOfDuration == 0) {
             req.setAttribute("errorMessage",3);
             req.setAttribute("currentPage", "termCreating.jsp");
             req.getRequestDispatcher("/jsp/template.jsp").forward(req, resp);

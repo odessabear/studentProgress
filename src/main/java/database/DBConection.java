@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.*;
 
 public class DBConection {
+
     private Connection conn = null;
 
     private static final String LAPTOP_PC_NAME = "X501A";
@@ -23,7 +24,7 @@ public class DBConection {
         }
     }
 
-    public DBConection() {
+    private DBConection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -31,13 +32,17 @@ public class DBConection {
             String password = getPasswordForLaptop(computerName);
 
             String connectionUrl = "jdbc:mysql://localhost:3306/student_progress?user=root&password="
-                    + password + "&characterEncoding=utf-8";
+                + password + "&characterEncoding=utf-8";
 
             conn = DriverManager.getConnection(connectionUrl);
         } catch (Exception e) {
             e.printStackTrace();
 
         }
+    }
+
+    public static DBConection createConnection() {
+        return new DBConection();
     }
 
     public int isAvailableUser(String login, String password) {
@@ -134,9 +139,9 @@ public class DBConection {
         List<Term> termsList = new LinkedList<>();
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT  t.id_term as id , t.terms_name as name ,t.duration ,d.id_discipline ,d.discipline\n" +
-                    "                    FROM term_disciplin as td\n" +
-                    "                    left join term as t on td.id_term=t.id_term\n" +
-                    "                    left join discipline as d on td.id_discipline=d.id_discipline where (t.status = 1 and d.status=1) order by id");
+                "                    FROM term_disciplin as td\n" +
+                "                    left join term as t on td.id_term=t.id_term\n" +
+                "                    left join discipline as d on td.id_discipline=d.id_discipline where (t.status = 1 and d.status=1) order by id");
             ResultSet result = statement.executeQuery();
             int lastIdTerm = -1;
             while (result.next()) {
@@ -501,11 +506,11 @@ public class DBConection {
 
         try {
             PreparedStatement statement = conn.prepareStatement("select discipline,mark,id_mark\n" +
-                    "from student left join mark on student.id_student = mark.id_student\n" +
-                    "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
-                    "left join term on term_disciplin.id_term=term.id_term\n" +
-                    "left join discipline on term_disciplin.id_discipline=discipline.id_discipline\n" +
-                    "where student.id_student = ? and term.id_term = ? and term.status=1 and discipline.status=1;");
+                "from student left join mark on student.id_student = mark.id_student\n" +
+                "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
+                "left join term on term_disciplin.id_term=term.id_term\n" +
+                "left join discipline on term_disciplin.id_discipline=discipline.id_discipline\n" +
+                "where student.id_student = ? and term.id_term = ? and term.status=1 and discipline.status=1;");
 
             statement.setInt(1, studentId);
             statement.setInt(2, termId);
@@ -535,10 +540,10 @@ public class DBConection {
         List<StudentTerm> studentTerms = new ArrayList<>();
         try {
             PreparedStatement termStatement = conn.prepareStatement("SELECT term.id_term as id_term,terms_name from student\n" +
-                    "left join mark on student.id_student = mark.id_student\n" +
-                    "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
-                    "left join term on term_disciplin.id_term = term.id_term\n" +
-                    "where student.id_student = ? and term.status=1 group by id_term,terms_name;");
+                "left join mark on student.id_student = mark.id_student\n" +
+                "left join term_disciplin on mark.id_term_discipline = term_disciplin.id_term_discipline\n" +
+                "left join term on term_disciplin.id_term = term.id_term\n" +
+                "where student.id_student = ? and term.status=1 group by id_term,terms_name;");
 
             termStatement.setInt(1, id);
 
